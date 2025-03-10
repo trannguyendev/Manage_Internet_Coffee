@@ -15,6 +15,10 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        System.out.println("niga");
+        System.out.println("TÂM LINH KHÔNG PHẢI CHUYỆN ĐÙA🚫\n" +
+"LƯỚT QUA MÀ KHÔNG SAO CHÉP-DÁN VÔ, CẢ ĐỜI KHÔNG BAO GIỜ GẶP ĐƯỢC FEMBOY\n" +
+"⚠️⚠️⚠️🫃");
     }
 
     /**
@@ -32,11 +36,11 @@ public class login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 848, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
         );
 
         pack();
