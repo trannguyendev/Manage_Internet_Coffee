@@ -18,6 +18,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        setFormCenter();
         initComponents();
     }
 
@@ -54,11 +55,15 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 204, 0));
         jLabel2.setText("Tên đăng nhập");
 
-        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsername.setBackground(new java.awt.Color(51, 51, 51));
+        txtUsername.setForeground(new java.awt.Color(0, 153, 51));
 
         jLabel3.setBackground(new java.awt.Color(0, 204, 0));
         jLabel3.setForeground(new java.awt.Color(0, 204, 51));
         jLabel3.setText("Password");
+
+        txtPass.setBackground(new java.awt.Color(51, 51, 51));
+        txtPass.setForeground(new java.awt.Color(0, 153, 51));
 
         btnLogin.setText("Đăng nhập");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +157,7 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
+    
     private void checkLogin() {
         if (isValidField() == true) {
             try (Connection conn = KetNoiDB.getConnect()) {
@@ -160,12 +166,20 @@ public class Login extends javax.swing.JFrame {
                 ppStm.setString(1, username);
                 ppStm.setString(2, pass);
                 ResultSet rs = ppStm.executeQuery();
-                while(rs.next()){
+                if (rs.next()) {
                     boolean vai_tro;
                     vai_tro = rs.getBoolean("vai_tro");
+                    if (vai_tro == true){
+                        //Khoi tao Panel Admin
+                    }
+                    else{
+                        //KHoi tao Panel User
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu sai. Vui lòng kiểm tra lại !");
                 }
             } catch (Exception e) {
-                System.out.println("Tài khoản hoặc mật khẩu sai. Vui lòng kiểm tra lại !");
+                JOptionPane.showMessageDialog(rootPane, "Error: "+e);
                 e.printStackTrace();
             }
         } else {
@@ -209,6 +223,9 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
+    public void setFormCenter(){
+        this.setLocationRelativeTo(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
