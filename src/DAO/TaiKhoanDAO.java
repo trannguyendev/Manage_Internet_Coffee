@@ -71,7 +71,39 @@ public class TaiKhoanDAO {
         }
         return stt;
     }
+    
+    public void updateAccount(TaiKhoan tk){
+        try (Connection conn = KetNoiDB.getConnect()){
+            String url = "UPDATE Tai_khoan SET vai_tro = ?, ten_dang_nhap = ?, mat_khau = ?, so_du = ?, sdt = ?, email = ?, ho_ten = ? WHERE id_tk = ?";
+            PreparedStatement ppStm = conn.prepareStatement(url);
+            
+            ppStm.setBoolean(1, tk.isVai_tro());
+            ppStm.setString(2, tk.getTen_dang_nhap());
+            ppStm.setString(3, tk.getMat_khau());
+            ppStm.setInt(4, tk.getSo_du());
+            ppStm.setString(5, tk.getSdt());
+            ppStm.setString(6, tk.getEmail());
+            ppStm.setString(7, tk.getHo_ten());
+            ppStm.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+        }
+    }
+    
     public void deleteAccount(String sdt){
-        
+        try (Connection conn = KetNoiDB.getConnect()) {
+            String url = "DELETE FROM Tai_khoan WHERE sdt = (?);";
+            PreparedStatement ppStm = conn.prepareStatement(url);
+            
+            ppStm.setString(1, sdt);
+            
+            ppStm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+        }
+                
     }
 }
