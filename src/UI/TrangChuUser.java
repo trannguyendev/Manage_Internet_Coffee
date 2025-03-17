@@ -4,6 +4,7 @@
  */
 package UI;
 
+import Utils.GlobalState;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +19,7 @@ public class TrangChuUser extends javax.swing.JFrame {
     public TrangChuUser() {
         initComponents();
         setCenter();
+        this.sayHi();
     }
 
     /**
@@ -31,7 +33,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtTime = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtHelloUser = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -45,7 +47,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         txtTime.setText("00:00:00");
 
-        jLabel2.setText("Internet coffee");
+        txtHelloUser.setText("Xin chao ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -53,8 +55,8 @@ public class TrangChuUser extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 432, Short.MAX_VALUE)
+                .addComponent(txtHelloUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
                 .addComponent(txtTime)
                 .addGap(77, 77, 77))
         );
@@ -64,7 +66,7 @@ public class TrangChuUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTime)
-                    .addComponent(jLabel2))
+                    .addComponent(txtHelloUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,6 +144,9 @@ public class TrangChuUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sayHi(){
+        txtHelloUser.setText("Xin chao "+GlobalState.ten_dang_nhap);
+    }
     private void mniChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mniChatActionPerformed
@@ -205,7 +210,6 @@ public class TrangChuUser extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -215,6 +219,7 @@ public class TrangChuUser extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniDangXuat;
     private javax.swing.JMenuItem mniDatHang;
     private javax.swing.JMenuItem mniThoiGian;
+    private javax.swing.JLabel txtHelloUser;
     private javax.swing.JLabel txtTime;
     // End of variables declaration//GEN-END:variables
 }
