@@ -96,9 +96,7 @@ public class TaiKhoanDAO {
         try (Connection conn = KetNoiDB.getConnect()) {
             String url = "DELETE FROM Tai_khoan WHERE sdt = (?);";
             PreparedStatement ppStm = conn.prepareStatement(url);
-            
             ppStm.setString(1, sdt);
-            
             ppStm.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
