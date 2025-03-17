@@ -7,11 +7,15 @@ package UI;
 import DAO.TaiKhoanDAO;
 import Entity.TaiKhoan;
 import Utils.KetNoiDB;
+import Utils.XImage;
 import java.awt.Color;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,12 +23,15 @@ import java.sql.*;
  */
 public class TrangChuQuanLy extends javax.swing.JFrame {
 
+    DefaultTableModel Tmodel;
     /**
      * Creates new form TrangChuQuanLy
      */
     public TrangChuQuanLy() {
+        this.preInit();
         initComponents();
         this.changeColor();
+        this.load2Table();
     }
 
     /**
@@ -126,6 +133,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 "STT", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email"
             }
         ));
+        tblUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(tblUser);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -255,7 +263,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         String phoneNum = txtSdt.getText();
         String hoTen = txtHoten.getText();
         String email = txtEmail.getText();
-        boolean vaiTro = String.valueOf(cboRole.getSelectedItem()).equals("Admin") ? true : false;;
+        boolean vaiTro = String.valueOf(cboRole.getSelectedItem()).equals("Admin") ? true : false;
         return new TaiKhoan(vaiTro, username, password, soDu, phoneNum, email, hoTen);
     }
 
@@ -266,6 +274,17 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             lblXinChao.setForeground(randomColor);
         });
         timer.start();
+    }
+    private void load2Table(){
+        Tmodel = (DefaultTableModel) tblUser.getModel();
+        List<TaiKhoan> lstTk = new ArrayList<>();
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        lstTk = tkDAO.getData();
+        for (TaiKhoan taiKhoan : lstTk) {
+            Object[] tk_add = new Object[]{tkDAO.getSTT(taiKhoan.getSdt()) ,taiKhoan.isVai_tro() ? "Admin" : "Khách hàng", taiKhoan.getTen_dang_nhap(), taiKhoan.getMat_khau(), taiKhoan.getSo_du(), taiKhoan.getSdt(), taiKhoan.getHo_ten(), taiKhoan.getEmail()};
+            Tmodel.addRow(tk_add);
+        }
+        tblUser.setModel(Tmodel);
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
@@ -280,6 +299,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 TaiKhoanDAO tkDAO = new TaiKhoanDAO();
                 tkDAO.addAccount(tkAdd);
                 JOptionPane.showMessageDialog(rootPane, "Thêm tài khoản thành công");
+                this.load2Table();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "An error has occurred: " + e);
                 e.printStackTrace();
@@ -324,6 +344,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
     }
 
+    private void preInit(){
+        this.setIconImage(XImage.getAppIcon());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
