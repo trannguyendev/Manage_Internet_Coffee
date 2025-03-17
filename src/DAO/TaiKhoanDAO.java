@@ -5,6 +5,7 @@
 package DAO;
 
 import Entity.TaiKhoan;
+import Utils.GlobalState;
 import Utils.KetNoiDB;
 import java.sql.*;
 import java.util.ArrayList;
@@ -71,7 +72,37 @@ public class TaiKhoanDAO {
         }
         return stt;
     }
-    public void deleteAccount(String sdt){
-        
+
+    public void deleteAccount(String sdt) {
+
     }
+
+    public int getSoDu() {
+        int so_du = 0;
+        String sql = "select so_du from Tai_khoan where ten_dang_nhap = ?";
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ppStm = conn.prepareStatement(sql)) {
+            ppStm.setString(1, GlobalState.ten_dang_nhap);
+            ResultSet rs = ppStm.executeQuery();
+            while (rs.next()) {
+                so_du = rs.getInt("so_du");
+            }
+            return so_du;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return so_du;
+        }
+    }
+
+    public void updateSoDu(int soDu) {
+        int new_so_du = 0;
+        String sql = "update Tai_khoan set so_du = ? where ten_dang_nhap = ?";
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ppStm = conn.prepareStatement(sql)) {
+            ppStm.setInt(1, soDu);
+            ppStm.setString(2, GlobalState.ten_dang_nhap);
+            ppStm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
