@@ -15,8 +15,9 @@ import java.util.List;
  * @author Maximus
  */
 public class TaiKhoanDAO {
-    public void addAccount(TaiKhoan tk){
-        try(Connection conn = KetNoiDB.getConnect()){
+
+    public void addAccount(TaiKhoan tk) {
+        try (Connection conn = KetNoiDB.getConnect()) {
             String url = "INSERT INTO Tai_khoan VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStm = conn.prepareStatement(url);
             ppStm.setBoolean(1, tk.isVai_tro());
@@ -27,26 +28,50 @@ public class TaiKhoanDAO {
             ppStm.setString(6, tk.getEmail());
             ppStm.setString(7, tk.getHo_ten());
             ppStm.executeUpdate();
-        }
-        catch(Exception e){
-            System.out.println("Error: "+e);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
             e.printStackTrace();
         }
     }
-    public List<String> getData(){
-        List<String> lstAccount = new ArrayList<>();
-        try(Connection conn = KetNoiDB.getConnect()){
+
+    public List<TaiKhoan> getData() {
+        List<TaiKhoan> lstAccount = new ArrayList<>();
+        try (Connection conn = KetNoiDB.getConnect()) {
             String getData = "SELECT * FROM Tai_khoan";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(getData);
-            while(rs.next()){
-                int stt = rs.getInt("id_tk");
+            while (rs.next()) {
+                boolean vai_tro = rs.getBoolean("vai_tro");
+                String ten_dang_nhap = rs.getString("ten_dang_nhap");
+                String mat_khau = rs.getString("mat_khau");
+                int so_du = rs.getInt("so_du");
+                String sdt = rs.getString("sdt");
+                String ho_ten = rs.getString("ho_ten");
+                String email = rs.getString("email");
+                TaiKhoan tk = new TaiKhoan(vai_tro, ten_dang_nhap, mat_khau, so_du, sdt, email, ho_ten);
+                lstAccount.add(tk);
             }
             return lstAccount;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return lstAccount;
         }
+    }
+
+    public int getSTT(String sdt) {
+        int stt = 0;
+        try (Connection conn = KetNoiDB.getConnect()) {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("select * from Tai_khoan where sdt = " + "'" + sdt + "'");
+            while (rs.next()) {
+                stt = rs.getInt("id_tk");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stt;
+    }
+    public void deleteAccount(String sdt){
+        
     }
 }
