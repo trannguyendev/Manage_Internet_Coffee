@@ -68,6 +68,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
         jTabbedPane3 = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,6 +216,22 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jTabbedPane2.addTab("CRUD tài khoản ", jPanel1);
 
         jTabbedPane1.addTab("Quản lý tài khoản", jTabbedPane2);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID tài khoản", "Họ tên", "Số dư", "Tổng tiền đã nạp"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jTabbedPane3.addTab("tab1", jScrollPane2);
+
         jTabbedPane1.addTab("Thống kê", jTabbedPane3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -360,9 +378,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
