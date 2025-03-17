@@ -4,6 +4,7 @@
  */
 package UI;
 
+import Utils.GlobalState;
 import Utils.KetNoiDB;
 import Utils.XImage;
 import java.awt.Color;
@@ -223,10 +224,17 @@ public class Login extends javax.swing.JFrame {
                     vai_tro = rs.getBoolean("vai_tro");
                     if (vai_tro == true){
                         //Khoi tao Panel Admin
+                        TrangChuQuanLy mainAdmin = new TrangChuQuanLy();
+                        mainAdmin.setVisible(true);
+                        this.dispose();
                         System.out.println("Logged in with admin");
                     }
                     else{
                         //KHoi tao Panel User
+                        GlobalState.ten_dang_nhap = username;
+                        TrangChuUser mainUser = new TrangChuUser();
+                        mainUser.setVisible(true);
+                        this.dispose();
                         System.out.println("Logged in with Khach Hang");
                     }
                 } else {
