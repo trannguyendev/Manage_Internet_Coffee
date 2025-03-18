@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class TrangChuQuanLy extends javax.swing.JFrame {
 
     DefaultTableModel Tmodel;
+
     /**
      * Creates new form TrangChuQuanLy
      */
@@ -71,6 +72,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtTenmay = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +113,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         btnThem.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Them.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,10 +123,17 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel2.add(btnThem);
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Sua.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSua);
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Xoa.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,6 +252,39 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Thống kê", jTabbedPane3);
 
+        jLabel1.setText("Tên máy");
+
+        jLabel2.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtTenmay, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
+                .addComponent(jLabel2)
+                .addContainerGap(396, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTenmay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel1))
+                .addContainerGap(740, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("tab1", jPanel3);
+
+        jTabbedPane1.addTab("Quản lý máy", jTabbedPane4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,7 +311,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private boolean isAllValid() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -298,46 +344,64 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
         timer.start();
     }
+
     private void updateTable() {
         Timer timer = new Timer(3500, e -> {
             this.load2Table();
         });
         timer.start();
     }
-    private void load2Table(){
+
+    private void load2Table() {
         Tmodel = (DefaultTableModel) tblUser.getModel();
         Tmodel.setRowCount(0);
         List<TaiKhoan> lstTk = new ArrayList<>();
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         lstTk = tkDAO.getData();
         for (TaiKhoan taiKhoan : lstTk) {
-            Object[] tk_add = new Object[]{tkDAO.getSTT(taiKhoan.getSdt()) ,taiKhoan.isVai_tro() ? "Admin" : "Khách hàng", taiKhoan.getTen_dang_nhap(), taiKhoan.getMat_khau(), taiKhoan.getSo_du(), taiKhoan.getSdt(), taiKhoan.getHo_ten(), taiKhoan.getEmail()};
+            Object[] tk_add = new Object[]{tkDAO.getSTT(taiKhoan.getSdt()), taiKhoan.isVai_tro() ? "Admin" : "Khách hàng", taiKhoan.getTen_dang_nhap(), taiKhoan.getMat_khau(), taiKhoan.getSo_du(), taiKhoan.getSdt(), taiKhoan.getHo_ten(), taiKhoan.getEmail()};
             Tmodel.addRow(tk_add);
         }
         tblUser.setModel(Tmodel);
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        String sdt = txtSdt.getText();
+        int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa ?");
+        if (check == JOptionPane.YES_OPTION){
+            TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+            tkDAO.deleteAccount(sdt);
+            JOptionPane.showMessageDialog(rootPane, "Xóa thành công");
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        boolean validResult = this.isAllValid();
-        if (validResult == true) {
-            try (Connection conn = KetNoiDB.getConnect()) {
-                TaiKhoan tkAdd = this.getInfo();
-                TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-                tkDAO.addAccount(tkAdd);
-                JOptionPane.showMessageDialog(rootPane, "Thêm tài khoản thành công");
-                this.load2Table();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "An error has occurred: " + e);
-                e.printStackTrace();
+        int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn thêm tài khoản không ?");
+        if (check == JOptionPane.YES_OPTION) {
+            boolean validResult = this.isAllValid();
+            if (validResult == true) {
+                try (Connection conn = KetNoiDB.getConnect()) {
+                    TaiKhoan tkAdd = this.getInfo();
+                    TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+                    tkDAO.addAccount(tkAdd);
+                    JOptionPane.showMessageDialog(rootPane, "Thêm tài khoản thành công");
+                    this.load2Table();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "An error has occurred: " + e);
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng không bỏ trống các ô !");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng không bỏ trống các ô !");
+            JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
 
     private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
         // TODO add your handling code here:
@@ -354,7 +418,21 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             cboRole.setSelectedItem(VT);
         }
     }//GEN-LAST:event_tblUserMouseClicked
-    
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn sửa không ?");
+        if (check == JOptionPane.YES_OPTION){
+            TaiKhoan tkUpd = this.getInfo();
+            TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+            tkDAO.updateAccount(tkUpd);
+            JOptionPane.showMessageDialog(rootPane, "Update thành công");
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -390,7 +468,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
     }
 
-    private void preInit(){
+    private void preInit() {
         this.setIconImage(XImage.getAppIcon());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -398,6 +476,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboRole;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -405,11 +485,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
@@ -420,6 +502,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtSdt;
     private javax.swing.JTextField txtSoDu;
+    private javax.swing.JTextField txtTenmay;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

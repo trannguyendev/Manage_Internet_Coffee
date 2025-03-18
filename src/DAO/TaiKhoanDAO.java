@@ -90,18 +90,16 @@ public class TaiKhoanDAO {
     }
     public void updateAccount(TaiKhoan tk){
         try (Connection conn = KetNoiDB.getConnect()){
-            String url = "UPDATE Tai_khoan SET vai_tro = ?, ten_dang_nhap = ?, mat_khau = ?, so_du = ?, sdt = ?, email = ?, ho_ten = ? WHERE id_tk = ?";
+            String url = "UPDATE Tai_khoan SET vai_tro = ?, ten_dang_nhap = ?, mat_khau = ?, so_du = ?, email = ?, ho_ten = ? WHERE sdt = ?";
             PreparedStatement ppStm = conn.prepareStatement(url);
-            
             ppStm.setBoolean(1, tk.isVai_tro());
             ppStm.setString(2, tk.getTen_dang_nhap());
             ppStm.setString(3, tk.getMat_khau());
             ppStm.setInt(4, tk.getSo_du());
-            ppStm.setString(5, tk.getSdt());
-            ppStm.setString(6, tk.getEmail());
-            ppStm.setString(7, tk.getHo_ten());
+            ppStm.setString(5, tk.getEmail());
+            ppStm.setString(6, tk.getHo_ten());
+            ppStm.setString(7, tk.getSdt());
             ppStm.executeUpdate();
-            
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
@@ -110,27 +108,25 @@ public class TaiKhoanDAO {
     
     public void deleteAccount(String sdt){
         try (Connection conn = KetNoiDB.getConnect()) {
-            String url = "DELETE FROM Tai_khoan WHERE sdt = (?);";
+            String url = "DELETE FROM Tai_khoan WHERE sdt = ?";
             PreparedStatement ppStm = conn.prepareStatement(url);
             ppStm.setString(1, sdt);
             ppStm.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-        }
-                
+        }    
     }
 
     public void updateSoDu(int soDu) {
-        int new_so_du = 0;
         String sql = "update Tai_khoan set so_du = ? where ten_dang_nhap = ?";
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ppStm = conn.prepareStatement(sql)) {
             ppStm.setInt(1, soDu);
             ppStm.setString(2, GlobalState.ten_dang_nhap);
             ppStm.executeUpdate();
         } catch (Exception e) {
+            System.out.println("Error: " + e);
             e.printStackTrace();
         }
     }
-
 }
