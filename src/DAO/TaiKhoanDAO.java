@@ -115,20 +115,18 @@ public class TaiKhoanDAO {
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-        }
-                
+        }    
     }
 
     public void updateSoDu(int soDu) {
-        int new_so_du = 0;
         String sql = "update Tai_khoan set so_du = ? where ten_dang_nhap = ?";
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ppStm = conn.prepareStatement(sql)) {
             ppStm.setInt(1, soDu);
             ppStm.setString(2, GlobalState.ten_dang_nhap);
             ppStm.executeUpdate();
         } catch (Exception e) {
+            System.out.println("Error: " + e);
             e.printStackTrace();
         }
     }
-
 }
