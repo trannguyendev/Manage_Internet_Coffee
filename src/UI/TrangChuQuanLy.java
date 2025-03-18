@@ -35,7 +35,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.load2Table();
         this.updateTable();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -150,6 +150,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 "STT", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email"
             }
         ));
+        tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUserMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblUser);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -396,6 +401,23 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
+
+    private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
+        // TODO add your handling code here:
+        int row = tblUser.getSelectedRow();
+        if (row != -1) {
+            txtUsername.setText(tblUser.getValueAt(row, 2).toString());
+            txtPass.setText(tblUser.getValueAt(row, 3).toString());
+            txtSoDu.setText(tblUser.getValueAt(row, 4).toString());
+            txtSdt.setText(tblUser.getValueAt(row, 5).toString());
+            txtHoten.setText(tblUser.getValueAt(row, 6).toString());
+            txtEmail.setText(tblUser.getValueAt(row, 7).toString());
+            
+            String VT = tblUser.getValueAt(row, 1).toString();
+            cboRole.setSelectedItem(VT);
+        }
+    }//GEN-LAST:event_tblUserMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
