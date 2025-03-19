@@ -38,6 +38,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.changeColor();
         this.load2Table();
         this.updateTable();
+        this.loadThongKeTaiKhoan();
+        this.loadDoanhThuMon();
     }
     
     /**
