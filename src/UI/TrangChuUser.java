@@ -5,7 +5,10 @@
 package UI;
 
 import Utils.GlobalState;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,6 +23,7 @@ public class TrangChuUser extends javax.swing.JFrame {
         initComponents();
         setCenter();
         this.sayHi();
+        this.displayTime();
     }
 
     /**
@@ -45,8 +49,12 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtTime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtTime.setForeground(new java.awt.Color(255, 153, 153));
         txtTime.setText("00:00:00");
 
+        txtHelloUser.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        txtHelloUser.setForeground(new java.awt.Color(255, 153, 153));
         txtHelloUser.setText("Xin chao ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -56,7 +64,7 @@ public class TrangChuUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(txtHelloUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 432, Short.MAX_VALUE)
                 .addComponent(txtTime)
                 .addGap(77, 77, 77))
         );
@@ -83,6 +91,8 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         jMenu1.setText("Hệ thống");
 
+        mniThoiGian.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Thoi_gian.png"))); // NOI18N
         mniThoiGian.setText("Thời gian");
         mniThoiGian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +101,8 @@ public class TrangChuUser extends javax.swing.JFrame {
         });
         jMenu1.add(mniThoiGian);
 
+        mniDatHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDatHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Don_hang.png"))); // NOI18N
         mniDatHang.setText("Đặt hàng");
         mniDatHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +111,8 @@ public class TrangChuUser extends javax.swing.JFrame {
         });
         jMenu1.add(mniDatHang);
 
+        mniDangXuat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mniDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Dang_xuat.jpg"))); // NOI18N
         mniDangXuat.setText("Đăng xuất");
         mniDangXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +125,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         jMenu2.setText("Trợ giúp");
 
+        mniChat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Ho_tro.png"))); // NOI18N
         mniChat.setText("Chat");
         mniChat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,8 +159,20 @@ public class TrangChuUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sayHi(){
-        txtHelloUser.setText("Xin chao "+GlobalState.ten_dang_nhap);
+    private void sayHi() {
+        txtHelloUser.setText("Xin chao " + GlobalState.ten_dang_nhap);
+    }
+
+    private void displayTime() {
+
+        Timer timer = new Timer(1000, e -> {
+            LocalDateTime myDateObj = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+            String formattedDate = myDateObj.format(myFormatObj);
+            txtTime.setText(formattedDate);
+        });
+        timer.start();
     }
     private void mniChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChatActionPerformed
         // TODO add your handling code here:
@@ -160,7 +187,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void mniDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatHangActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_mniDatHangActionPerformed
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
@@ -168,7 +195,7 @@ public class TrangChuUser extends javax.swing.JFrame {
         this.dispose();
         Login login = new Login();
         login.setVisible(true);
-        
+
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
     /**
@@ -206,7 +233,8 @@ public class TrangChuUser extends javax.swing.JFrame {
             }
         });
     }
-    private void setCenter (){
+
+    private void setCenter() {
         this.setLocationRelativeTo(null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

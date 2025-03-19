@@ -85,11 +85,16 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
+        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsername.setForeground(new java.awt.Color(255, 153, 153));
         txtUsername.setSelectionColor(new java.awt.Color(255, 153, 102));
 
         lblVaiTro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblVaiTro.setText("Vai trò");
 
+        cboRole.setBackground(new java.awt.Color(255, 255, 255));
+        cboRole.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cboRole.setForeground(new java.awt.Color(255, 153, 153));
         cboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khách hàng", "Admin" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -98,21 +103,38 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         lblMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblMatKhau.setText("Mật khẩu");
 
+        txtPass.setBackground(new java.awt.Color(255, 255, 255));
+        txtPass.setForeground(new java.awt.Color(255, 153, 153));
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Số dư");
+
+        txtSoDu.setBackground(new java.awt.Color(255, 255, 255));
+        txtSoDu.setForeground(new java.awt.Color(255, 153, 153));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("SDT");
 
+        txtSdt.setBackground(new java.awt.Color(255, 255, 255));
+        txtSdt.setForeground(new java.awt.Color(255, 153, 153));
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Họ tên");
+
+        txtHoten.setBackground(new java.awt.Color(255, 255, 255));
+        txtHoten.setForeground(new java.awt.Color(255, 153, 153));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Email");
 
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
+        txtEmail.setForeground(new java.awt.Color(255, 153, 153));
+
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
+        btnThem.setBackground(new java.awt.Color(255, 255, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 153, 153));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Them.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +144,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
         jPanel2.add(btnThem);
 
+        btnSua.setBackground(new java.awt.Color(255, 255, 255));
         btnSua.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(255, 153, 153));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Sua.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +156,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
         jPanel2.add(btnSua);
 
+        btnXoa.setBackground(new java.awt.Color(255, 255, 255));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 153, 153));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Xoa.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -356,6 +382,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         Tmodel = (DefaultTableModel) tblUser.getModel();
         Tmodel.setRowCount(0);
         List<TaiKhoan> lstTk = new ArrayList<>();
+        lstTk.clear();
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         lstTk = tkDAO.getData();
         for (TaiKhoan taiKhoan : lstTk) {
