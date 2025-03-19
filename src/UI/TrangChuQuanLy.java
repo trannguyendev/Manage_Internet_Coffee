@@ -5,7 +5,11 @@
 package UI;
 
 import DAO.TaiKhoanDAO;
+import DAO.ThongKeDonHangDAO;
+import DAO.ThongKeTaiKhoanDAO;
+import Entity.ThongKeTaiKhoan;
 import Entity.TaiKhoan;
+import Entity.ThongKeDonHang;
 import Utils.KetNoiDB;
 import Utils.XImage;
 import java.awt.Color;
@@ -71,7 +75,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         tblUser = new javax.swing.JTable();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TabThong_ke_tai_khoan = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabDoanhThuMon = new javax.swing.JTable();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -235,7 +242,22 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quản lý tài khoản", jTabbedPane2);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabThong_ke_tai_khoan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID tài khoản", "Họ tên", "Số dư"
+            }
+        ));
+        jScrollPane2.setViewportView(TabThong_ke_tai_khoan);
+
+        jTabbedPane3.addTab("Thống kê tài khoản", jScrollPane2);
+
+        tabDoanhThuMon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -243,12 +265,27 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID tài khoản", "Họ tên", "Số dư", "Tổng tiền đã nạp"
+                "ID sản phẩm", "Tên sản phẩm", "Số lượng đã bán", "Tổng doanh thu"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabDoanhThuMon);
 
-        jTabbedPane3.addTab("tab1", jScrollPane2);
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Doanh thu món", jPanel4);
 
         jTabbedPane1.addTab("Thống kê", jTabbedPane3);
 
@@ -278,7 +315,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addComponent(txtTenmay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2))
                     .addComponent(jLabel1))
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addContainerGap(755, Short.MAX_VALUE))
         );
 
         jTabbedPane4.addTab("tab1", jPanel3);
@@ -364,6 +401,36 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
         tblUser.setModel(Tmodel);
     }
+    
+    public void loadThongKeTaiKhoan(){
+        DefaultTableModel tabThongKe = (DefaultTableModel) this.TabThong_ke_tai_khoan.getModel();
+        tabThongKe.setRowCount(0);
+        ThongKeTaiKhoanDAO TKTKDAO = new ThongKeTaiKhoanDAO();
+        List<ThongKeTaiKhoan> TKTKLst = TKTKDAO.ThongTinThongKeTK();
+        for(ThongKeTaiKhoan ThongKe : TKTKLst){
+            tabThongKe.addRow(new Object[]{
+                ThongKe.getId_tk(),
+                ThongKe.getHo_ten(),
+                ThongKe.getSo_du()
+            });
+        }
+    }
+    
+    public void loadDoanhThuMon(){
+        DefaultTableModel tabDoanhThu = (DefaultTableModel) this.tabDoanhThuMon.getModel();
+        tabDoanhThu.setRowCount(0);
+        ThongKeDonHangDAO TKDHdao = new ThongKeDonHangDAO();
+        List<ThongKeDonHang> TKDHLst = TKDHdao.ThongTinThongKeDonHang();
+        for(ThongKeDonHang DoanhThu : TKDHLst){
+            tabDoanhThu.addRow(new Object[]{
+                DoanhThu.getId_san_pham(),
+                DoanhThu.getTen_sp(),
+                DoanhThu.getSo_luong_ban(),
+                DoanhThu.getTong_doanh_thu()
+            });
+        }
+    }
+    
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         String sdt = txtSdt.getText();
@@ -472,6 +539,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.setIconImage(XImage.getAppIcon());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabThong_ke_tai_khoan;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
@@ -486,16 +554,18 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
+    private javax.swing.JTable tabDoanhThuMon;
     private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoten;
