@@ -41,7 +41,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,7 +101,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         lblVaiTro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblVaiTro.setText("Vai trò");
 
-        cboRole.setBackground(new java.awt.Color(255, 255, 255));
+        cboRole.setBackground(new java.awt.Color(255, 153, 153));
         cboRole.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cboRole.setForeground(new java.awt.Color(255, 153, 153));
         cboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Khách hàng", "Admin" }));
@@ -413,6 +413,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private void updateTable() {
         Timer timer = new Timer(3500, e -> {
             this.load2Table();
+            this.loadThongKeTaiKhoan();
+            this.loadDoanhThuMon();
         });
         timer.start();
     }
@@ -430,13 +432,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
         tblUser.setModel(Tmodel);
     }
-    
-    public void loadThongKeTaiKhoan(){
+
+    public void loadThongKeTaiKhoan() {
         DefaultTableModel tabThongKe = (DefaultTableModel) this.TabThong_ke_tai_khoan.getModel();
         tabThongKe.setRowCount(0);
         ThongKeTaiKhoanDAO TKTKDAO = new ThongKeTaiKhoanDAO();
         List<ThongKeTaiKhoan> TKTKLst = TKTKDAO.ThongTinThongKeTK();
-        for(ThongKeTaiKhoan ThongKe : TKTKLst){
+        for (ThongKeTaiKhoan ThongKe : TKTKLst) {
             tabThongKe.addRow(new Object[]{
                 ThongKe.getId_tk(),
                 ThongKe.getHo_ten(),
@@ -444,13 +446,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    
-    public void loadDoanhThuMon(){
+
+    public void loadDoanhThuMon() {
         DefaultTableModel tabDoanhThu = (DefaultTableModel) this.tabDoanhThuMon.getModel();
         tabDoanhThu.setRowCount(0);
         ThongKeDonHangDAO TKDHdao = new ThongKeDonHangDAO();
         List<ThongKeDonHang> TKDHLst = TKDHdao.ThongTinThongKeDonHang();
-        for(ThongKeDonHang DoanhThu : TKDHLst){
+        for (ThongKeDonHang DoanhThu : TKDHLst) {
             tabDoanhThu.addRow(new Object[]{
                 DoanhThu.getId_san_pham(),
                 DoanhThu.getTen_sp(),
@@ -459,17 +461,16 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         String sdt = txtSdt.getText();
         int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa ?");
-        if (check == JOptionPane.YES_OPTION){
+        if (check == JOptionPane.YES_OPTION) {
             TaiKhoanDAO tkDAO = new TaiKhoanDAO();
             tkDAO.deleteAccount(sdt);
             JOptionPane.showMessageDialog(rootPane, "Xóa thành công");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -509,7 +510,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             txtSdt.setText(tblUser.getValueAt(row, 5).toString());
             txtHoten.setText(tblUser.getValueAt(row, 6).toString());
             txtEmail.setText(tblUser.getValueAt(row, 7).toString());
-            
+
             String VT = tblUser.getValueAt(row, 1).toString();
             cboRole.setSelectedItem(VT);
         }
@@ -518,13 +519,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn sửa không ?");
-        if (check == JOptionPane.YES_OPTION){
+        if (check == JOptionPane.YES_OPTION) {
             TaiKhoan tkUpd = this.getInfo();
             TaiKhoanDAO tkDAO = new TaiKhoanDAO();
             tkDAO.updateAccount(tkUpd);
             JOptionPane.showMessageDialog(rootPane, "Update thành công");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
