@@ -5,10 +5,6 @@
 package UI;
 
 import DAO.TaiKhoanDAO;
-import Entity.TaiKhoan;
-import java.awt.Color;
-import java.util.List;
-import java.util.Random;
 import javax.swing.Timer;
 
 /**
@@ -21,6 +17,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
      * Creates new form ThoiGianChoi
      */
     public ThoiGianChoi() {
+        this.preInit();
         initComponents();
         this.loadSoDu();
         this.TruSoDu();
@@ -41,7 +38,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblSoDu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnDangXuat.setText("Đăng xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -118,8 +115,6 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
@@ -157,6 +152,10 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         });
     }
 
+    private void preInit(){
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton jButton1;
