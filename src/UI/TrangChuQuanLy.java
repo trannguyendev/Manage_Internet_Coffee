@@ -4,6 +4,7 @@
  */
 package UI;
 
+import DAO.KhuVucDAO;
 import DAO.TaiKhoanDAO;
 import DAO.ThongKeDonHangDAO;
 import DAO.ThongKeTaiKhoanDAO;
@@ -40,6 +41,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.updateTable();
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
+        this.loadComboChoice();
     }
 
     /**
@@ -619,6 +621,16 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
     }
 
+    private void loadComboChoice(){
+        KhuVucDAO khuVucDAO = new KhuVucDAO();
+        List<String> lstKhuVuc = new ArrayList<>();
+        lstKhuVuc.clear();
+        cboKhuvuc.removeAllItems();
+        lstKhuVuc = khuVucDAO.getListKhuVuc();
+        for (String string : lstKhuVuc) {
+            cboKhuvuc.addItem(string);
+        }
+    }
     private TaiKhoan getInfo() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -644,6 +656,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.load2Table();
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
+            this.loadComboChoice(); 
         });
         timer.start();
     }

@@ -24,6 +24,7 @@ public class TrangChuUser extends javax.swing.JFrame {
         setCenter();
         this.sayHi();
         this.displayTime();
+        this.minusMoney();
     }
 
     /**
@@ -180,6 +181,11 @@ public class TrangChuUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void minusMoney() {
+        ThoiGianChoi tg = new ThoiGianChoi();
+        tg.setVisible(true);
+    }
+
     private void sayHi() {
         txtHelloUser.setText("Xin chào " + GlobalState.ten_dang_nhap);
     }
@@ -216,7 +222,6 @@ public class TrangChuUser extends javax.swing.JFrame {
         this.dispose();
         Login login = new Login();
         login.setVisible(true);
-
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
     /**
@@ -257,6 +262,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void setCenter() {
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
