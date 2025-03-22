@@ -14,28 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatDoDAO {
-    
-    public List<DatDoDAO> readSanPham(){
-        List<DatDoDAO> sanPhamLst = new ArrayList<>();
-        try (Connection conn = KetNoiDB.getConnect()) {
-            String getData = "";
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(getData);
-            
-            while (rs.next()){
-//                String ma_san_pham = rs.getString("ma_san_pham");
-//                String ma_the_loai = rs.getString("ma_the_loai");
-//                String ten = rs.getString("ten");
-//                String ten_the_loai = rs.getString("ten_the_loai");
-//                int so_luong = rs.getInt("so_luong");
-//                double gia = rs.getDouble("gia");
-//                String mieu_ta = rs.getString("mieu_ta");
-//                
-//                SanPhamTheLoaiDTO sanPhamDTO = new SanPhamTheLoaiDTO(ma_the_loai, ma_san_pham, ten, ten_the_loai, gia, so_luong, mieu_ta);
-//                sanPhamLst.add(sanPhamDTO);
-            } return sanPhamLst;
-        } catch (SQLException e){
-            return sanPhamLst;
-        }}
-    
+    public String getPrice(String ten_sp){
+        String giaSp = null;
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement("select gia_sp from San_pham where ten_sp = ?");
+            ppStm.setString(1, ten_sp);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                giaSp = String.valueOf(rs.getInt("gia_sp"));
+            }
+            return giaSp;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return giaSp;
+        }
+    }
 }
