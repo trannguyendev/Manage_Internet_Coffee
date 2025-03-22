@@ -5,7 +5,10 @@
 package UI;
 
 import Utils.XImage;
+import java.awt.Color;
+import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,9 +30,17 @@ public class DatDo extends javax.swing.JFrame {
         txtSoLuongCoca.setText("0");
         txtSoLuongSprite.setText("0");
         txtSoLuongWarrior.setText("0");
-        txtTongTien.setText("0");        
+        txtSoLuongBanhMi.setEditable(false);
+        txtSoLuongComRang.setEditable(false);
+        txtSoLuongComSuon.setEditable(false);
+        txtSoLuongMyTom.setEditable(false);
+        txtSoLuongSting.setEditable(false);
+        txtSoLuongCoca.setEditable(false);
+        txtSoLuongSprite.setEditable(false);
+        txtSoLuongWarrior.setEditable(false);
         setFormCenter();
         this.preInit();
+        this.changeColor();
     }
 
     /**
@@ -49,7 +60,7 @@ public class DatDo extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblDatDo = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -117,9 +128,12 @@ public class DatDo extends javax.swing.JFrame {
         btnMyTomTru = new javax.swing.JButton();
         btnMyTomCong = new javax.swing.JButton();
         txtSoLuongMyTom = new javax.swing.JTextField();
-        btnDatDo = new javax.swing.JButton();
+        jLabel36 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         txtTongTien = new javax.swing.JLabel();
+        btnDatDo = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
 
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -193,8 +207,8 @@ public class DatDo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel1.setText("Đặt Đồ Ăn Uống");
+        lblDatDo.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        lblDatDo.setText("Đặt Đồ Ăn Uống");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
@@ -293,6 +307,12 @@ public class DatDo extends javax.swing.JFrame {
         btnStingCong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStingCongActionPerformed(evt);
+            }
+        });
+
+        txtSoLuongSting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoLuongStingActionPerformed(evt);
             }
         });
 
@@ -495,7 +515,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,7 +828,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -824,7 +844,18 @@ public class DatDo extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Đặt Đồ Ăn", jPanel1);
 
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/gif_boochii.gif"))); // NOI18N
+
+        jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/gif_nigga.gif"))); // NOI18N
+        jLabel34.setText("Tổng Tiền:");
+
+        txtTongTien.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+
         btnDatDo.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btnDatDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eat.png"))); // NOI18N
         btnDatDo.setText("Đặt Đồ");
         btnDatDo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -832,51 +863,91 @@ public class DatDo extends javax.swing.JFrame {
             }
         });
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel34.setText("Tổng Tiền:");
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(btnDatDo)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(txtTongTien)
+                    .addComponent(btnDatDo))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
-        txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        txtTongTien.setText("0 ");
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AzelcookingnoodlesAzelmeme1-ezgif.com-video-to-gif-converter.gif"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel34)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDatDo)
-                .addGap(111, 111, 111))
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(344, 344, 344))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblDatDo)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel37)
+                        .addGap(62, 62, 62))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(127, 127, 127)
+                    .addComponent(jLabel36)
+                    .addContainerGap(797, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(lblDatDo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel37)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(txtTongTien)
-                    .addComponent(btnDatDo))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(36, 36, 36)
+                    .addComponent(jLabel36)
+                    .addContainerGap(525, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        private void changeColor() {
+        Timer timer = new Timer(1000, e -> {
+            Random rand = new Random();
+            Color randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+            lblDatDo.setForeground(randomColor);
+        });
+        timer.start();
+    }
     private void btnBanhMiCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhMiCongActionPerformed
     try {
         int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
@@ -1109,6 +1180,10 @@ public class DatDo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoLuongSpriteActionPerformed
 
+    private void txtSoLuongStingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongStingActionPerformed
+        
+    }//GEN-LAST:event_txtSoLuongStingActionPerformed
+
     private void capNhatTongTien() {
     try {
         //
@@ -1196,7 +1271,6 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JButton btnWarriorTru;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1225,6 +1299,8 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
@@ -1236,6 +1312,7 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1247,6 +1324,7 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblDatDo;
     private javax.swing.JTextField txtSoLuongBanhMi;
     private javax.swing.JTextField txtSoLuongCoca;
     private javax.swing.JTextField txtSoLuongComRang;
