@@ -8,13 +8,28 @@ package DAO;
  *
  * @author Kien
  */
-import Entity.MayTinh;
-import Entity.KhuVucMay;
-import Utils.GlobalState;
 import Utils.KetNoiDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class MayTinhDAO {
-    
+    public void AddPC(){
+        
+    }
+    public List<String> getListPC(){
+        List<String> lstPC = new ArrayList<>();
+        try(Connection conn = KetNoiDB.getConnect()){
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("select ten_may from May_tinh");
+            while(rs.next()){
+                String tenMay = rs.getString("ten_may");
+                lstPC.add(tenMay);
+            }
+            return lstPC;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return lstPC;
+        }
+    }
 }
