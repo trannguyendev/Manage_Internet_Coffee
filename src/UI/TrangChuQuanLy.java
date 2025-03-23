@@ -5,9 +5,11 @@
 package UI;
 
 import DAO.KhuVucDAO;
+import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
 import DAO.ThongKeDonHangDAO;
 import DAO.ThongKeTaiKhoanDAO;
+import Entity.MayTinh;
 import Entity.ThongKeTaiKhoan;
 import Entity.TaiKhoan;
 import Entity.ThongKeDonHang;
@@ -386,7 +388,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tên máy", "Khu vực"
+                "ID ", "Tên máy", "Khu vực"
             }
         ));
         tblPC.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -704,6 +706,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
     }
 
+    private void loadPC(){
+        DefaultTableModel tabMayTinh = (DefaultTableModel) tblPC.getModel();
+        tabMayTinh.setRowCount(0);
+    }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         String sdt = txtSdt.getText();
@@ -773,6 +779,25 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
         // TODO add your handling code here:
+        String tenMay;
+        tenMay = txtPCname.getText();
+        String tenKhuVuc = String.valueOf(cboKhuvuc.getSelectedItem());
+        if(tenMay.isBlank() == false){
+            int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thêm máy không ?");
+            if (check == JOptionPane.YES_OPTION){
+                KhuVucDAO khDAO = new KhuVucDAO();
+                MayTinhDAO mtDAO = new MayTinhDAO();
+                MayTinh mtNew = new MayTinh(tenMay, khDAO.getIDKhuVuc(tenKhuVuc));
+                mtDAO.AddPC(mtNew);
+                JOptionPane.showMessageDialog(rootPane, "Thêm máy thành công");
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng không để trống ô điền");
+        }
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
