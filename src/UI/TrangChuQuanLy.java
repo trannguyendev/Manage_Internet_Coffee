@@ -44,6 +44,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
         this.loadComboChoice();
+        this.loadPC();
     }
 
     /**
@@ -659,6 +660,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
             this.loadComboChoice(); 
+            this.loadPC();
         });
         timer.start();
     }
@@ -709,6 +711,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private void loadPC(){
         DefaultTableModel tabMayTinh = (DefaultTableModel) tblPC.getModel();
         tabMayTinh.setRowCount(0);
+        MayTinhDAO mtDAO = new MayTinhDAO();
+        KhuVucDAO kvDAO = new KhuVucDAO();
+        List<MayTinh> lstPC = mtDAO.parseListPC();
+        for (MayTinh mayTinh : lstPC) {
+            tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()),mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
+        }
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
