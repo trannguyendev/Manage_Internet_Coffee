@@ -4,8 +4,12 @@
  */
 package UI;
 
+import DAO.DatDoDAO;
 import Utils.XImage;
+import java.awt.Color;
+import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,9 +31,19 @@ public class DatDo extends javax.swing.JFrame {
         txtSoLuongCoca.setText("0");
         txtSoLuongSprite.setText("0");
         txtSoLuongWarrior.setText("0");
-        txtTongTien.setText("0");        
+        txtSoLuongBanhMi.setEditable(false);
+        txtSoLuongComRang.setEditable(false);
+        txtSoLuongComSuon.setEditable(false);
+        txtSoLuongMyTom.setEditable(false);
+        txtSoLuongSting.setEditable(false);
+        txtSoLuongCoca.setEditable(false);
+        txtSoLuongSprite.setEditable(false);
+        txtSoLuongWarrior.setEditable(false);
         setFormCenter();
         this.preInit();
+        this.changeColor();
+        this.setPrice();
+        this.updateProdsPrice();
     }
 
     /**
@@ -49,13 +63,13 @@ public class DatDo extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblDatDo = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        lblSprite = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         btnSpriteTru = new javax.swing.JButton();
         btnSpriteCong = new javax.swing.JButton();
@@ -63,7 +77,7 @@ public class DatDo extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        lblSting = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         btnStingTru = new javax.swing.JButton();
         btnStingCong = new javax.swing.JButton();
@@ -71,7 +85,7 @@ public class DatDo extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        lblCoca = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         btnCocaTru = new javax.swing.JButton();
         btnCocaCong = new javax.swing.JButton();
@@ -79,7 +93,7 @@ public class DatDo extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
+        lblWarrior = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         btnWarriorTru = new javax.swing.JButton();
         btnWarriorCong = new javax.swing.JButton();
@@ -92,11 +106,11 @@ public class DatDo extends javax.swing.JFrame {
         btnBanhMiTru = new javax.swing.JButton();
         btnBanhMiCong = new javax.swing.JButton();
         txtSoLuongBanhMi = new javax.swing.JTextField();
-        jLabel35 = new javax.swing.JLabel();
+        lblBanhMi = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblComrang = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btnComRangTru = new javax.swing.JButton();
         btnComRangCong = new javax.swing.JButton();
@@ -104,7 +118,7 @@ public class DatDo extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lblComsuon = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         btnComSuonTru = new javax.swing.JButton();
         btnComSuonCong = new javax.swing.JButton();
@@ -112,14 +126,17 @@ public class DatDo extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lblMytom = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         btnMyTomTru = new javax.swing.JButton();
         btnMyTomCong = new javax.swing.JButton();
         txtSoLuongMyTom = new javax.swing.JTextField();
-        btnDatDo = new javax.swing.JButton();
+        jLabel36 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         txtTongTien = new javax.swing.JLabel();
+        btnDatDo = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
 
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -193,8 +210,8 @@ public class DatDo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        jLabel1.setText("Đặt Đồ Ăn Uống");
+        lblDatDo.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        lblDatDo.setText("Đặt Đồ Ăn Uống");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
@@ -202,7 +219,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel23.setText("Sprite");
 
-        jLabel24.setText("15.000VND");
+        lblSprite.setText("15.000VND");
 
         jLabel25.setText("Số Lượng: ");
 
@@ -243,7 +260,7 @@ public class DatDo extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(txtSoLuongSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSprite, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnSpriteTru)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -262,7 +279,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
+                    .addComponent(lblSprite)
                     .addComponent(btnSpriteTru)
                     .addComponent(btnSpriteCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,7 +295,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel27.setText("Sting");
 
-        jLabel28.setText("15.000VND");
+        lblSting.setText("15.000VND");
 
         jLabel29.setText("Số Lượng: ");
 
@@ -293,6 +310,12 @@ public class DatDo extends javax.swing.JFrame {
         btnStingCong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStingCongActionPerformed(evt);
+            }
+        });
+
+        txtSoLuongSting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoLuongStingActionPerformed(evt);
             }
         });
 
@@ -312,7 +335,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtSoLuongSting, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblSting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnStingTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -332,7 +355,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
+                    .addComponent(lblSting)
                     .addComponent(btnStingTru)
                     .addComponent(btnStingCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,7 +371,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel31.setText("Coca");
 
-        jLabel32.setText("15.000VND");
+        lblCoca.setText("15.000VND");
 
         jLabel33.setText("Số Lượng: ");
 
@@ -382,7 +405,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtSoLuongCoca, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCoca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCocaTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -402,7 +425,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
+                    .addComponent(lblCoca)
                     .addComponent(btnCocaTru)
                     .addComponent(btnCocaCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -418,7 +441,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel39.setText("Warrior");
 
-        jLabel40.setText("15.000VND");
+        lblWarrior.setText("15.000VND");
 
         jLabel41.setText("Số Lượng: ");
 
@@ -452,7 +475,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtSoLuongWarrior, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblWarrior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnWarriorTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -472,7 +495,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel39)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel40)
+                    .addComponent(lblWarrior)
                     .addComponent(btnWarriorTru)
                     .addComponent(btnWarriorCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -495,7 +518,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -541,7 +564,7 @@ public class DatDo extends javax.swing.JFrame {
             }
         });
 
-        jLabel35.setText("15.000VND");
+        lblBanhMi.setText("15.000VND");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -558,7 +581,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(txtSoLuongBanhMi, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel35)
+                                .addComponent(lblBanhMi)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnBanhMiTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -580,7 +603,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBanhMiTru)
                     .addComponent(btnBanhMiCong)
-                    .addComponent(jLabel35))
+                    .addComponent(lblBanhMi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -594,7 +617,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel7.setText("Cơm Rang");
 
-        jLabel8.setText("25.000VND");
+        lblComrang.setText("25.000VND");
 
         jLabel9.setText("Số Lượng: ");
 
@@ -627,7 +650,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(txtSoLuongComRang, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblComrang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnComRangTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -647,7 +670,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(lblComrang)
                     .addComponent(btnComRangTru)
                     .addComponent(btnComRangCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -663,7 +686,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel15.setText("Cơm Sườn");
 
-        jLabel16.setText("35.000VND");
+        lblComsuon.setText("35.000VND");
 
         jLabel17.setText("Số Lượng: ");
 
@@ -696,7 +719,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(txtSoLuongComSuon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblComsuon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnComSuonTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -716,7 +739,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
+                    .addComponent(lblComsuon)
                     .addComponent(btnComSuonTru)
                     .addComponent(btnComSuonCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -732,7 +755,7 @@ public class DatDo extends javax.swing.JFrame {
 
         jLabel19.setText("Mỳ Tôm");
 
-        jLabel20.setText("10.000VND");
+        lblMytom.setText("10.000VND");
 
         jLabel21.setText("Số Lượng: ");
 
@@ -765,7 +788,7 @@ public class DatDo extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(txtSoLuongMyTom, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMytom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnMyTomTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -785,7 +808,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
+                    .addComponent(lblMytom)
                     .addComponent(btnMyTomTru)
                     .addComponent(btnMyTomCong))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -808,7 +831,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -824,7 +847,18 @@ public class DatDo extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Đặt Đồ Ăn", jPanel1);
 
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/gif_boochii.gif"))); // NOI18N
+
+        jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/gif_nigga.gif"))); // NOI18N
+        jLabel34.setText("Tổng Tiền:");
+
+        txtTongTien.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+
         btnDatDo.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btnDatDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eat.png"))); // NOI18N
         btnDatDo.setText("Đặt Đồ");
         btnDatDo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -832,97 +866,156 @@ public class DatDo extends javax.swing.JFrame {
             }
         });
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel34.setText("Tổng Tiền:");
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(btnDatDo)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(txtTongTien)
+                    .addComponent(btnDatDo))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
-        txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        txtTongTien.setText("0 ");
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AzelcookingnoodlesAzelmeme1-ezgif.com-video-to-gif-converter.gif"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel34)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDatDo)
-                .addGap(111, 111, 111))
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(344, 344, 344))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblDatDo)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel37)
+                        .addGap(62, 62, 62))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(127, 127, 127)
+                    .addComponent(jLabel36)
+                    .addContainerGap(797, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(lblDatDo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel37)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(txtTongTien)
-                    .addComponent(btnDatDo))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(36, 36, 36)
+                    .addComponent(jLabel36)
+                    .addContainerGap(525, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBanhMiCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhMiCongActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
-        soLuong++;
-        txtSoLuongBanhMi.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongBanhMi.setText("0");
+    private void changeColor() {
+        Timer timer = new Timer(1000, e -> {
+            Random rand = new Random();
+            Color randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+            lblDatDo.setForeground(randomColor);
+        });
+        timer.start();
     }
+    private void updateProdsPrice() {
+        Timer timer = new Timer(3000, e -> {
+            this.setPrice();
+        });
+        timer.start();
+    }
+    private void setPrice(){
+        DatDoDAO datDoDAO = new DatDoDAO();
+        //Set price for Drinks =)
+        lblSprite.setText(datDoDAO.getPrice("Sprite")+" VND");
+        lblSting.setText(datDoDAO.getPrice("Sting")+" VND");
+        lblCoca.setText(datDoDAO.getPrice("Coca")+" VND");
+        lblWarrior.setText(datDoDAO.getPrice("Warrior")+" VND");
+        //Set Price for Foods :)
+        lblBanhMi.setText(datDoDAO.getPrice("Bánh Mì")+" VND");
+        lblComrang.setText(datDoDAO.getPrice("Cơm Rang")+" VND");
+        lblComsuon.setText(datDoDAO.getPrice("Cơm Sườn")+" VND");
+        lblMytom.setText(datDoDAO.getPrice("Mỳ Tôm")+" VND");
+    }
+    private void btnBanhMiCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhMiCongActionPerformed
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
+            soLuong++;
+            txtSoLuongBanhMi.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongBanhMi.setText("0");
+        }
     }//GEN-LAST:event_btnBanhMiCongActionPerformed
 
     private void btnBanhMiTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhMiTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongBanhMi.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongBanhMi.setText("0");
         }
-        txtSoLuongBanhMi.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongBanhMi.setText("0");
-    }
     }//GEN-LAST:event_btnBanhMiTruActionPerformed
 
     private void btnComRangTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComRangTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongComRang.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongComRang.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongComRang.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongComRang.setText("0");
         }
-        txtSoLuongComRang.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongComRang.setText("0");
-    }
     }//GEN-LAST:event_btnComRangTruActionPerformed
 
     private void btnComRangCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComRangCongActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongComRang.getText().trim());
-        soLuong++;
-        txtSoLuongComRang.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongComRang.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongComRang.getText().trim());
+            soLuong++;
+            txtSoLuongComRang.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongComRang.setText("0");
+        }
     }//GEN-LAST:event_btnComRangCongActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -934,213 +1027,220 @@ public class DatDo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btnComSuonTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComSuonTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongComSuon.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongComSuon.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongComSuon.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongComSuon.setText("0");
         }
-        txtSoLuongComSuon.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongComSuon.setText("0");
-    }
     }//GEN-LAST:event_btnComSuonTruActionPerformed
 
     private void btnComSuonCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComSuonCongActionPerformed
-    try{
-        int soLuong = Integer.parseInt(txtSoLuongComSuon.getText().trim());
-        soLuong++;
-        txtSoLuongComSuon.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongComSuon.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongComSuon.getText().trim());
+            soLuong++;
+            txtSoLuongComSuon.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongComSuon.setText("0");
+        }
     }//GEN-LAST:event_btnComSuonCongActionPerformed
 
     private void btnMyTomTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyTomTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongMyTom.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongMyTom.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongMyTom.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongMyTom.setText("0");
         }
-        txtSoLuongMyTom.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongMyTom.setText("0");
-    }
     }//GEN-LAST:event_btnMyTomTruActionPerformed
 
     private void btnMyTomCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyTomCongActionPerformed
-    try{
-        int soLuong = Integer.parseInt(txtSoLuongMyTom.getText().trim());
-        soLuong++;
-        txtSoLuongMyTom.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongMyTom.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongMyTom.getText().trim());
+            soLuong++;
+            txtSoLuongMyTom.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongMyTom.setText("0");
+        }
     }//GEN-LAST:event_btnMyTomCongActionPerformed
 
     private void btnSpriteTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpriteTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongSprite.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongSprite.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongSprite.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongSprite.setText("0");
         }
-        txtSoLuongSprite.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongSprite.setText("0");
-    }
     }//GEN-LAST:event_btnSpriteTruActionPerformed
 
     private void btnSpriteCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpriteCongActionPerformed
-    try{
-        int soLuong = Integer.parseInt(txtSoLuongSprite.getText().trim());
-        soLuong++;
-        txtSoLuongSprite.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongSprite.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongSprite.getText().trim());
+            soLuong++;
+            txtSoLuongSprite.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongSprite.setText("0");
+        }
     }//GEN-LAST:event_btnSpriteCongActionPerformed
 
     private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
-    // Lấy tổng tiền từ txtTongTien
-    String tongTienText = txtTongTien.getText();
-    
-    // Hiển thị hộp thoại xác nhận
-    int confirm = JOptionPane.showConfirmDialog(this, 
-        "Bạn đã chắc chắn sẽ đặt hàng chưa?\nTổng đơn hàng là: " + tongTienText, 
-        "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
-    
-    // Nếu chọn "YES" thì hiện cảm ơn, nếu chọn "NO" thì quay lại
-    if (confirm == JOptionPane.YES_OPTION) {
-        JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhân viên tới.");
-    } else {
-        JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
-    }
+        // Lấy tổng tiền từ txtTongTien
+        String tongTienText = txtTongTien.getText();
+
+        // Hiển thị hộp thoại xác nhận
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Bạn đã chắc chắn sẽ đặt hàng chưa?\nTổng đơn hàng là: " + tongTienText,
+                "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
+
+        // Nếu chọn "YES" thì hiện cảm ơn, nếu chọn "NO" thì quay lại
+        if (confirm == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhân viên tới.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
+        }
     }//GEN-LAST:event_btnDatDoActionPerformed
 
     private void btnStingTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStingTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongSting.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongSting.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongSting.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongSting.setText("0");
         }
-        txtSoLuongSting.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongSting.setText("0");
-    }
     }//GEN-LAST:event_btnStingTruActionPerformed
 
     private void btnStingCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStingCongActionPerformed
-    try{
-    int soLuong = Integer.parseInt(txtSoLuongSting.getText().trim());
-        soLuong++;
-        txtSoLuongSting.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongSting.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongSting.getText().trim());
+            soLuong++;
+            txtSoLuongSting.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongSting.setText("0");
+        }
     }//GEN-LAST:event_btnStingCongActionPerformed
 
     private void btnCocaTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocaTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongCoca.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongCoca.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongCoca.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongCoca.setText("0");
         }
-        txtSoLuongCoca.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongCoca.setText("0");
-    }
     }//GEN-LAST:event_btnCocaTruActionPerformed
 
     private void btnCocaCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCocaCongActionPerformed
-    try{
-        int soLuong = Integer.parseInt(txtSoLuongCoca.getText().trim());
-        soLuong++;
-        txtSoLuongCoca.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongCoca.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongCoca.getText().trim());
+            soLuong++;
+            txtSoLuongCoca.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongCoca.setText("0");
+        }
     }//GEN-LAST:event_btnCocaCongActionPerformed
 
     private void btnWarriorTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWarriorTruActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongWarrior.getText().trim());
-        if (soLuong > 0) {
-            soLuong--;
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongWarrior.getText().trim());
+            if (soLuong > 0) {
+                soLuong--;
+            }
+            txtSoLuongWarrior.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongWarrior.setText("0");
         }
-        txtSoLuongWarrior.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongWarrior.setText("0");
-    }
     }//GEN-LAST:event_btnWarriorTruActionPerformed
 
     private void btnWarriorCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWarriorCongActionPerformed
-    try{
-        int soLuong = Integer.parseInt(txtSoLuongWarrior.getText().trim());
-        soLuong++;
-        txtSoLuongWarrior.setText(String.valueOf(soLuong));
-        capNhatTongTien();
-    } catch (NumberFormatException e) {
-        txtSoLuongWarrior.setText("0");
-    }
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongWarrior.getText().trim());
+            soLuong++;
+            txtSoLuongWarrior.setText(String.valueOf(soLuong));
+            capNhatTongTien();
+        } catch (NumberFormatException e) {
+            txtSoLuongWarrior.setText("0");
+        }
     }//GEN-LAST:event_btnWarriorCongActionPerformed
 
     private void txtSoLuongBanhMiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongBanhMiActionPerformed
-    try {
-        int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText());
-        if (soLuong < 0) {
-            txtSoLuongBanhMi.setText("0");
-        }
-    } catch (NumberFormatException e) {
+        try {
+            int soLuong = Integer.parseInt(txtSoLuongBanhMi.getText());
+            if (soLuong < 0) {
+                txtSoLuongBanhMi.setText("0");
+            }
+        } catch (NumberFormatException e) {
 
-    }    
+        }
     }//GEN-LAST:event_txtSoLuongBanhMiActionPerformed
 
     private void txtSoLuongSpriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongSpriteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSoLuongSpriteActionPerformed
 
+    private void txtSoLuongStingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongStingActionPerformed
+
+    }//GEN-LAST:event_txtSoLuongStingActionPerformed
+
     private void capNhatTongTien() {
-    try {
-        //
-        int soLuongBanhMi = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
-        int soLuongComRang = Integer.parseInt(txtSoLuongComRang.getText().trim());
-        int soLuongComSuon = Integer.parseInt(txtSoLuongComSuon.getText().trim());
-        int soLuongMyTom = Integer.parseInt(txtSoLuongMyTom.getText().trim());
-        int soLuongSting = Integer.parseInt(txtSoLuongSting.getText().trim());
-        int soLuongCoca = Integer.parseInt(txtSoLuongCoca.getText().trim());
-        int soLuongSprite = Integer.parseInt(txtSoLuongSprite.getText().trim());
-        int soLuongWarrior = Integer.parseInt(txtSoLuongWarrior.getText().trim());
+        try {
+            //
+            int soLuongBanhMi = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
+            int soLuongComRang = Integer.parseInt(txtSoLuongComRang.getText().trim());
+            int soLuongComSuon = Integer.parseInt(txtSoLuongComSuon.getText().trim());
+            int soLuongMyTom = Integer.parseInt(txtSoLuongMyTom.getText().trim());
+            int soLuongSting = Integer.parseInt(txtSoLuongSting.getText().trim());
+            int soLuongCoca = Integer.parseInt(txtSoLuongCoca.getText().trim());
+            int soLuongSprite = Integer.parseInt(txtSoLuongSprite.getText().trim());
+            int soLuongWarrior = Integer.parseInt(txtSoLuongWarrior.getText().trim());
 
-        int tongTien = (soLuongBanhMi * 15000) + 
-                       (soLuongComRang * 25000) + 
-                       (soLuongComSuon * 35000) + 
-                       (soLuongMyTom * 10000) + 
-                       (soLuongSting * 15000) + 
-                       (soLuongCoca * 15000) + 
-                       (soLuongSprite * 15000) + 
-                       (soLuongWarrior * 15000);
+            int tongTien = (soLuongBanhMi * 15000)
+                    + (soLuongComRang * 25000)
+                    + (soLuongComSuon * 35000)
+                    + (soLuongMyTom * 10000)
+                    + (soLuongSting * 15000)
+                    + (soLuongCoca * 15000)
+                    + (soLuongSprite * 15000)
+                    + (soLuongWarrior * 15000);
 
-        txtTongTien.setText(String.valueOf(tongTien) + "VND");
-    } catch (NumberFormatException e) {
-        txtTongTien.setText("0");
+            txtTongTien.setText(String.valueOf(tongTien) + "VND");
+        } catch (NumberFormatException e) {
+            txtTongTien.setText("0");
+        }
     }
-}
-    public void setFormCenter(){
+
+    public void setFormCenter() {
         this.setLocationRelativeTo(null);
     }
-    private void preInit(){
+
+    private void preInit() {
         this.setIconImage(XImage.getAppIcon());
     }
+
     /**
      * @param args the command line arguments
      */
@@ -1196,46 +1296,40 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JButton btnWarriorTru;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1247,6 +1341,15 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblBanhMi;
+    private javax.swing.JLabel lblCoca;
+    private javax.swing.JLabel lblComrang;
+    private javax.swing.JLabel lblComsuon;
+    private javax.swing.JLabel lblDatDo;
+    private javax.swing.JLabel lblMytom;
+    private javax.swing.JLabel lblSprite;
+    private javax.swing.JLabel lblSting;
+    private javax.swing.JLabel lblWarrior;
     private javax.swing.JTextField txtSoLuongBanhMi;
     private javax.swing.JTextField txtSoLuongCoca;
     private javax.swing.JTextField txtSoLuongComRang;

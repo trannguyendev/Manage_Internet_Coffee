@@ -9,23 +9,15 @@ package Entity;
  * @author Kien
  */
 public class MayTinh {
-    int id_may;
     String ten_may;
+    int id_khu_vuc;
 
     public MayTinh() {
     }
 
-    public MayTinh(int id_may, String ten_may) {
-        this.id_may = id_may;
+    public MayTinh(String ten_may, int id_khu_vuc) {
         this.ten_may = ten_may;
-    }
-
-    public int getId_may() {
-        return id_may;
-    }
-
-    public void setId_may(int id_may) {
-        this.id_may = id_may;
+        this.id_khu_vuc = id_khu_vuc;
     }
 
     public String getTen_may() {
@@ -36,5 +28,11 @@ public class MayTinh {
         this.ten_may = ten_may;
     }
 
-    
+    public int getId_khu_vuc() {
+        return id_khu_vuc;
+    }
+
+    public void setId_khu_vuc(int id_khu_vuc) {
+        this.id_khu_vuc = id_khu_vuc;
+    }
 }
