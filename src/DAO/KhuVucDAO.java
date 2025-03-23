@@ -97,7 +97,8 @@ public class KhuVucDAO {
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-          
+        }
+    } 
     public int getIDKhuVuc(String tenKhuVuc){
         int ID = 0;
         String sqlCommand = "select id_khu_vuc from Khu_vuc where ten_khu_vuc = ?";
