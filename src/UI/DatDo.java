@@ -571,18 +571,17 @@ public class DatDo extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(txtSoLuongBanhMi, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblBanhMi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblBanhMi))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSoLuongBanhMi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnBanhMiTru)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBanhMiCong)))
@@ -590,7 +589,7 @@ public class DatDo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(jLabel3)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -646,8 +645,9 @@ public class DatDo extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtSoLuongComRang, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(lblComrang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -715,8 +715,9 @@ public class DatDo extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtSoLuongComSuon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(lblComsuon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -784,8 +785,9 @@ public class DatDo extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtSoLuongMyTom, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(lblMytom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1207,30 +1209,37 @@ public class DatDo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSoLuongStingActionPerformed
 
     private void capNhatTongTien() {
-        try {
-            //
-            int soLuongBanhMi = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
-            int soLuongComRang = Integer.parseInt(txtSoLuongComRang.getText().trim());
-            int soLuongComSuon = Integer.parseInt(txtSoLuongComSuon.getText().trim());
-            int soLuongMyTom = Integer.parseInt(txtSoLuongMyTom.getText().trim());
-            int soLuongSting = Integer.parseInt(txtSoLuongSting.getText().trim());
-            int soLuongCoca = Integer.parseInt(txtSoLuongCoca.getText().trim());
-            int soLuongSprite = Integer.parseInt(txtSoLuongSprite.getText().trim());
-            int soLuongWarrior = Integer.parseInt(txtSoLuongWarrior.getText().trim());
+    try {
+        int soLuongBanhMi = Integer.parseInt(txtSoLuongBanhMi.getText().trim());
+        int soLuongComRang = Integer.parseInt(txtSoLuongComRang.getText().trim());
+        int soLuongComSuon = Integer.parseInt(txtSoLuongComSuon.getText().trim());
+        int soLuongMyTom = Integer.parseInt(txtSoLuongMyTom.getText().trim());
+        int soLuongSting = Integer.parseInt(txtSoLuongSting.getText().trim());
+        int soLuongCoca = Integer.parseInt(txtSoLuongCoca.getText().trim());
+        int soLuongSprite = Integer.parseInt(txtSoLuongSprite.getText().trim());
+        int soLuongWarrior = Integer.parseInt(txtSoLuongWarrior.getText().trim());
+        int giaBanhMi = Integer.parseInt(lblBanhMi.getText().replace("VND", "").replace(".", "").trim());
+        int giaComRang = Integer.parseInt(lblComrang.getText().replace("VND", "").replace(".", "").trim());
+        int giaComSuon = Integer.parseInt(lblComsuon.getText().replace("VND", "").replace(".", "").trim());
+        int giaMyTom = Integer.parseInt(lblMytom.getText().replace("VND", "").replace(".", "").trim());
+        int giaSting = Integer.parseInt(lblSting.getText().replace("VND", "").replace(".", "").trim());
+        int giaCoca = Integer.parseInt(lblCoca.getText().replace("VND", "").replace(".", "").trim());
+        int giaSprite = Integer.parseInt(lblSprite.getText().replace("VND", "").replace(".", "").trim());
+        int giaWarrior = Integer.parseInt(lblWarrior.getText().replace("VND", "").replace(".", "").trim());
 
-            int tongTien = (soLuongBanhMi * 15000)
-                    + (soLuongComRang * 25000)
-                    + (soLuongComSuon * 35000)
-                    + (soLuongMyTom * 10000)
-                    + (soLuongSting * 15000)
-                    + (soLuongCoca * 15000)
-                    + (soLuongSprite * 15000)
-                    + (soLuongWarrior * 15000);
+        int tongTien = (soLuongBanhMi * giaBanhMi)
+                + (soLuongComRang * giaComRang)
+                + (soLuongComSuon * giaComSuon)
+                + (soLuongMyTom * giaMyTom)
+                + (soLuongSting * giaSting)
+                + (soLuongCoca * giaCoca)
+                + (soLuongSprite * giaSprite)
+                + (soLuongWarrior * giaWarrior);
 
-            txtTongTien.setText(String.valueOf(tongTien) + "VND");
-        } catch (NumberFormatException e) {
-            txtTongTien.setText("0");
-        }
+        txtTongTien.setText(String.valueOf(tongTien) + " VND");
+    } catch (NumberFormatException e) {
+        txtTongTien.setText("0 VND");
+    }
     }
 
     public void setFormCenter() {
