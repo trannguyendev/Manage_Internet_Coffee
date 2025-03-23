@@ -13,6 +13,7 @@ import Entity.MayTinh;
 import Entity.ThongKeTaiKhoan;
 import Entity.TaiKhoan;
 import Entity.ThongKeDonHang;
+import Entity.KhuVucMay;
 import Utils.KetNoiDB;
 import Utils.XImage;
 import java.awt.Color;
@@ -40,10 +41,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         initComponents();
         this.changeColor();
         this.load2Table();
-        this.updateTable();
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
         this.loadComboChoice();
+        this.loadkhuvuc();
+        this.updateTable();
         this.loadPC();
     }
 
@@ -106,7 +108,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         btnSua2 = new javax.swing.JButton();
         btnXoa2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblPC1 = new javax.swing.JTable();
+        tblKhuvuc = new javax.swing.JTable();
         txtTenKhu = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -204,7 +206,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email"
+                "id tài khoản", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email"
             }
         ));
         tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -414,8 +416,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(cboKhuvuc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -435,9 +437,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                     .addComponent(txtPCname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cboKhuvuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(135, 135, 135)
+                .addGap(134, 134, 134)
                 .addComponent(jScrollPane4)
-                .addGap(121, 121, 121))
+                .addGap(122, 122, 122))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap(178, Short.MAX_VALUE)
@@ -491,20 +493,20 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             }
         });
 
-        tblPC1.setModel(new javax.swing.table.DefaultTableModel(
+        tblKhuvuc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Giá khu vực", "Tên khu vực"
+                "ID khu vực", "Giá khu vực", "Tên khu vực"
             }
         ));
-        tblPC1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblKhuvuc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblPC1MouseClicked(evt);
+                tblKhuvucMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tblPC1);
+        jScrollPane5.setViewportView(tblKhuvuc);
 
         txtTenKhu.setBackground(new java.awt.Color(255, 255, 255));
         txtTenKhu.setForeground(new java.awt.Color(255, 153, 153));
@@ -563,7 +565,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 846, Short.MAX_VALUE)
+            .addGap(0, 847, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -660,6 +662,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
             this.loadComboChoice(); 
+            this.loadkhuvuc();
             this.loadPC();
         });
         timer.start();
@@ -704,6 +707,20 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 DoanhThu.getTen_sp(),
                 DoanhThu.getSo_luong_ban(),
                 DoanhThu.getTong_doanh_thu()
+            });
+        }
+    }
+    public void loadkhuvuc(){
+        DefaultTableModel tblKhuvuc = (DefaultTableModel) this.tblKhuvuc.getModel();
+        tblKhuvuc.setRowCount(0);
+        KhuVucDAO khuvucDAO = new KhuVucDAO();
+        List<KhuVucMay> KhuMaylst = new ArrayList<>();
+        KhuMaylst = khuvucDAO.readKhuvuc();
+        for (KhuVucMay khumay : KhuMaylst){
+            tblKhuvuc.addRow(new Object[]{
+                khuvucDAO.getId(khumay.getTen_khu_vuc()),
+                khumay.getGia_khu_vuc(),
+                khumay.getTen_khu_vuc()
             });
         }
     }
@@ -822,19 +839,48 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
         // TODO add your handling code here:
+        String tenkhuvuc = txtTenKhu.getText();
+        String giakhu = txtGiaPC.getText();
+        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+            JOptionPane.showMessageDialog(rootPane, "Nhập thêm");
+        }else{
+            KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
+        
+            KhuVucDAO khuvucDAO = new KhuVucDAO();
+            khuvucDAO.addKhuvucPC(khumay);
+            JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+        }
     }//GEN-LAST:event_btnThem2ActionPerformed
 
     private void btnSua2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua2ActionPerformed
         // TODO add your handling code here:
+        String tenkhuvuc = txtTenKhu.getText();
+        String giakhu = txtGiaPC.getText();
+        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+            JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
+        }else{
+            KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
+        
+            KhuVucDAO khuvucDAO = new KhuVucDAO();
+            khuvucDAO.updateKhuVucPC(khumay);
+            JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
+        }
     }//GEN-LAST:event_btnSua2ActionPerformed
 
     private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_btnXoa2ActionPerformed
 
-    private void tblPC1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPC1MouseClicked
+    private void tblKhuvucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuvucMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblPC1MouseClicked
+        int row = tblKhuvuc.getSelectedRow();
+        if (row != -1) {
+            txtGiaPC.setText(tblKhuvuc.getValueAt(row, 1).toString());
+            txtTenKhu.setText(tblKhuvuc.getValueAt(row, 2).toString());
+            }
+    }//GEN-LAST:event_tblKhuvucMouseClicked
 
     /**
      * @param args the command line arguments
@@ -915,8 +961,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
     private javax.swing.JTable tabDoanhThuMon;
+    private javax.swing.JTable tblKhuvuc;
     private javax.swing.JTable tblPC;
-    private javax.swing.JTable tblPC1;
     private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGiaPC;
