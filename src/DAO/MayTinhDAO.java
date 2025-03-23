@@ -8,14 +8,62 @@ package DAO;
  *
  * @author Kien
  */
+import Entity.MayTinh;
 import Utils.KetNoiDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class MayTinhDAO {
-    public void AddPC(){
-        
+    public int getIDPC(String ten_may){
+        int ID_PC = 0;
+        String sql = "select id_may from May_tinh where ten_may = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setString(1, ten_may);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                ID_PC = rs.getInt("id_may");
+            }
+            return ID_PC;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ID_PC;
+        }
     }
+    //Return ListOfPC for loadUp to Table
+    public List<MayTinh> parseListPC(){
+        String sql = "select * from May_tinh";
+        List<MayTinh> lstPC = new ArrayList<>();
+        try(Connection conn = KetNoiDB.getConnect()){
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()){
+                String tenMay = rs.getString("ten_may");
+                int idKhuVuc = rs.getInt("id_khu_vuc");
+                MayTinh mtNew = new MayTinh(tenMay, idKhuVuc);
+                lstPC.add(mtNew);
+            }
+            return lstPC;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return lstPC;
+        }
+    }
+    public void AddPC(MayTinh mt){
+        String sqlCmd = "INSERT INTO May_tinh(ten_may, id_khu_vuc) VALUES (?, ?)";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sqlCmd);
+            ppStm.setString(1, mt.getTen_may());
+            ppStm.setInt(2, mt.getId_khu_vuc());
+            ppStm.executeUpdate();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void UpdatePCInfo(int id, String ten, int idKhuVuc){}
     public List<String> getListPC(){
         List<String> lstPC = new ArrayList<>();
         try(Connection conn = KetNoiDB.getConnect()){

@@ -29,4 +29,38 @@ public class KhuVucDAO {
             return lstKhuVuc;
         }
     }
+    public int getIDKhuVuc(String tenKhuVuc){
+        int ID = 0;
+        String sqlCommand = "select id_khu_vuc from Khu_vuc where ten_khu_vuc = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sqlCommand);
+            ppStm.setString(1, tenKhuVuc);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                ID = rs.getInt("id_khu_vuc");
+            }
+            return ID;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ID;
+        }
+    }
+    public String getTenKhuVuc(int id_khu_vuc){
+        String tenKhuVuc = null;
+        String sql = "select ten_khu_vuc from Khu_vuc where id_khu_vuc = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setInt(1, id_khu_vuc);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                tenKhuVuc = rs.getString("ten_khu_vuc");
+            }
+            return tenKhuVuc;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return tenKhuVuc;
+        }
+    }
 }
