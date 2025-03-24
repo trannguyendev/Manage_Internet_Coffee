@@ -214,7 +214,8 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void mniDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDatHangActionPerformed
         // TODO add your handling code here:
-
+        DatDo dd = new DatDo();
+        dd.setVisible(true);
     }//GEN-LAST:event_mniDatHangActionPerformed
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
