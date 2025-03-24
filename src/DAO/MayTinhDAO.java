@@ -63,7 +63,19 @@ public class MayTinhDAO {
             e.printStackTrace();
         }
     }
-    public void UpdatePCInfo(int id, String ten, int idKhuVuc){}
+    public void UpdatePCInfo(int id, String ten, int idKhuVuc){
+        String sql = "UPDATE May_tinh SET ten_may = ?, id_khu_vuc = ? where id_may = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setString(1, ten);
+            ppStm.setInt(2, idKhuVuc);
+            ppStm.setInt(3, id);
+            ppStm.executeUpdate();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public List<String> getListPC(){
         List<String> lstPC = new ArrayList<>();
         try(Connection conn = KetNoiDB.getConnect()){

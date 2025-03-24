@@ -657,7 +657,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
 
     private void updateTable() {
-        Timer timer = new Timer(3500, e -> {
+        Timer timer = new Timer(3000, e -> {
             this.load2Table();
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
@@ -835,6 +835,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     private void tblPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPCMouseClicked
         // TODO add your handling code here:
+        int currentRow = tblPC.getSelectedRow();
     }//GEN-LAST:event_tblPCMouseClicked
 
     private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
