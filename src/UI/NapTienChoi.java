@@ -5,10 +5,15 @@
 package UI;
 
 import Utils.GlobalState;
-import java.awt.Color;
-import java.awt.Graphics2D;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
-import static java.nio.file.Files.size;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  *
@@ -49,14 +54,29 @@ public class NapTienChoi extends javax.swing.JFrame {
         btn50k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn50k.setForeground(new java.awt.Color(255, 153, 153));
         btn50k.setText("50k");
+        btn50k.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn50kActionPerformed(evt);
+            }
+        });
 
         btn100k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn100k.setForeground(new java.awt.Color(255, 153, 153));
         btn100k.setText("100k");
+        btn100k.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn100kActionPerformed(evt);
+            }
+        });
 
         btn10k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn10k.setForeground(new java.awt.Color(255, 153, 153));
         btn10k.setText("10k");
+        btn10k.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn10kActionPerformed(evt);
+            }
+        });
 
         lblQR.setText("QR");
 
@@ -91,12 +111,12 @@ public class NapTienChoi extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(167, 167, 167)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addGap(119, 119, 119)
-                                .addComponent(jButton5)))))
+                        .addComponent(jButton4)
+                        .addGap(119, 119, 119)
+                        .addComponent(jButton5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,9 +129,9 @@ public class NapTienChoi extends javax.swing.JFrame {
                     .addComponent(btn50k)
                     .addComponent(btn100k)
                     .addComponent(btn10k))
-                .addGap(112, 112, 112)
-                .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(94, 94, 94)
+                .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
@@ -121,41 +141,64 @@ public class NapTienChoi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void displayQR(String amount) {
-        String bank = "MB";
-        String account = "0867514526";
-        String remark = "Nap tien tai khoan "+GlobalState.ten_dang_nhap;
-        String name = "Tran Do Khoi Nguyen";
-        String qrData = String.format("bank:%s|account:%s|amount:%s|remark:%s|name:%s",
-                bank, account, amount, remark, name);
-    }
-    private static BufferedImage generateQRCodeImage(String text) {
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        try { 
-            int size = 300;
-            BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphics = image.createGraphics();
-            graphics.setColor(Color.WHITE);
-            graphics.fillRect(0, 0, size, size);
-            graphics.setColor(Color.BLACK);
-
-            var bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size);
-            for (int x = 0; x < size; x++) {
-                for (int y = 0; y < size; y++) {
-                    image.setRGB(x, y, bitMatrix.get(x, y) ? Color.BLACK.getRGB() : Color.WHITE.getRGB());
-                }
-            }
-            graphics.dispose();
-            return image;
-        } catch (WriterException e) {
-            e.printStackTrace();
+    private void displayQR(String amount) throws IOException {
+        String momoData = "https://img.vietqr.io/image/mbbank-0867514526-compact.png?amount="+amount+"&addInfo=Nap%20tien%20tai%20khoan%20"+GlobalState.ten_dang_nhap;
+        try {
+        // Fetch QR code image
+        BufferedImage qrCode = ImageIO.read(new URL(momoData));
+        if (qrCode == null) {
+            throw new IOException("Failed to load QR code image from API.");
         }
-        return null;
+
+        // Display QR code in Swing UI
+        JFrame frame = new JFrame("QR Payment");
+        JLabel label = new JLabel(new ImageIcon(qrCode));
+        frame.add(label);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Keeps app running
+        frame.setVisible(true);
+
+    } catch (IOException e) {
+        // Error feedback
+        System.err.println("Error generating QR code: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btn10kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10kActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.displayQR("10000");
+        } catch (IOException ex) {
+            System.out.println("Error: "+ex);
+        }
+    }//GEN-LAST:event_btn10kActionPerformed
+
+    private void btn50kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn50kActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.displayQR("50000");
+        } catch (IOException ex) {
+            System.out.println("Error: "+ex);
+        }
+    }//GEN-LAST:event_btn50kActionPerformed
+
+    private void btn100kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn100kActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.displayQR("100000");
+        } catch (IOException ex) {
+            System.out.println("Error: "+ex);
+        }
+    }//GEN-LAST:event_btn100kActionPerformed
 
     /**
      * @param args the command line arguments
