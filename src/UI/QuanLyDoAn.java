@@ -248,7 +248,7 @@ public class QuanLyDoAn extends javax.swing.JFrame {
             });
         }
     }
-        public void HienListDoAn(){
+    public void HienListDoAn(){
         DatDoDAO anDAO = new DatDoDAO();
         List<ListDoAn> DoAnLst = anDAO.ListDoAn();
         DefaultTableModel tabAn = (DefaultTableModel) this.tblDoAn.getModel();
@@ -261,17 +261,48 @@ public class QuanLyDoAn extends javax.swing.JFrame {
         }
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        String ten = txtTen.getText();
-        int id_dm = Integer.parseInt(cboDanhMuc.getSelectedItem().toString());
-        int gia = Integer.parseInt(txtGia.getText());
-        
-        DoAn DoAn = new DoAn(ten, id_dm, gia);
-        DoAnDAO doAnDAO = new DoAnDAO();
-        int ketQua = doAnDAO.createSanPham(DoAn);
-        
-        this.HienListDoAn();
-        this.HienListDoUong();
+    String ten = txtTen.getText().trim();
+    String gia = txtGia.getText().trim();
+    
+    // Kiểm tra nếu tên hoặc giá trống
+    if (ten.isEmpty() || gia.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Kiểm tra nếu tên đã tồn tại
+    if (isTenTrung(ten)) {
+        JOptionPane.showMessageDialog(this, "Tên sản phẩm đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Nếu không trùng, thêm vào bảng
+    DefaultTableModel model = (DefaultTableModel) tblDoUong.getModel();
+    model.addRow(new Object[]{ten, gia});
+
+    JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private boolean isTenTrung(String ten) {
+    // Kiểm tra trong bảng tblDoUong
+    for (int i = 0; i < tblDoUong.getRowCount(); i++) {
+        String tenTrongBang = tblDoUong.getValueAt(i, 0).toString();
+        if (ten.equalsIgnoreCase(tenTrongBang)) {
+            return true; // Nếu tìm thấy tên trùng, trả về true
+        }
+    }
+    
+    // Kiểm tra trong bảng tblDoAn
+    for (int i = 0; i < tblDoAn.getRowCount(); i++) {
+        String tenTrongBang = tblDoAn.getValueAt(i, 0).toString();
+        if (ten.equalsIgnoreCase(tenTrongBang)) {
+            return true; // Nếu tìm thấy tên trùng, trả về true
+        }
+    }
+    
+    return false; // Không có tên trùng
+}
+
     public void setFormCenter() {
         this.setLocationRelativeTo(null);
     }
