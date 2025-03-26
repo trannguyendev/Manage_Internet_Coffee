@@ -4,7 +4,9 @@
  */
 package UI;
 
+import DAO.NapTheDAO;
 import Utils.GlobalState;
+import Utils.KetNoiDB;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -118,12 +120,21 @@ public class NapTienChoi extends javax.swing.JFrame {
             throw new IOException("Failed to load QR code image from API.");
         }
 
+        //Start NapTheDAO
+            NapTheDAO napDAO = new NapTheDAO();
+            
         // Display QR code in Swing UI
         JPanel buttonPanel = new JPanel(); // Default FlowLayout
-        JButton payNowButton = new JButton("Pay Now");
+        JButton payNowButton = new JButton("Paycheck");
         JButton cancelButton = new JButton("Cancel");
         payNowButton.setForeground(Color.pink);
         cancelButton.setForeground(Color.pink);
+        payNowButton.addActionListener(e -> {
+            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, false);
+        });
+        cancelButton.addActionListener(e -> {
+            this.dispose();
+        });
         buttonPanel.add(payNowButton);
         buttonPanel.add(cancelButton);
 
@@ -147,6 +158,7 @@ public class NapTienChoi extends javax.swing.JFrame {
     }
 
     private void btn10kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10kActionPerformed
+        GlobalState.menh_gia = 10000;
         try {
             // TODO add your handling code here:
             this.displayQR("10000");
@@ -157,6 +169,7 @@ public class NapTienChoi extends javax.swing.JFrame {
 
     private void btn50kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn50kActionPerformed
         // TODO add your handling code here:
+        GlobalState.menh_gia = 50000;
         try {
             // TODO add your handling code here:
             this.displayQR("50000");
@@ -167,6 +180,7 @@ public class NapTienChoi extends javax.swing.JFrame {
 
     private void btn100kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn100kActionPerformed
         // TODO add your handling code here:
+        GlobalState.menh_gia = 100000;
         try {
             // TODO add your handling code here:
             this.displayQR("100000");
