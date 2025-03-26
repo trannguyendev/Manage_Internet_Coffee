@@ -703,15 +703,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             cboKhuvuc.addItem(string);
         }
     }
-    private void loadTrangThai() {
-        NapTheDAO ntDAO = new NapTheDAO();
-        List<String> lstTrangThai = new ArrayList<>();
-        cboTrangThai.removeAllItems();
-        lstTrangThai = ntDAO.getTrangThai();
-        for (String string : lstTrangThai) {
-            cboTrangThai.addItem(string);
-        }
-    }
     private TaiKhoan getInfo() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
