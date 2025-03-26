@@ -82,6 +82,7 @@ public class DatDo extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         txtTenMon = new javax.swing.JLabel();
         txtGia = new javax.swing.JLabel();
+        btnXoa = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDanhSach = new javax.swing.JTable();
@@ -327,6 +328,15 @@ public class DatDo extends javax.swing.JFrame {
 
         txtGia.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
 
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/eat.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -355,7 +365,9 @@ public class DatDo extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnThem)
                         .addGap(45, 45, 45))))
         );
@@ -375,7 +387,9 @@ public class DatDo extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtGia))
-                    .addComponent(btnThem))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThem)
+                        .addComponent(btnXoa)))
                 .addGap(18, 18, 18))
         );
 
@@ -403,7 +417,7 @@ public class DatDo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -695,6 +709,22 @@ public class DatDo extends javax.swing.JFrame {
         txtGia.setText(String.valueOf(tongGia / soLuong)); // Lấy giá gốc từ tổng giá
     }
     }//GEN-LAST:event_tblDanhSachMouseClicked
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+    int selectedRow = tblDanhSach.getSelectedRow();
+    
+    if (selectedRow != -1) {
+        // Xóa dòng được chọn
+        DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
+        model.removeRow(selectedRow);
+        
+        // Cập nhật lại tổng tiền
+        capNhatTongTien();
+    } else {
+        // Hiển thị thông báo nếu không có món nào được chọn
+        JOptionPane.showMessageDialog(null, "Vui lòng chọn món cần xóa!");
+    }
+    }//GEN-LAST:event_btnXoaActionPerformed
     
     private void capNhatTongTien() {
     int tongTien = 0;
@@ -758,6 +788,7 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JButton btnDatDo;
     private javax.swing.JButton btnThem;
     private javax.swing.JToggleButton btnTru;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
