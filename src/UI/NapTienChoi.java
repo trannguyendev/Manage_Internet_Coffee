@@ -5,6 +5,8 @@
 package UI;
 
 import Utils.GlobalState;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,9 +43,6 @@ public class NapTienChoi extends javax.swing.JFrame {
         btn50k = new javax.swing.JButton();
         btn100k = new javax.swing.JButton();
         btn10k = new javax.swing.JButton();
-        lblQR = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,45 +77,20 @@ public class NapTienChoi extends javax.swing.JFrame {
             }
         });
 
-        lblQR.setText("QR");
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 153, 153));
-        jButton4.setText("Hủy");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 153, 153));
-        jButton5.setText("Xác nhận");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(117, 117, 117)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn10k)
-                                .addGap(67, 67, 67)
-                                .addComponent(btn50k)
-                                .addGap(73, 73, 73)
-                                .addComponent(btn100k))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jButton4)
-                        .addGap(119, 119, 119)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn10k)
+                        .addGap(67, 67, 67)
+                        .addComponent(btn50k)
+                        .addGap(73, 73, 73)
+                        .addComponent(btn100k))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,13 +103,7 @@ public class NapTienChoi extends javax.swing.JFrame {
                     .addComponent(btn50k)
                     .addComponent(btn100k)
                     .addComponent(btn10k))
-                .addGap(94, 94, 94)
-                .addComponent(lblQR, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,7 +119,18 @@ public class NapTienChoi extends javax.swing.JFrame {
         }
 
         // Display QR code in Swing UI
+        JPanel buttonPanel = new JPanel(); // Default FlowLayout
+        JButton payNowButton = new JButton("Pay Now");
+        JButton cancelButton = new JButton("Cancel");
+        payNowButton.setForeground(Color.pink);
+        cancelButton.setForeground(Color.pink);
+        buttonPanel.add(payNowButton);
+        buttonPanel.add(cancelButton);
+
+        // Add the button panel to the bottom of the main panel
+
         JFrame frame = new JFrame("QR Payment");
+        frame.add(buttonPanel, BorderLayout.SOUTH);
         JLabel label = new JLabel(new ImageIcon(qrCode));
         frame.add(label);
         frame.pack();
@@ -166,10 +145,6 @@ public class NapTienChoi extends javax.swing.JFrame {
 
 
     }
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btn10kActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10kActionPerformed
         try {
@@ -239,9 +214,6 @@ public class NapTienChoi extends javax.swing.JFrame {
     private javax.swing.JButton btn100k;
     private javax.swing.JButton btn10k;
     private javax.swing.JButton btn50k;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblQR;
     // End of variables declaration//GEN-END:variables
 }

@@ -281,15 +281,18 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         // TODO add your handling code here:
-        
+        this.mniThoiGianActionPerformed(evt);
     }//GEN-LAST:event_btnTimeActionPerformed
 
     private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed
         // TODO add your handling code here:
+        NapTienChoi nt = new NapTienChoi();
+        nt.setVisible(true);
     }//GEN-LAST:event_btnDatHangActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
+        this.mniDangXuatActionPerformed(evt);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
