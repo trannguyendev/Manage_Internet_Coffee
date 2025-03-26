@@ -692,7 +692,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
     }
 
-    private void loadComboChoice(){
+    private void loadComboChoice() {
         KhuVucDAO khuVucDAO = new KhuVucDAO();
         List<String> lstKhuVuc = new ArrayList<>();
         lstKhuVuc.clear();
@@ -702,6 +702,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             cboKhuvuc.addItem(string);
         }
     }
+
     private TaiKhoan getInfo() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -727,7 +728,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.load2Table();
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
-            this.loadComboChoice(); 
+            this.loadComboChoice();
             this.loadkhuvuc();
             this.loadPC();
         });
@@ -776,13 +777,14 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    public void loadkhuvuc(){
+
+    public void loadkhuvuc() {
         DefaultTableModel tblKhuvuc = (DefaultTableModel) this.tblKhuvuc.getModel();
         tblKhuvuc.setRowCount(0);
         KhuVucDAO khuvucDAO = new KhuVucDAO();
         List<KhuVucMay> KhuMaylst = new ArrayList<>();
         KhuMaylst = khuvucDAO.readKhuvuc();
-        for (KhuVucMay khumay : KhuMaylst){
+        for (KhuVucMay khumay : KhuMaylst) {
             tblKhuvuc.addRow(new Object[]{
                 khuvucDAO.getId(khumay.getTen_khu_vuc()),
                 khumay.getGia_khu_vuc(),
@@ -811,7 +813,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         KhuVucDAO kvDAO = new KhuVucDAO();
         List<MayTinh> lstPC = mtDAO.parseListPC();
         for (MayTinh mayTinh : lstPC) {
-            tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()),mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
+            tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()), mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
         }
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -886,46 +888,96 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         String tenMay;
         tenMay = txtPCname.getText();
         String tenKhuVuc = String.valueOf(cboKhuvuc.getSelectedItem());
-        if(tenMay.isBlank() == false){
+        if (tenMay.isBlank() == false) {
             int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thêm máy không ?");
-            if (check == JOptionPane.YES_OPTION){
+            if (check == JOptionPane.YES_OPTION) {
                 KhuVucDAO khDAO = new KhuVucDAO();
                 MayTinhDAO mtDAO = new MayTinhDAO();
                 MayTinh mtNew = new MayTinh(tenMay, khDAO.getIDKhuVuc(tenKhuVuc));
                 mtDAO.AddPC(mtNew);
                 JOptionPane.showMessageDialog(rootPane, "Thêm máy thành công");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng không để trống ô điền");
         }
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
+        String tenmay = txtPCname.getText();
+        String khumay = String.valueOf(cboKhuvuc.getSelectedItem()); // Lấy giá trị từ ComboBox
+
+        if (tenmay.isEmpty() || khumay.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
+            return;
+        }   
+        try {
+            KhuVucDAO kvDAO = new KhuVucDAO();
+            MayTinhDAO mtDAO = new MayTinhDAO();
+
+            int idKhuVuc = kvDAO.getIDKhuVuc(khumay);
+            if (idKhuVuc == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Khu vực không hợp lệ");
+                return;
+            }
+            int idPC = mtDAO.getIDPC(tenmay);
+            if (idPC == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Máy tính không tồn tại");
+                return;
+            }
+            MayTinh mt = new MayTinh(tenmay, idKhuVuc);
+            mtDAO.UpdatePCInfo(idPC, tenmay, idKhuVuc);
+
+            JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Khu vực không hợp lệ, vui lòng chọn lại.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra, vui lòng thử lại.");
+        }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
-        // TODO add your handling code here:
+        String tenmay = txtPCname.getText();
+        if (tenmay.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập tên máy cần xóa.");
+            return;
+        }
+        MayTinhDAO mtDAO = new MayTinhDAO();
+        int idPC = mtDAO.getIDPC(tenmay);
+        if (idPC == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Máy tính không tồn tại.");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc chắn muốn xóa máy tính '" + tenmay + "' không?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            mtDAO.deletePC(idPC);
+            JOptionPane.showMessageDialog(rootPane, "Xóa máy tính thành công.");
+        }
     }//GEN-LAST:event_btnXoa1ActionPerformed
 
     private void tblPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPCMouseClicked
         // TODO add your handling code here:
         int currentRow = tblPC.getSelectedRow();
+        if (currentRow != -1) {
+            txtPCname.setText(tblPC.getValueAt(currentRow, 1).toString());
+            cboKhuvuc.setSelectedItem(tblPC.getValueAt(currentRow, 2));
+        }
     }//GEN-LAST:event_tblPCMouseClicked
 
     private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
         // TODO add your handling code here:
         String tenkhuvuc = txtTenKhu.getText();
         String giakhu = txtGiaPC.getText();
-        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+        if (tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true) {
             JOptionPane.showMessageDialog(rootPane, "Nhập thêm");
-        }else{
+        } else {
             KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
-        
+
             KhuVucDAO khuvucDAO = new KhuVucDAO();
             khuvucDAO.addKhuvucPC(khumay);
             JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
@@ -936,11 +988,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenkhuvuc = txtTenKhu.getText();
         String giakhu = txtGiaPC.getText();
-        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+        if (tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true) {
             JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
-        }else{
+        } else {
             KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
-        
+
             KhuVucDAO khuvucDAO = new KhuVucDAO();
             khuvucDAO.updateKhuVucPC(khumay);
             JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
@@ -948,9 +1000,24 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSua2ActionPerformed
 
     private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
-        // TODO add your handling code here:
-        
-        
+        String tenKhuVuc = txtTenKhu.getText();
+        if (tenKhuVuc.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn khu vực cần xóa.");
+            return;
+        }
+        KhuVucDAO kvDAO = new KhuVucDAO();
+        int idKhuVuc = kvDAO.getIDKhuVuc(tenKhuVuc);
+        if (idKhuVuc == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Khu vực không tồn tại.");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc chắn muốn xóa khu vực '" + tenKhuVuc + "' không?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            kvDAO.deleteKhuVucPC(idKhuVuc);
+            JOptionPane.showMessageDialog(rootPane, "Xóa khu vực thành công.");
+        }
     }//GEN-LAST:event_btnXoa2ActionPerformed
 
     private void tblKhuvucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuvucMouseClicked
@@ -959,7 +1026,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         if (row != -1) {
             txtGiaPC.setText(tblKhuvuc.getValueAt(row, 1).toString());
             txtTenKhu.setText(tblKhuvuc.getValueAt(row, 2).toString());
-            }
+        }
     }//GEN-LAST:event_tblKhuvucMouseClicked
 
     private void cboKhuvucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhuvucActionPerformed
