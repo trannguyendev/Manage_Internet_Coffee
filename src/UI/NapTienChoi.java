@@ -112,10 +112,10 @@ public class NapTienChoi extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayQR(String amount) throws IOException {
-        String momoData = "https://img.vietqr.io/image/mbbank-0867514526-compact.png?amount="+amount+"&addInfo=Nap%20tien%20tai%20khoan%20"+GlobalState.ten_dang_nhap;
+        String vietqrAPI = "https://img.vietqr.io/image/mbbank-0867514526-compact.png?amount="+amount+"&addInfo=Nap%20tien%20tai%20khoan%20"+GlobalState.ten_dang_nhap;
         try {
         // Fetch QR code image
-        BufferedImage qrCode = ImageIO.read(new URL(momoData));
+        BufferedImage qrCode = ImageIO.read(new URL(vietqrAPI));
         if (qrCode == null) {
             throw new IOException("Failed to load QR code image from API.");
         }
