@@ -6,6 +6,7 @@ package UI;
 
 import DAO.KhuVucDAO;
 import DAO.MayTinhDAO;
+import DAO.NapTheDAO;
 import DAO.TaiKhoanDAO;
 import DAO.ThongKeDonHangDAO;
 import DAO.ThongKeTaiKhoanDAO;
@@ -14,6 +15,7 @@ import Entity.ThongKeTaiKhoan;
 import Entity.TaiKhoan;
 import Entity.ThongKeDonHang;
 import Entity.KhuVucMay;
+import Entity.NapThe;
 import Utils.KetNoiDB;
 import Utils.XImage;
 import java.awt.Color;
@@ -44,6 +46,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
         this.loadComboChoice();
+        this.loadTrangThai();
+        this.loadNapThe();
         this.loadkhuvuc();
         this.updateTable();
         this.loadPC();
@@ -110,6 +114,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tblKhuvuc = new javax.swing.JTable();
         txtTenKhu = new javax.swing.JTextField();
+        jTabbedPane5 = new javax.swing.JTabbedPane();
+        jPanel7 = new javax.swing.JPanel();
+        btnXacNhan = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblNapThe = new javax.swing.JTable();
+        cboTrangThai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -348,6 +358,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         cboKhuvuc.setBackground(new java.awt.Color(255, 255, 255));
         cboKhuvuc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cboKhuvuc.setForeground(new java.awt.Color(255, 153, 153));
+        cboKhuvuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboKhuvucActionPerformed(evt);
+            }
+        });
 
         txtPCname.setBackground(new java.awt.Color(255, 255, 255));
         txtPCname.setForeground(new java.awt.Color(255, 153, 153));
@@ -586,6 +601,58 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quản lý khu máy", jTabbedPane4);
 
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanActionPerformed(evt);
+            }
+        });
+
+        tblNapThe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID nạp tiền", "Tên tài khoản", "Mệnh giá", "Trạng thái"
+            }
+        ));
+        jScrollPane7.setViewportView(tblNapThe);
+
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154)
+                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(207, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXacNhan)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane5.addTab("Nạp tiền", jPanel7);
+
+        jTabbedPane1.addTab("Quản lý nạp tiền", jTabbedPane5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -634,6 +701,15 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         lstKhuVuc = khuVucDAO.getListKhuVuc();
         for (String string : lstKhuVuc) {
             cboKhuvuc.addItem(string);
+        }
+    }
+    private void loadTrangThai() {
+        NapTheDAO ntDAO = new NapTheDAO();
+        List<String> lstTrangThai = new ArrayList<>();
+        cboTrangThai.removeAllItems();
+        lstTrangThai = ntDAO.getTrangThai();
+        for (String string : lstTrangThai) {
+            cboTrangThai.addItem(string);
         }
     }
     private TaiKhoan getInfo() {
@@ -724,7 +800,20 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-
+    public void loadNapThe() {
+        DefaultTableModel tblNapThe = (DefaultTableModel) this.tblNapThe.getModel();
+        tblNapThe.setRowCount(0);
+        NapTheDAO ntDAO = new NapTheDAO();
+        List<NapThe> lstNapThe = new ArrayList<>();
+        lstNapThe = ntDAO.readNapThe();
+        for (NapThe napThe : lstNapThe) {
+            tblNapThe.addRow(new Object[]{
+                ntDAO.getIdNap(napThe.getMenhGia()),
+                napThe.getMenhGia(),
+                napThe.getId_tk(),
+                napThe.isTrangThai() ? "Hủy bỏ" : "Thành công"});
+        }
+    }
     private void loadPC(){
         DefaultTableModel tabMayTinh = (DefaultTableModel) tblPC.getModel();
         tabMayTinh.setRowCount(0);
@@ -882,6 +971,23 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_tblKhuvucMouseClicked
 
+    private void cboKhuvucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhuvucActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboKhuvucActionPerformed
+
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        // TODO add your handling code here:
+        String tenkhuvuc = txtTenKhu.getText();
+        String giakhu = txtGiaPC.getText();
+            NapThe napThe = new NapThe(WIDTH, HEIGHT, rootPaneCheckingEnabled);
+            KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
+        
+            KhuVucDAO khuvucDAO = new KhuVucDAO();
+            khuvucDAO.updateKhuVucPC(khumay);
+            JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
+        
+    }//GEN-LAST:event_btnXacNhanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -928,11 +1034,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThem1;
     private javax.swing.JButton btnThem2;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoa1;
     private javax.swing.JButton btnXoa2;
     private javax.swing.JComboBox<String> cboKhuvuc;
     private javax.swing.JComboBox<String> cboRole;
+    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -948,20 +1056,24 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
     private javax.swing.JTable tabDoanhThuMon;
     private javax.swing.JTable tblKhuvuc;
+    private javax.swing.JTable tblNapThe;
     private javax.swing.JTable tblPC;
     private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtEmail;
