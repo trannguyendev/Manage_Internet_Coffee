@@ -11,7 +11,7 @@ import java.util.List;
 import Entity.DoAn;
 
 public class DoAnDAO {
-        public int createSanPham(DoAn doAn){
+        public static int createSanPham(DoAn doAn){
         String sql = "INSERT INTO San_pham VALUES (?, ?, ?)";
         try(Connection con = KetNoiDB.getConnect();
                 PreparedStatement ps = con.prepareStatement(sql);){

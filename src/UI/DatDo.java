@@ -5,12 +5,18 @@
 package UI;
 
 import DAO.DatDoDAO;
+import Entity.ChiTietDonHang;
+import Entity.DonHang;
 import Entity.ListDoAn;
 import Entity.ListDoUong;
+import Utils.GlobalState;
 import Utils.XImage;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
@@ -29,6 +35,7 @@ public class DatDo extends javax.swing.JFrame {
      */
     public DatDo() {
         initComponents();
+        this.infoUser();
         txtTongTien.setText("0VND");
         txtSoLuong.setText("1");
         txtSoLuong.setEditable(false);
@@ -39,6 +46,7 @@ public class DatDo extends javax.swing.JFrame {
         this.HienListDoUong();
         this.HienListDoAn();
         this.hienThiMonDauTien();
+        this.displayTime();
     }
 
     /**
@@ -86,6 +94,8 @@ public class DatDo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDanhSach = new javax.swing.JTable();
+        txtUssr = new javax.swing.JLabel();
+        txtTime = new javax.swing.JLabel();
 
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -400,7 +410,7 @@ public class DatDo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tên Món", "Số Lượng", "Tổng Giá"
+                "ID Món", "Tên Món", "Số Lượng", "Tổng Giá"
             }
         ));
         tblDanhSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -427,12 +437,18 @@ public class DatDo extends javax.swing.JFrame {
                 .addGap(309, 309, 309))
         );
 
+        txtUssr.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        txtUssr.setText("id");
+
+        txtTime.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        txtTime.setText("00:00:00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblDatDo)
@@ -449,7 +465,11 @@ public class DatDo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(224, 224, 224)
                 .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 313, Short.MAX_VALUE))
+                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUssr)
+                    .addComponent(txtTime))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(127, 127, 127)
@@ -470,8 +490,15 @@ public class DatDo extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(txtUssr)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTime)))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -482,6 +509,18 @@ public class DatDo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void displayTime() {
+
+        Timer timer = new Timer(1000, e -> {
+            LocalDateTime myDateObj = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+            String formattedDate = myDateObj.format(myFormatObj);
+            txtTime.setText(formattedDate);
+        });
+        timer.start();
+    }
+
     private void khoaBang() {
     DefaultTableModel modelDoAn = (DefaultTableModel) tblDoAn.getModel();
     DefaultTableModel modelDoUong = (DefaultTableModel) tblDoUong.getModel();
@@ -570,6 +609,7 @@ public class DatDo extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
     try {
+        // Lấy dữ liệu từ text field
         String tenMon = txtTenMon.getText().trim();
         String giaText = txtGia.getText().trim();
         String soLuongText = txtSoLuong.getText().trim();
@@ -595,15 +635,22 @@ public class DatDo extends javax.swing.JFrame {
             return;
         }
 
+        // Lấy ID sản phẩm từ CSDL
+        int idSanPham = new DatDoDAO().getIDSanPham(tenMon);
+        if (idSanPham == -1) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy ID của món ăn trong cơ sở dữ liệu!");
+            return;
+        }
+
         int tongGiaMoi = gia * soLuongMoi;
         DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
         boolean daTonTai = false;
 
         // Kiểm tra xem món đã tồn tại trong bảng hay chưa
         for (int i = 0; i < model.getRowCount(); i++) {
-            if (model.getValueAt(i, 0).toString().equalsIgnoreCase(tenMon)) { // Nếu tên món trùng
-                model.setValueAt(soLuongMoi, i, 1); // Cập nhật số lượng mới
-                model.setValueAt(tongGiaMoi, i, 2); // Cập nhật tổng giá mới
+            if (model.getValueAt(i, 1).toString().equalsIgnoreCase(tenMon)) { // Nếu tên món trùng
+                model.setValueAt(soLuongMoi, i, 2); // Cập nhật số lượng mới
+                model.setValueAt(tongGiaMoi, i, 3); // Cập nhật tổng giá mới
                 daTonTai = true;
                 break; // Thoát vòng lặp vì đã cập nhật xong
             }
@@ -611,7 +658,7 @@ public class DatDo extends javax.swing.JFrame {
 
         // Nếu món chưa tồn tại, thêm mới vào bảng
         if (!daTonTai) {
-            model.addRow(new Object[]{tenMon, soLuongMoi, tongGiaMoi});
+            model.addRow(new Object[]{idSanPham, tenMon, soLuongMoi, tongGiaMoi});
         }
 
         // Xóa dữ liệu nhập sau khi thêm/cập nhật
@@ -625,23 +672,38 @@ public class DatDo extends javax.swing.JFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage());
     }
-    }//GEN-LAST:event_btnThemActionPerformed
-
+        }//GEN-LAST:event_btnThemActionPerformed
+    
     private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
-        // Lấy tổng tiền từ txtTongTien
-        String tongTienText = txtTongTien.getText();
+    DatDoDAO datDoDAO = new DatDoDAO();
+    int dongHienTai = tblDanhSach.getRowCount();
+    
+    // Tạo thông báo
+    StringBuilder message = new StringBuilder("Bạn đã xác nhận đặt:\n");
+    int tongTien = 0;
 
-        // Hiển thị hộp thoại xác nhận
-        int confirm = JOptionPane.showConfirmDialog(this,
-                "Bạn đã chắc chắn sẽ đặt hàng chưa?\nTổng đơn hàng là: " + tongTienText,
-                "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
+    for (int i = 0; i < dongHienTai; i++) {
+        int idMon = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
+        String tenMon = tblDanhSach.getValueAt(i, 1).toString();
+        int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
+        int tongGia = Integer.parseInt(tblDanhSach.getValueAt(i, 3).toString());
 
-        // Nếu chọn "YES" thì hiện cảm ơn, nếu chọn "NO" thì quay lại
-        if (confirm == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhân viên tới.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
-        }
+        message.append(String.format(" %d %s (%d) %d\n", soLuong, tenMon, idMon, tongGia));
+        tongTien += tongGia;
+    }
+
+    message.append("Tổng: ").append(tongTien);
+
+    // Hiển thị hộp thoại xác nhận
+    int confirm = JOptionPane.showConfirmDialog(this, message.toString(),
+        "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
+
+    // Nếu chọn "YES" thì hiện cảm ơn, nếu chọn "NO" thì quay lại
+    if (confirm == JOptionPane.YES_OPTION) {
+        JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhận hàng.");
+    } else {
+        JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
+    }
     }//GEN-LAST:event_btnDatDoActionPerformed
 
     private void tblDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoUongMouseClicked
@@ -710,6 +772,10 @@ public class DatDo extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_tblDanhSachMouseClicked
 
+    private void infoUser() {
+        txtUssr.setText(GlobalState.ten_dang_nhap);
+    }
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
     int selectedRow = tblDanhSach.getSelectedRow();
     
@@ -732,7 +798,7 @@ public class DatDo extends javax.swing.JFrame {
 
     // Duyệt qua tất cả các dòng trong bảng
     for (int i = 0; i < model.getRowCount(); i++) {
-        int giaTri = Integer.parseInt(model.getValueAt(i, 2).toString()); // Cột 2 là Tổng Giá
+        int giaTri = Integer.parseInt(model.getValueAt(i, 3).toString()); // Cột 3 là Tổng Giá
         tongTien += giaTri;
     }
 
@@ -819,6 +885,9 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JLabel txtGia;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JLabel txtTenMon;
+    private javax.swing.JLabel txtTime;
     private javax.swing.JLabel txtTongTien;
+    private javax.swing.JLabel txtUssr;
     // End of variables declaration//GEN-END:variables
+
 }

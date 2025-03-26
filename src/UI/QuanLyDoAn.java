@@ -261,26 +261,57 @@ public class QuanLyDoAn extends javax.swing.JFrame {
         }
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-    String ten = txtTen.getText().trim();
-    String gia = txtGia.getText().trim();
-    
-    // Kiểm tra nếu tên hoặc giá trống
-    if (ten.isEmpty() || gia.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        String ten = txtTen.getText().trim();
 
-    // Kiểm tra nếu tên đã tồn tại
-    if (isTenTrung(ten)) {
-        JOptionPane.showMessageDialog(this, "Tên sản phẩm đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+// Kiểm tra nếu tên trống
+        if (ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    // Nếu không trùng, thêm vào bảng
-    DefaultTableModel model = (DefaultTableModel) tblDoUong.getModel();
+// Chuyển giá từ TextField sang int ngay từ đầu
+        int gia;
+        try {
+            gia = Integer.parseInt(txtGia.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá sản phẩm phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+// Lấy id_danh_muc từ ComboBox
+        int idDanhMuc;
+        try {
+            idDanhMuc = Integer.parseInt(cboDanhMuc.getSelectedItem().toString());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Danh mục phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+// Kiểm tra nếu tên đã tồn tại
+        if (isTenTrung(ten)) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+// Tạo đối tượng sản phẩm
+        DoAn doAn = new DoAn(ten, idDanhMuc, gia);
+
+// Gọi DAO để lưu vào CSDL
+        int ketQua = DoAnDAO.createSanPham(doAn);
+        if (ketQua > 0) {
+    // Thêm vào bảng phù hợp trên giao diện
+    DefaultTableModel model;
+    if (idDanhMuc == 1) {
+        model = (DefaultTableModel) tblDoUong.getModel();
+    } else {
+        model = (DefaultTableModel) tblDoAn.getModel();
+    }
     model.addRow(new Object[]{ten, gia});
-
+    System.out.println("ID Danh Mục: " + doAn.getId_danh_muc());  
     JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+} else {
+    JOptionPane.showMessageDialog(this, "Lỗi khi thêm sản phẩm vào CSDL!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+}
     }//GEN-LAST:event_btnThemActionPerformed
 
     private boolean isTenTrung(String ten) {
