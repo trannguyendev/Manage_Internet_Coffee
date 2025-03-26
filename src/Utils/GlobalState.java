@@ -10,4 +10,5 @@ package Utils;
  */
 public class GlobalState {
     public static String ten_dang_nhap;
+    public static int menh_gia;
 }
