@@ -618,6 +618,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 "ID nạp tiền", "Giá", "Id tài khoản", "Trạng thái"
             }
         ));
+        tblNapThe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNapTheMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(tblNapThe);
 
         cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công", "Yêu cầu xác nhận" }));
@@ -1046,6 +1051,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
         
     }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void tblNapTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNapTheMouseClicked
+        // TODO add your handling code here:
+        int currRow = tblNapThe.getSelectedRow();
+        String CurrenttrangThai = (String) tblNapThe.getValueAt(currRow, 3);
+        cboTrangThai.setSelectedItem(CurrenttrangThai);
+    }//GEN-LAST:event_tblNapTheMouseClicked
 
     /**
      * @param args the command line arguments
