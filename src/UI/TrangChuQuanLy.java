@@ -46,7 +46,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadThongKeTaiKhoan();
         this.loadDoanhThuMon();
         this.loadComboChoice();
-        this.loadTrangThai();
         this.loadNapThe();
         this.loadkhuvuc();
         this.updateTable();
