@@ -9,15 +9,25 @@ package Entity;
  * @author ADMIN
  */
 public class ListDoAn {
+    int id_san_pham;
     String ten_sp;
     int gia_sp;
 
     public ListDoAn() {
     }
 
-    public ListDoAn(String ten_sp, int gia_sp) {
+    public ListDoAn(int id_san_pham, String ten_sp, int gia_sp) {
+        this.id_san_pham = id_san_pham;
         this.ten_sp = ten_sp;
         this.gia_sp = gia_sp;
+    }
+
+    public int getId_san_pham() {
+        return id_san_pham;
+    }
+
+    public void setId_san_pham(int id_san_pham) {
+        this.id_san_pham = id_san_pham;
     }
 
     public String getTen_sp() {
@@ -35,5 +45,6 @@ public class ListDoAn {
     public void setGia_sp(int gia_sp) {
         this.gia_sp = gia_sp;
     }
+
     
 }

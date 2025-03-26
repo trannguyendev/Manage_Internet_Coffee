@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DTO.ChiTietDonHangDTO;
 import Utils.KetNoiDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,8 @@ import java.util.List;
 import Entity.DoAn;
 import Entity.ListDoAn;
 import Entity.ListDoUong;
+import Entity.DonHang;
+import Entity.ChiTietDonHang;
 public class DatDoDAO {
     public String getPrice(String ten_sp){
         String giaSp = null;
@@ -32,16 +35,18 @@ public class DatDoDAO {
             return giaSp;
         }
     }
+    
     public List<ListDoAn> ListDoAn(){
-        List<ListDoAn> DoAnLst = new ArrayList<>();
+    List<ListDoAn> DoAnLst = new ArrayList<>();
     try (Connection conn = KetNoiDB.getConnect()) {
-        String sql = "SELECT ten_sp, gia_sp FROM San_pham WHERE id_danh_muc = 2";
+        String sql = "SELECT id_san_pham, ten_sp, gia_sp FROM San_pham WHERE id_danh_muc = 2";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
+            int id_sp = rs.getInt("id_san_pham");  // Lấy ID sản phẩm
             String ten_sp = rs.getString("ten_sp");
             int gia_sp = rs.getInt("gia_sp");
-            ListDoAn an = new ListDoAn(ten_sp, gia_sp);
+            ListDoAn an = new ListDoAn(id_sp, ten_sp, gia_sp); // Truyền thêm ID vào constructor
             DoAnLst.add(an);
         }
        return DoAnLst;
@@ -52,24 +57,142 @@ public class DatDoDAO {
     }
 }
     public List<ListDoUong> ListDoUong(){
-        List<ListDoUong> DoUongLst = new ArrayList<>();
-        try (Connection conn = KetNoiDB.getConnect()) {
-            String sql = "SELECT ten_sp, gia_sp FROM San_pham WHERE id_danh_muc = 1";
+    List<ListDoUong> DoUongLst = new ArrayList<>();
+    try (Connection conn = KetNoiDB.getConnect()) {
+        String sql = "SELECT id_san_pham, ten_sp, gia_sp FROM San_pham WHERE id_danh_muc = 1";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            int id_sp = rs.getInt("id_san_pham");  // Lấy ID sản phẩm
+            String ten_sp = rs.getString("ten_sp");
+            int gia_sp = rs.getInt("gia_sp");
+            ListDoUong uong = new ListDoUong(id_sp, ten_sp, gia_sp); // Truyền thêm ID vào constructor
+            DoUongLst.add(uong);
+        }
+       return DoUongLst;
+    } catch (Exception e) {
+        System.out.println("Error: " + e);
+        e.printStackTrace();
+        return DoUongLst;
+    }
+    }
+    public int themHoaDon(DonHang dh){
+        //List<DonHang> DonHangLst = new ArrayList<>();
+       try (Connection conn = KetNoiDB.getConnect()) {
+            String sql = "INSERT INTO Don_hang VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                String ten_sp = rs.getString("ten_sp");
-                int gia_sp = rs.getInt("gia_sp");
-                ListDoUong uong = new ListDoUong(ten_sp, gia_sp);
-                DoUongLst.add(uong);
-            }
-           return DoUongLst;
+            ps.setInt(2, dh.getTong_tien());
+            ps.setInt(1, dh.getId_tk());
+            ps.setString(3, dh.getThoi_gian());
+            ps.setBoolean(4, dh.isTrang_thai());
+           ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-            return DoUongLst;
+          
         }
+       return 0;
+    }
+       
+    public int themChiTietDonHang(ChiTietDonHang ctdh){
+        //List<DonHang> DonHangLst = new ArrayList<>();
+       try (Connection conn = KetNoiDB.getConnect()) {
+            String sql = "INSERT INTO Chi_tiet_don_hang VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, ctdh.getId_don_hang());
+            ps.setInt(2, ctdh.getId_san_pham());
+            ps.setInt(3, ctdh.getSo_luong());
+            ps.setInt(4, ctdh.getGia());
+            ps.setInt(5, ctdh.getGhi_chu());
+           ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+          
+        }
+       return 0;
     }
     
+    public int getIDSanPham(String ten_sp){
+        int idSanPham  = -1;
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement("SELECT id_san_pham FROM san_pham WHERE ten_sp = ?");
+            ppStm.setString(1, ten_sp);
+            ResultSet rs = ppStm.executeQuery();
+            
+            if(rs.next()){
+                idSanPham  = rs.getInt("id_san_pham");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return idSanPham;
     }
+    
+    public int themDonHang(int tongTien) throws Exception {
+        int idDonHang = -1;
+
+        try (Connection conn = KetNoiDB.getConnect()) {
+            String sqlDonHang = "INSERT INTO DonHang (tong_tien, ngay_tao) VALUES (?, NOW())";
+            PreparedStatement pstmt = conn.prepareStatement(sqlDonHang, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, tongTien);
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                idDonHang = rs.getInt(1);
+            }
+        }
+        return idDonHang;
+    }
+
+    public boolean themChiTietDonHang(List<ChiTietDonHangDTO> danhSachChiTiet) {
+    String sql = "INSERT INTO ChiTietDonHang (id_san_pham, ten_sp, so_luong, gia_sp, id_danh_muc) VALUES (?, ?, ?, ?, ?)";
+
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement ppStm = conn.prepareStatement(sql)) {
+
+        for (ChiTietDonHangDTO chiTiet : danhSachChiTiet) {
+            ppStm.setInt(1, chiTiet.getId_san_pham());
+            ppStm.setString(2, chiTiet.getTen_sp());
+            ppStm.setInt(3, chiTiet.getSoLuong());
+            ppStm.setInt(4, chiTiet.getGia_sp());
+            ppStm.setString(5, chiTiet.getId_danh_muc()); // "Đồ uống" hoặc "Đồ ăn"
+
+            ppStm.addBatch(); // Thêm vào batch để thực thi nhiều câu lệnh cùng lúc
+        }
+
+        int[] ketQua = ppStm.executeBatch(); // Thực thi toàn bộ batch
+        return ketQua.length > 0;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+    
+        public boolean luuChiTietDonHang(int idDonHang, List<ChiTietDonHang> dsMonAn) {
+        String sql = "INSERT INTO Chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = KetNoiDB.getConnect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            for (ChiTietDonHang chiTiet : dsMonAn) {
+                pstmt.setInt(1, idDonHang);
+                pstmt.setInt(2, chiTiet.getId_san_pham());
+                pstmt.setInt(3, chiTiet.getSo_luong());
+                pstmt.setInt(4, chiTiet.getGia());
+
+                pstmt.addBatch();
+            }
+            pstmt.executeBatch();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    }
+
     
