@@ -88,11 +88,11 @@ public class KhuVucDAO {
             e.printStackTrace();
         }
     }
-    public void deleteKhuVucPC (String idKhuVuc){
+    public void deleteKhuVucPC (int idKhuVuc){
         String sql = "DELETE FROM Khu_vuc WHERE id_khu_vuc = ?";
         try (Connection conn = KetNoiDB.getConnect();
                 PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setString(1, idKhuVuc);
+            ps.setInt(1, idKhuVuc);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);

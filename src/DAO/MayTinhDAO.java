@@ -92,4 +92,17 @@ public class MayTinhDAO {
             return lstPC;
         }
     }
+    public void deletePC(int id) {
+    String sql = "DELETE FROM May_tinh WHERE id_may = ?";
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement ppStm = conn.prepareStatement(sql)) {
+        
+        ppStm.setInt(1, id);
+        ppStm.executeUpdate();
+        
+    } catch (Exception e) {
+        System.out.println("Error: " + e);
+            e.printStackTrace();
+    }
+    }
 }
