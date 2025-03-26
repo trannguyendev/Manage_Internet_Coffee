@@ -73,6 +73,21 @@ public class TaiKhoanDAO {
         return stt;
     }
 
+    public int getIDAccount(String ten_dang_nhap) {
+        int id_tk = 0;
+        try (Connection conn = KetNoiDB.getConnect()) {
+            PreparedStatement ppStm = conn.prepareStatement("SELECT id_tk from Tai_khoan where ten_dang_nhap = ?");
+            ppStm.setString(1, ten_dang_nhap);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()) {
+            }
+            return id_tk;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return id_tk;
+        }
+    }
+
     public int getSoDu() {
         int so_du = 0;
         String sql = "select so_du from Tai_khoan where ten_dang_nhap = ?";
@@ -88,8 +103,9 @@ public class TaiKhoanDAO {
             return so_du;
         }
     }
-    public void updateAccount(TaiKhoan tk){
-        try (Connection conn = KetNoiDB.getConnect()){
+
+    public void updateAccount(TaiKhoan tk) {
+        try (Connection conn = KetNoiDB.getConnect()) {
             String url = "UPDATE Tai_khoan SET vai_tro = ?, ten_dang_nhap = ?, mat_khau = ?, so_du = ?, email = ?, ho_ten = ? WHERE sdt = ?";
             PreparedStatement ppStm = conn.prepareStatement(url);
             ppStm.setBoolean(1, tk.isVai_tro());
@@ -105,8 +121,8 @@ public class TaiKhoanDAO {
             e.printStackTrace();
         }
     }
-    
-    public void deleteAccount(String sdt){
+
+    public void deleteAccount(String sdt) {
         try (Connection conn = KetNoiDB.getConnect()) {
             String url = "DELETE FROM Tai_khoan WHERE sdt = ?";
             PreparedStatement ppStm = conn.prepareStatement(url);
@@ -115,7 +131,7 @@ public class TaiKhoanDAO {
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-        }    
+        }
     }
 
     public void updateSoDu(int soDu) {

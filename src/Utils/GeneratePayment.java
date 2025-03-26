@@ -3,12 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Utils;
-
+import java.awt.*;
 /**
  *
  * @author Maximus
  */
-public class GlobalState {
-    public static String ten_dang_nhap;
-    public static int menh_gia;
+public class GeneratePayment {
+    
 }

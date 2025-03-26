@@ -104,7 +104,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     }
     public void TruSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-        Timer timer = new Timer(5000, e -> {
+        Timer timer = new Timer(10000, e -> {
             int currentMoney = 0;
             currentMoney = Integer.parseInt(lblSoDu.getText()) - 500;
             tkDAO.updateSoDu(currentMoney);
