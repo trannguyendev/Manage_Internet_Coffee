@@ -615,12 +615,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID nạp tiền", "Tên tài khoản", "Mệnh giá", "Trạng thái"
+                "ID nạp tiền", "Giá", "Id tài khoản", "Trạng thái"
             }
         ));
         jScrollPane7.setViewportView(tblNapThe);
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công", "Yêu cầu xác nhận" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -702,7 +702,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             cboKhuvuc.addItem(string);
         }
     }
-
     private TaiKhoan getInfo() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -731,6 +730,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadComboChoice();
             this.loadkhuvuc();
             this.loadPC();
+            this.loadNapThe();
         });
         timer.start();
     }
@@ -797,13 +797,14 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         tblNapThe.setRowCount(0);
         NapTheDAO ntDAO = new NapTheDAO();
         List<NapThe> lstNapThe = new ArrayList<>();
+        lstNapThe.clear();
         lstNapThe = ntDAO.readNapThe();
         for (NapThe napThe : lstNapThe) {
             tblNapThe.addRow(new Object[]{
-                ntDAO.getIdNap(napThe.getMenhGia()),
+                napThe.getId_nap(),
                 napThe.getMenhGia(),
                 napThe.getId_tk(),
-                napThe.isTrangThai() ? "Hủy bỏ" : "Thành công"});
+                napThe.isTrangThai() ? "Thành công" : "Yêu cầu xác nhận"});
         }
     }
     private void loadPC(){
@@ -1037,7 +1038,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenkhuvuc = txtTenKhu.getText();
         String giakhu = txtGiaPC.getText();
-            NapThe napThe = new NapThe(WIDTH, HEIGHT, rootPaneCheckingEnabled);
+//            NapThe napThe = new NapThe(WIDTH, HEIGHT, rootPaneCheckingEnabled);
             KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
         
             KhuVucDAO khuvucDAO = new KhuVucDAO();

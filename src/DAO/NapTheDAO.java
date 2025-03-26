@@ -20,6 +20,21 @@ import java.util.List;
  * @author cunhp
  */
 public class NapTheDAO {
+    public boolean getTrangThai() {
+        boolean trangThai;
+        try (Connection conn = KetNoiDB.getConnect()) {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT status from Nap_the");
+            while (rs.next()) {
+                trangThai = rs.getBoolean("status");
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+
     public List<NapThe> readNapThe(){
         String sql = "SELECT * FROM Nap_the";
         List<NapThe> lstNapThe = new ArrayList<>();
@@ -27,11 +42,12 @@ public class NapTheDAO {
                 PreparedStatement ps = conn.prepareStatement(sql);){
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
+                int id_nap = rs.getInt("id_nap");
                 int gia = rs.getInt("gia");
                 int id = rs.getInt("id_tk");
                 boolean trangThai = rs.getBoolean("status");
                         
-                NapThe napThe = new NapThe(gia, id, trangThai);
+                NapThe napThe = new NapThe(id_nap, gia, id, trangThai);
                 lstNapThe.add(napThe);
             }
             return lstNapThe;
@@ -40,6 +56,7 @@ public class NapTheDAO {
             return lstNapThe;
         }
     }
+
     public int getIdNap(int gia){
         int id = 0;
         try (Connection conn = KetNoiDB.getConnect();PreparedStatement ps = conn.prepareStatement("select id_nap from Nap_the where gia = ?")){

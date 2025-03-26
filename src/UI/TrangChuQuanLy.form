@@ -1017,8 +1017,8 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
                             <Column editable="true" title="ID n&#x1ea1;p ti&#x1ec1;n" type="java.lang.Object"/>
-                            <Column editable="true" title="T&#xea;n t&#xe0;i kho&#x1ea3;n" type="java.lang.Object"/>
-                            <Column editable="true" title="M&#x1ec7;nh gi&#xe1;" type="java.lang.Object"/>
+                            <Column editable="true" title="Gi&#xe1;" type="java.lang.Object"/>
+                            <Column editable="true" title="Id t&#xe0;i kho&#x1ea3;n" type="java.lang.Object"/>
                             <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                           </Table>
                         </Property>
@@ -1029,11 +1029,9 @@
                 <Component class="javax.swing.JComboBox" name="cboTrangThai">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="Th&#xe0;nh c&#xf4;ng"/>
+                        <StringItem index="1" value="Y&#xea;u c&#x1ea7;u x&#xe1;c nh&#x1ead;n"/>
                       </StringArray>
                     </Property>
                   </Properties>
