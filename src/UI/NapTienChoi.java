@@ -130,7 +130,7 @@ public class NapTienChoi extends javax.swing.JFrame {
         payNowButton.setForeground(Color.pink);
         cancelButton.setForeground(Color.pink);
         payNowButton.addActionListener(e -> {
-            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, false);
+            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, 0);
         });
         cancelButton.addActionListener(e -> {
             this.dispose();

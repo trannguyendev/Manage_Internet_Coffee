@@ -67,12 +67,19 @@ public class NapTheDAO {
             e.printStackTrace();
         }
     }
-    public void AddAccount(int menhGia, String ten_dang_nhap, boolean status){
+    public void AddAccount(int menhGia, String ten_dang_nhap, int status){
         try(Connection conn = KetNoiDB.getConnect()){
             TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-            PreparedStatement ppStm = conn.prepareStatement("INSERT INTO Nap_the VALUES("+menhGia+","+tkDAO.getIDAccount(ten_dang_nhap)+","+status+")");
+            int id = tkDAO.getIDAccount(ten_dang_nhap);
+            PreparedStatement ppStm = conn.prepareStatement("INSERT INTO Nap_the VALUES(?, ?, ?)");
+            ppStm.setInt(1, menhGia);
+            ppStm.setInt(2, id);
+            System.out.println(id);
+            ppStm.setInt(3, status);
             ppStm.executeUpdate();
         }
-        catch(Exception e){}
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

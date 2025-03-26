@@ -80,6 +80,7 @@ public class TaiKhoanDAO {
             ppStm.setString(1, ten_dang_nhap);
             ResultSet rs = ppStm.executeQuery();
             if (rs.next()) {
+                id_tk = rs.getInt("id_tk");
             }
             return id_tk;
         } catch (Exception e) {
