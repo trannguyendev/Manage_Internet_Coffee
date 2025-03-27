@@ -9,6 +9,7 @@ import Utils.GlobalState;
 import Utils.KetNoiDB;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +30,7 @@ public class NapTienChoi extends javax.swing.JFrame {
      * Creates new form NapTienChoi
      */
     public NapTienChoi() {
+        this.centeredFrame();
         initComponents();
     }
 
@@ -129,18 +131,22 @@ public class NapTienChoi extends javax.swing.JFrame {
         JButton cancelButton = new JButton("Cancel");
         payNowButton.setForeground(Color.pink);
         cancelButton.setForeground(Color.pink);
+        payNowButton.setFont(new Font("Monospace", Font.BOLD, 19));
+        cancelButton.setFont(new Font("Monospace", Font.BOLD, 19));
         payNowButton.addActionListener(e -> {
             napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, 0);
         });
-        cancelButton.addActionListener(e -> {
-            this.dispose();
-        });
+        
         buttonPanel.add(payNowButton);
         buttonPanel.add(cancelButton);
 
         // Add the button panel to the bottom of the main panel
 
         JFrame frame = new JFrame("QR Payment");
+        cancelButton.addActionListener(e -> {
+           frame.dispose();
+        });
+        frame.setLocationRelativeTo(null);
         frame.add(buttonPanel, BorderLayout.SOUTH);
         JLabel label = new JLabel(new ImageIcon(qrCode));
         frame.add(label);
@@ -224,6 +230,9 @@ public class NapTienChoi extends javax.swing.JFrame {
         });
     }
 
+    public void centeredFrame(){
+        this.setLocationRelativeTo(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn100k;
     private javax.swing.JButton btn10k;
