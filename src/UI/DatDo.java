@@ -722,13 +722,9 @@ public class DatDo extends javax.swing.JFrame {
 
     private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
         DatDoDAO datDoDAO = new DatDoDAO();
-        int idDonHang = datDoDAO.getCurrentDonHangID();
-
         // Nếu không tìm thấy đơn hàng, tạo đơn hàng mới
-        if (idDonHang == -1) {
-            idDonHang = datDoDAO.taoDonHangMoi();
-        }
-
+        datDoDAO.taoDonHangMoi();
+        int idDonHang = datDoDAO.getCurrentDonHangID();
         // Kiểm tra lại nếu vẫn không có ID đơn hàng thì báo lỗi và dừng
         if (idDonHang == -1) {
             JOptionPane.showMessageDialog(this, "Không thể tạo đơn hàng mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
