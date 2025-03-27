@@ -193,6 +193,83 @@ public class DatDoDAO {
             return false;
         }
     }
+        
+        public int insertChiTietDonHang(int idDonHang, int idSanPham, int soLuong, int gia, String ghiChu) {
+        String sql = "INSERT INTO Chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia, ghi_chu) VALUES (?, ?, ?, ?, ?)";
+        try (Connection con = KetNoiDB.getConnect();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idDonHang);
+            ps.setInt(2, idSanPham);
+            ps.setInt(3, soLuong);
+            ps.setInt(4, gia);
+            ps.setString(5, ghiChu);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+        
+    public int getCurrentDonHangID() {
+    String sql = "SELECT TOP 1 id_don_hang FROM Don_hang ORDER BY id_don_hang DESC";  
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+            return rs.getInt("id_don_hang");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return -1; // Không tìm thấy đơn hàng nào
+}
+    public int taoDonHangMoi() {
+    String sql = "INSERT INTO Don_hang (ngay_tao) VALUES (NOW())";
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        int rows = stmt.executeUpdate();
+        if (rows == 0) {
+            System.out.println("❌ Không thể tạo đơn hàng mới!");
+            return -1;
+        }
+
+        ResultSet rs = stmt.getGeneratedKeys();
+        if (rs.next()) {
+            int newId = rs.getInt(1);
+            System.out.println("✅ Đã tạo đơn hàng mới, ID: " + newId);
+            return newId;
+        } else {
+            System.out.println("❌ Không lấy được ID đơn hàng!");
+            return -1;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return -1;
+    }
+}
+    public void themChiTietDonHang(int idDonHang, int idSanPham, int soLuong, int gia, String ghiChu) {
+    String sql = "INSERT INTO Chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia, ghi_chu) VALUES (?, ?, ?, ?, ?)";
+    
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+        stmt.setInt(1, idDonHang);
+        stmt.setInt(2, idSanPham);
+        stmt.setInt(3, soLuong);
+        stmt.setInt(4, gia);
+        stmt.setString(5, ghiChu);
+        
+        int rows = stmt.executeUpdate();
+        
+        if (rows > 0) {
+            System.out.println("✅ Đã lưu sản phẩm " + idSanPham + " vào đơn hàng " + idDonHang);
+        } else {
+            System.out.println("❌ Không thể lưu sản phẩm " + idSanPham + "!");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     }
 
     
