@@ -34,6 +34,7 @@ public class NapTheDAO {
             return true;
         }
     }
+
     public List<NapThe> readNapThe(){
         String sql = "SELECT * FROM Nap_the";
         List<NapThe> lstNapThe = new ArrayList<>();
@@ -55,29 +56,47 @@ public class NapTheDAO {
             return lstNapThe;
         }
     }
-//    public int getIdNap(){
-//        int id = 0;
-//        try (Connection conn = KetNoiDB.getConnect();PreparedStatement ps = conn.prepareStatement("select id_nap from Nap_the")){
-//            ResultSet rs = ps.executeQuery();
-//            while(rs.next()){
-//                id = rs.getInt("id_nap");
-//            }
-//            return id;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return id;
-//        }
-//    }
-//    public void updateAccount(NapThe nt){
-//        try (Connection conn = KetNoiDB.getConnect()){
-//            String url = "UPDATE Nap_the SET status = ? WHERE id_nap = ?";
-//            PreparedStatement ppStm = conn.prepareStatement(url);
-//            ppStm.setBoolean(1, nt.isTrangThai());
-//            ppStm.setInt(2, getIdNap());
-//            ppStm.executeUpdate();
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e);
-//            e.printStackTrace();
-//        }
-//    }
+
+    public int getIdNap(int gia){
+        int id = 0;
+        try (Connection conn = KetNoiDB.getConnect();PreparedStatement ps = conn.prepareStatement("select id_nap from Nap_the where gia = ?")){
+            ps.setInt(1, gia);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("id_nap");
+            }
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return id;
+        }
+    }
+    public void updateAccount(NapThe nt){
+        int gia = 0;
+        try (Connection conn = KetNoiDB.getConnect()){
+            String url = "UPDATE Nap_the SET status = ? WHERE id_nap = ?";
+            PreparedStatement ppStm = conn.prepareStatement(url);
+            ppStm.setBoolean(1, nt.isTrangThai());
+            ppStm.setInt(2, getIdNap(gia));
+            ppStm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+        }
+    }
+    public void AddAccount(int menhGia, String ten_dang_nhap, int status){
+        try(Connection conn = KetNoiDB.getConnect()){
+            TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+            int id = tkDAO.getIDAccount(ten_dang_nhap);
+            PreparedStatement ppStm = conn.prepareStatement("INSERT INTO Nap_the VALUES(?, ?, ?)");
+            ppStm.setInt(1, menhGia);
+            ppStm.setInt(2, id);
+            System.out.println(id);
+            ppStm.setInt(3, status);
+            ppStm.executeUpdate();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

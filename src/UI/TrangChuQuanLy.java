@@ -119,6 +119,21 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tblNapThe = new javax.swing.JTable();
         cboTrangThai = new javax.swing.JComboBox<>();
+        jTabbedPane6 = new javax.swing.JTabbedPane();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblDonHang = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel16 = new javax.swing.JLabel();
+        btnLuu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -431,7 +446,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cboKhuvuc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -579,7 +594,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 847, Short.MAX_VALUE)
+            .addGap(0, 865, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -618,6 +633,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 "ID nạp tiền", "Giá", "Id tài khoản", "Trạng thái"
             }
         ));
+        tblNapThe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNapTheMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(tblNapThe);
 
         cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công", "Yêu cầu xác nhận" }));
@@ -631,7 +651,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(154, 154, 154)
                 .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jScrollPane7)
                 .addContainerGap())
@@ -651,6 +671,108 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jTabbedPane5.addTab("Nạp tiền", jPanel7);
 
         jTabbedPane1.addTab("Quản lý nạp tiền", jTabbedPane5);
+
+        jLabel10.setText("Đơn hàng số: ");
+
+        jLabel11.setText("Trạng thái đơn hàng: ");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel12.setText("Thời gian đặt hàng: ");
+
+        jLabel13.setText("Khách hàng: ");
+
+        jLabel14.setText("00:00:00 00/00");
+
+        jLabel15.setText("ID01");
+
+        tblDonHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Sản Phẩm", "Số Lượng", "Tổng Giá"
+            }
+        ));
+        jScrollPane6.setViewportView(tblDonHang);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane8.setViewportView(jTextArea1);
+
+        jLabel16.setText("Ghi chú đơn hàng: ");
+
+        btnLuu.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        btnLuu.setText("Lưu");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(393, 393, 393))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel8Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel15))))
+                        .addContainerGap(87, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLuu)
+                        .addGap(101, 101, 101))))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel10)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel15)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(btnLuu)))
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+
+        jTabbedPane6.addTab("Đơn 01", jPanel8);
+
+        jTabbedPane1.addTab("Quán lý đơn hàng", jTabbedPane6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -692,7 +814,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
     }
 
-    private void loadComboChoice(){
+    private void loadComboChoice() {
         KhuVucDAO khuVucDAO = new KhuVucDAO();
         List<String> lstKhuVuc = new ArrayList<>();
         lstKhuVuc.clear();
@@ -723,11 +845,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
 
     private void updateTable() {
-        Timer timer = new Timer(3500, e -> {
+        Timer timer = new Timer(3000, e -> {
             this.load2Table();
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
-            this.loadComboChoice(); 
+            this.loadComboChoice();
             this.loadkhuvuc();
             this.loadPC();
             this.loadNapThe();
@@ -777,13 +899,14 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    public void loadkhuvuc(){
+
+    public void loadkhuvuc() {
         DefaultTableModel tblKhuvuc = (DefaultTableModel) this.tblKhuvuc.getModel();
         tblKhuvuc.setRowCount(0);
         KhuVucDAO khuvucDAO = new KhuVucDAO();
         List<KhuVucMay> KhuMaylst = new ArrayList<>();
         KhuMaylst = khuvucDAO.readKhuvuc();
-        for (KhuVucMay khumay : KhuMaylst){
+        for (KhuVucMay khumay : KhuMaylst) {
             tblKhuvuc.addRow(new Object[]{
                 khuvucDAO.getId(khumay.getTen_khu_vuc()),
                 khumay.getGia_khu_vuc(),
@@ -813,7 +936,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         KhuVucDAO kvDAO = new KhuVucDAO();
         List<MayTinh> lstPC = mtDAO.parseListPC();
         for (MayTinh mayTinh : lstPC) {
-            tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()),mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
+            tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()), mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
         }
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -888,45 +1011,96 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         String tenMay;
         tenMay = txtPCname.getText();
         String tenKhuVuc = String.valueOf(cboKhuvuc.getSelectedItem());
-        if(tenMay.isBlank() == false){
+        if (tenMay.isBlank() == false) {
             int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thêm máy không ?");
-            if (check == JOptionPane.YES_OPTION){
+            if (check == JOptionPane.YES_OPTION) {
                 KhuVucDAO khDAO = new KhuVucDAO();
                 MayTinhDAO mtDAO = new MayTinhDAO();
                 MayTinh mtNew = new MayTinh(tenMay, khDAO.getIDKhuVuc(tenKhuVuc));
                 mtDAO.AddPC(mtNew);
                 JOptionPane.showMessageDialog(rootPane, "Thêm máy thành công");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng không để trống ô điền");
         }
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
+        String tenmay = txtPCname.getText();
+        String khumay = String.valueOf(cboKhuvuc.getSelectedItem()); // Lấy giá trị từ ComboBox
+
+        if (tenmay.isEmpty() || khumay.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
+            return;
+        }   
+        try {
+            KhuVucDAO kvDAO = new KhuVucDAO();
+            MayTinhDAO mtDAO = new MayTinhDAO();
+
+            int idKhuVuc = kvDAO.getIDKhuVuc(khumay);
+            if (idKhuVuc == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Khu vực không hợp lệ");
+                return;
+            }
+            int idPC = mtDAO.getIDPC(tenmay);
+            if (idPC == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Máy tính không tồn tại");
+                return;
+            }
+            MayTinh mt = new MayTinh(tenmay, idKhuVuc);
+            mtDAO.UpdatePCInfo(idPC, tenmay, idKhuVuc);
+
+            JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Khu vực không hợp lệ, vui lòng chọn lại.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra, vui lòng thử lại.");
+        }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
-        // TODO add your handling code here:
+        String tenmay = txtPCname.getText();
+        if (tenmay.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập tên máy cần xóa.");
+            return;
+        }
+        MayTinhDAO mtDAO = new MayTinhDAO();
+        int idPC = mtDAO.getIDPC(tenmay);
+        if (idPC == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Máy tính không tồn tại.");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc chắn muốn xóa máy tính '" + tenmay + "' không?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            mtDAO.deletePC(idPC);
+            JOptionPane.showMessageDialog(rootPane, "Xóa máy tính thành công.");
+        }
     }//GEN-LAST:event_btnXoa1ActionPerformed
 
     private void tblPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPCMouseClicked
         // TODO add your handling code here:
+        int currentRow = tblPC.getSelectedRow();
+        if (currentRow != -1) {
+            txtPCname.setText(tblPC.getValueAt(currentRow, 1).toString());
+            cboKhuvuc.setSelectedItem(tblPC.getValueAt(currentRow, 2));
+        }
     }//GEN-LAST:event_tblPCMouseClicked
 
     private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
         // TODO add your handling code here:
         String tenkhuvuc = txtTenKhu.getText();
         String giakhu = txtGiaPC.getText();
-        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+        if (tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true) {
             JOptionPane.showMessageDialog(rootPane, "Nhập thêm");
-        }else{
+        } else {
             KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
-        
+
             KhuVucDAO khuvucDAO = new KhuVucDAO();
             khuvucDAO.addKhuvucPC(khumay);
             JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
@@ -937,11 +1111,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tenkhuvuc = txtTenKhu.getText();
         String giakhu = txtGiaPC.getText();
-        if(tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true){
+        if (tenkhuvuc.isEmpty() == true || giakhu.isEmpty() == true) {
             JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
-        }else{
+        } else {
             KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
-        
+
             KhuVucDAO khuvucDAO = new KhuVucDAO();
             khuvucDAO.updateKhuVucPC(khumay);
             JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
@@ -949,9 +1123,24 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSua2ActionPerformed
 
     private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
-        // TODO add your handling code here:
-        
-        
+        String tenKhuVuc = txtTenKhu.getText();
+        if (tenKhuVuc.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn khu vực cần xóa.");
+            return;
+        }
+        KhuVucDAO kvDAO = new KhuVucDAO();
+        int idKhuVuc = kvDAO.getIDKhuVuc(tenKhuVuc);
+        if (idKhuVuc == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Khu vực không tồn tại.");
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn có chắc chắn muốn xóa khu vực '" + tenKhuVuc + "' không?",
+                "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            kvDAO.deleteKhuVucPC(idKhuVuc);
+            JOptionPane.showMessageDialog(rootPane, "Xóa khu vực thành công.");
+        }
     }//GEN-LAST:event_btnXoa2ActionPerformed
 
     private void tblKhuvucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuvucMouseClicked
@@ -960,7 +1149,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         if (row != -1) {
             txtGiaPC.setText(tblKhuvuc.getValueAt(row, 1).toString());
             txtTenKhu.setText(tblKhuvuc.getValueAt(row, 2).toString());
-            }
+        }
     }//GEN-LAST:event_tblKhuvucMouseClicked
 
     private void cboKhuvucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhuvucActionPerformed
@@ -979,6 +1168,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
         
     }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void tblNapTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNapTheMouseClicked
+        // TODO add your handling code here:
+        int currRow = tblNapThe.getSelectedRow();
+        String CurrenttrangThai = (String) tblNapThe.getValueAt(currRow, 3);
+        cboTrangThai.setSelectedItem(CurrenttrangThai);
+    }//GEN-LAST:event_tblNapTheMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1020,6 +1216,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
+    private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua1;
     private javax.swing.JButton btnSua2;
@@ -1033,7 +1230,15 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboKhuvuc;
     private javax.swing.JComboBox<String> cboRole;
     private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1049,21 +1254,27 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
+    private javax.swing.JTabbedPane jTabbedPane6;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
     private javax.swing.JTable tabDoanhThuMon;
+    private javax.swing.JTable tblDonHang;
     private javax.swing.JTable tblKhuvuc;
     private javax.swing.JTable tblNapThe;
     private javax.swing.JTable tblPC;
