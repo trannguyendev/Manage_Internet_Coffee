@@ -18,6 +18,7 @@ import Entity.ListDoAn;
 import Entity.ListDoUong;
 import Entity.DonHang;
 import Entity.ChiTietDonHang;
+import Utils.GlobalState;
 public class DatDoDAO {
     public String getPrice(String ten_sp){
         String giaSp = null;
@@ -108,7 +109,6 @@ public class DatDoDAO {
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
-          
         }
        return 0;
     }
@@ -223,16 +223,26 @@ public class DatDoDAO {
     }
     return -1; // Không tìm thấy đơn hàng nào
 }
-    public int taoDonHangMoi() {
-    String sql = "INSERT INTO Don_hang (ngay_tao) VALUES (NOW())";
+public int taoDonHangMoi() {
+    String sql = "INSERT INTO Don_hang (thoi_gian, id_tk) VALUES (?, ?)";
+    TaiKhoanDAO tkDAO = new TaiKhoanDAO();
     try (Connection conn = KetNoiDB.getConnect();
          PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        
+        // Set the current datetime for the first placeholder
+        stmt.setTimestamp(1, new java.sql.Timestamp(System.currentTimeMillis()));
+        
+        // Set the id of the account for the second placeholder
+        stmt.setInt(2, tkDAO.getIDAccount(GlobalState.ten_dang_nhap));
+        
+        // Execute the statement
         int rows = stmt.executeUpdate();
         if (rows == 0) {
             System.out.println("❌ Không thể tạo đơn hàng mới!");
             return -1;
         }
 
+        // Retrieve the generated keys
         ResultSet rs = stmt.getGeneratedKeys();
         if (rs.next()) {
             int newId = rs.getInt(1);
@@ -249,7 +259,6 @@ public class DatDoDAO {
 }
     public void themChiTietDonHang(int idDonHang, int idSanPham, int soLuong, int gia, String ghiChu) {
     String sql = "INSERT INTO Chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia, ghi_chu) VALUES (?, ?, ?, ?, ?)";
-    
     try (Connection conn = KetNoiDB.getConnect();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
         
