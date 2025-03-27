@@ -134,7 +134,7 @@ public class NapTienChoi extends javax.swing.JFrame {
         payNowButton.setFont(new Font("Monospace", Font.BOLD, 19));
         cancelButton.setFont(new Font("Monospace", Font.BOLD, 19));
         payNowButton.addActionListener(e -> {
-            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, 0);
+            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, "Yêu cầu xác nhận");
         });
         
         buttonPanel.add(payNowButton);

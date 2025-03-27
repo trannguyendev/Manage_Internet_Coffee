@@ -84,7 +84,7 @@ public class NapTheDAO {
             e.printStackTrace();
         }
     }
-    public void AddAccount(int menhGia, String ten_dang_nhap, int status){
+    public void AddAccount(int menhGia, String ten_dang_nhap, String status){
         try(Connection conn = KetNoiDB.getConnect()){
             TaiKhoanDAO tkDAO = new TaiKhoanDAO();
             int id = tkDAO.getIDAccount(ten_dang_nhap);
@@ -92,7 +92,7 @@ public class NapTheDAO {
             ppStm.setInt(1, menhGia);
             ppStm.setInt(2, id);
             System.out.println(id);
-            ppStm.setInt(3, status);
+            ppStm.setString(3, status);
             ppStm.executeUpdate();
         }
         catch(Exception e){
