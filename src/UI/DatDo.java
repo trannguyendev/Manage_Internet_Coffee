@@ -96,6 +96,10 @@ public class DatDo extends javax.swing.JFrame {
         tblDanhSach = new javax.swing.JTable();
         txtUssr = new javax.swing.JLabel();
         txtTime = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAreaGhiChu = new javax.swing.JTextArea();
 
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -291,7 +295,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addGroup(lblTongTienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
                     .addComponent(txtTongTien))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblTongTienLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDatDo)
@@ -443,33 +447,69 @@ public class DatDo extends javax.swing.JFrame {
         txtTime.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtTime.setText("00:00:00");
 
+        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel4.setText("Ghi chú:");
+
+        txtAreaGhiChu.setColumns(20);
+        txtAreaGhiChu.setRows(5);
+        jScrollPane4.setViewportView(txtAreaGhiChu);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addContainerGap(31, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblDatDo)
                         .addGap(85, 85, 85)
                         .addComponent(jLabel37)
-                        .addGap(169, 169, 169))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUssr)
+                            .addComponent(txtTime))
+                        .addGap(65, 65, 65))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(224, 224, 224)
-                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUssr)
-                    .addComponent(txtTime))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(127, 127, 127)
@@ -479,27 +519,30 @@ public class DatDo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDatDo, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblDatDo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtUssr)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTime)
+                        .addGap(7, 7, 7)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(txtUssr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTime)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(36, 36, 36)
@@ -675,31 +718,67 @@ public class DatDo extends javax.swing.JFrame {
         }//GEN-LAST:event_btnThemActionPerformed
     
     private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
-    DatDoDAO datDoDAO = new DatDoDAO();
+    DatDoDAO datDoDAO = new DatDoDAO(); 
+    int idDonHang = datDoDAO.getCurrentDonHangID();
+
+    // Nếu không tìm thấy đơn hàng, tạo đơn hàng mới
+    if (idDonHang == -1) { 
+        idDonHang = datDoDAO.taoDonHangMoi();
+    }
+
+    // Kiểm tra lại nếu vẫn không có ID đơn hàng thì báo lỗi và dừng
+    if (idDonHang == -1) {
+        JOptionPane.showMessageDialog(this, "Không thể tạo đơn hàng mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String ghiChu = txtAreaGhiChu.getText().trim();
     int dongHienTai = tblDanhSach.getRowCount();
-    
-    // Tạo thông báo
     StringBuilder message = new StringBuilder("Bạn đã xác nhận đặt:\n");
     int tongTien = 0;
 
+    // Biến lưu đơn hàng mẫu
+    StringBuilder donHangMau = new StringBuilder();
+    donHangMau.append("Xem truoc: \n");
+    donHangMau.append("Id don hang: ").append(idDonHang).append("\n");
+    donHangMau.append("Danh sach mon:\n");
+
+    // Duyệt qua danh sách món ăn trong bảng
     for (int i = 0; i < dongHienTai; i++) {
         int idMon = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
         String tenMon = tblDanhSach.getValueAt(i, 1).toString();
         int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
         int tongGia = Integer.parseInt(tblDanhSach.getValueAt(i, 3).toString());
 
-        message.append(String.format(" %d %s (%d) %d\n", soLuong, tenMon, idMon, tongGia));
+        message.append(String.format("%d x %s (ID: %d) %d\n", soLuong, tenMon, idMon, tongGia));
         tongTien += tongGia;
+
+        // Thêm vào đơn hàng mẫu
+        donHangMau.append(String.format("ID Mon: %d - %s | So luong: %d | Gia: %d\n", idMon, tenMon, soLuong, tongGia));
     }
 
-    message.append("Tổng: ").append(tongTien);
+    // Hiển thị tổng tiền
+    message.append("Tong: ").append(tongTien);
+    donHangMau.append("Tong tien: ").append(tongTien).append("\n");
+    donHangMau.append("Ghi chu: ").append(ghiChu.isEmpty() ? "Khong." : ghiChu).append("\n");
+
+    // Sout ra console đơn hàng mẫu
+    System.out.println(donHangMau.toString());
 
     // Hiển thị hộp thoại xác nhận
     int confirm = JOptionPane.showConfirmDialog(this, message.toString(),
         "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
 
-    // Nếu chọn "YES" thì hiện cảm ơn, nếu chọn "NO" thì quay lại
     if (confirm == JOptionPane.YES_OPTION) {
+        // Thêm chi tiết đơn hàng vào CSDL
+        for (int i = 0; i < dongHienTai; i++) {
+            int idSanPham = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
+            int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
+            int tongGia = Integer.parseInt(tblDanhSach.getValueAt(i, 3).toString());
+
+            datDoDAO.themChiTietDonHang(idDonHang, idSanPham, soLuong, tongGia, ghiChu);
+        }
+
         JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhận hàng.");
     } else {
         JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
@@ -867,14 +946,17 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblDatDo;
@@ -882,6 +964,7 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JTable tblDanhSach;
     private javax.swing.JTable tblDoAn;
     private javax.swing.JTable tblDoUong;
+    private javax.swing.JTextArea txtAreaGhiChu;
     private javax.swing.JLabel txtGia;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JLabel txtTenMon;
