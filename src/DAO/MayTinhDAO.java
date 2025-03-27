@@ -80,4 +80,20 @@ public class MayTinhDAO {
             return lstPC;
         }
     }
+    public int getMoney(String tenMay) {
+        int gia = 0;
+        String sql = "select gia_khu_vuc from Khu_vuc join May_tinh on May_tinh.id_khu_vuc = Khu_vuc.id_khu_vuc where ten_may = ?";
+        try (Connection conn = KetNoiDB.getConnect();
+                PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, tenMay);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                gia = rs.getInt("gia_khu_vuc");
+            }
+            return gia;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return gia;
+        }
+    }
 }
