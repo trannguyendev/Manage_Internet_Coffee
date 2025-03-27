@@ -4,7 +4,9 @@
  */
 package UI;
 
+import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
+import Utils.GlobalState;
 import javax.swing.Timer;
 
 /**
@@ -32,7 +34,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnDangXuat = new javax.swing.JButton();
+        btnTat = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         lblSoDu = new javax.swing.JLabel();
@@ -40,10 +42,10 @@ public class ThoiGianChoi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnDangXuat.setText("Đăng xuất");
-        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+        btnTat.setText("Tắt");
+        btnTat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangXuatActionPerformed(evt);
+                btnTatActionPerformed(evt);
             }
         });
 
@@ -71,8 +73,8 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                                 .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                                .addComponent(btnDangXuat))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                .addComponent(btnTat))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
@@ -90,7 +92,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(btnDangXuat))
+                    .addComponent(btnTat))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -103,19 +105,22 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblSoDu.setText(String.valueOf(so_du));
     }
     public void TruSoDu() {
+        Login login = new Login();
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        MayTinhDAO mtDAO = new MayTinhDAO();
+        String tenMay;
         Timer timer = new Timer(10000, e -> {
             int currentMoney = 0;
-            currentMoney = Integer.parseInt(lblSoDu.getText()) - 500;
+            currentMoney = Integer.parseInt(lblSoDu.getText()) - mtDAO.getMoney(GlobalState.ten_may);
             tkDAO.updateSoDu(currentMoney);
             this.loadSoDu();
         });
         timer.start();
     }
-    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+    private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnDangXuatActionPerformed
+    }//GEN-LAST:event_btnTatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +162,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnTat;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
