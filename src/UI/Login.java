@@ -214,8 +214,9 @@ public class Login extends javax.swing.JFrame {
         pass = String.valueOf(txtPass.getPassword());
         isValidField();
         this.checkLogin();
-        String chonPC = cboPC.getSelectedItem().toString();
+        String chonPC = String.valueOf(cboPC.getSelectedItem());
         GlobalState.ten_may = chonPC;
+        System.out.println(""+GlobalState.ten_may);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public boolean isValidField() {

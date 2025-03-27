@@ -109,13 +109,17 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
         String tenMay;
-        Timer timer = new Timer(10000, e -> {
+        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may)){
+            System.exit(0);
+        }else{
+            Timer timer = new Timer(10000, e -> {
             int currentMoney = 0;
             currentMoney = Integer.parseInt(lblSoDu.getText()) - mtDAO.getMoney(GlobalState.ten_may);
             tkDAO.updateSoDu(currentMoney);
             this.loadSoDu();
         });
         timer.start();
+        }
     }
     private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
         // TODO add your handling code here:
