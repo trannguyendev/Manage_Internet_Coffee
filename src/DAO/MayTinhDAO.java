@@ -107,7 +107,7 @@ public class MayTinhDAO {
             e.printStackTrace();
             return gia;
         }
-
+    }
     public void deletePC(int id) {
     String sql = "DELETE FROM May_tinh WHERE id_may = ?";
     try (Connection conn = KetNoiDB.getConnect();
