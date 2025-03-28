@@ -18,6 +18,7 @@ import Entity.ListDoAn;
 import Entity.ListDoUong;
 import Entity.DonHang;
 import Entity.ChiTietDonHang;
+import Entity.DonHangNew;
 import Utils.GlobalState;
 
 public class DatDoDAO {
@@ -272,6 +273,46 @@ public class DatDoDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public List<DonHangNew> readDonHang(){
+        String sql = "SELECT * FROM Don_hang";
+        List<DonHangNew> dhLst = new ArrayList<>();
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id_don_hang = rs.getInt("id_don_hang");
+                int id_tk = rs.getInt("id_tk");
+                String thoi_gian = rs.getString("thoi_gian");
+                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian);
+                dhLst.add(dh);
+            }
+         return dhLst;      
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return dhLst;
+        }
+    }
+    
+    public List<ChiTietDonHang> readChiTiet(int id){
+        String sql = "SELECT * FROM Chi_tiet_don_hang where id_don_hang = ?";
+        List<ChiTietDonHang> ctdhLst = new ArrayList<>();
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){             
+                int id_don_hang = rs.getInt("id_don_hang");
+                int id_san_pham = rs.getInt(("id_san_pham"));
+                int so_luong = rs.getInt("so_luong");
+                int gia = rs.getInt("gia");
+                int ghi_chu = rs.getInt("ghi_chu");
+                ChiTietDonHang ctdh = new ChiTietDonHang(id_don_hang, id_san_pham, so_luong, gia, ghi_chu);
+                ctdhLst.add(ctdh);
+            }
+               return ctdhLst;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return ctdhLst;
         }
     }
 }
