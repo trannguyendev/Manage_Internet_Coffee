@@ -5,32 +5,32 @@
 package Entity;
 
 /**
- *  
- * @author ADMIN
+ *
+ * @author Lenovo
  */
-public class DonHang {
-    int tong_tien;
+public class DonHangNew {
+    int id_don_hang;
     int id_tk;
     String thoi_gian;
-    boolean trang_thai;  
 
-    public DonHang(int tong_tien, int id_tk, String thoi_gian, boolean trang_thai) {
-        this.tong_tien = tong_tien;
+    public DonHangNew() {
+    }
+
+    public DonHangNew(int id_don_hang, int id_tk, String thoi_gian) {
+        this.id_don_hang = id_don_hang;
         this.id_tk = id_tk;
         this.thoi_gian = thoi_gian;
-        this.trang_thai = trang_thai;
     }
 
-    public DonHang() {
+    public int getId_don_hang() {
+        return id_don_hang;
     }
 
-    public int getTong_tien() {
-        return tong_tien;
+    public void setId_don_hang(int id_don_hang) {
+        this.id_don_hang = id_don_hang;
     }
 
-    public void setTong_tien(int tong_tien) {
-        this.tong_tien = tong_tien;
-    }
+   
 
     public int getId_tk() {
         return id_tk;
@@ -47,14 +47,5 @@ public class DonHang {
     public void setThoi_gian(String thoi_gian) {
         this.thoi_gian = thoi_gian;
     }
-
-    public boolean isTrang_thai() {
-        return trang_thai;
-    }
-
-    public void setTrang_thai(boolean trang_thai) {
-        this.trang_thai = trang_thai;
-    }
-    
     
 }
