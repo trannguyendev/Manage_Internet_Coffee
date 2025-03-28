@@ -7,6 +7,7 @@ package UI;
 import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
 import Utils.GlobalState;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -22,6 +23,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         this.preInit();
         initComponents();
         this.loadSoDu();
+        this.thongBao();;
         this.TruSoDu();
     }
 
@@ -108,14 +110,28 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         Login login = new Login();
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
-        String tenMay;
-        Timer timer = new Timer(10000, e -> {
+        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may)){
+            System.exit(0);
+        }else{
+            Timer timer = new Timer(10000, e -> {
+            
             int currentMoney = 0;
             currentMoney = Integer.parseInt(lblSoDu.getText()) - mtDAO.getMoney(GlobalState.ten_may);
             tkDAO.updateSoDu(currentMoney);
             this.loadSoDu();
+            this.thongBao();
         });
         timer.start();
+        }
+    }
+    public void thongBao() {
+        Login login = new Login();
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        MayTinhDAO mtDAO = new MayTinhDAO();
+        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may) * 31
+                && Integer.parseInt(lblSoDu.getText()) > ( + mtDAO.getMoney(GlobalState.ten_may) * 29)){
+            JOptionPane.showMessageDialog(rootPane, "Tài khoản bạn còn 5p");
+        }
     }
     private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
         // TODO add your handling code here:
