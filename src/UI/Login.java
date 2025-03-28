@@ -28,6 +28,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         this.preInit();
         initComponents();
+        this.loadPC();
         setFormCenter();
         this.changeColor();
         this.updateCbo();
@@ -237,7 +238,7 @@ public class Login extends javax.swing.JFrame {
         }
     }
     private void updateCbo(){
-        Timer timer = new Timer(3000, e -> {
+        Timer timer = new Timer(7500, e -> {
             this.loadPC();
         });
         timer.start();
