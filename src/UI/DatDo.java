@@ -5,6 +5,7 @@
 package UI;
 
 import DAO.DatDoDAO;
+import DAO.TaiKhoanDAO;
 import Entity.ChiTietDonHang;
 import Entity.DonHang;
 import Entity.ListDoAn;
@@ -35,6 +36,7 @@ public class DatDo extends javax.swing.JFrame {
      */
     public DatDo() {
         initComponents();
+        this.infoTien();
         this.infoUser();
         txtTongTien.setText("0VND");
         txtSoLuong.setText("1");
@@ -100,6 +102,7 @@ public class DatDo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtAreaGhiChu = new javax.swing.JTextArea();
+        txtTien = new javax.swing.JLabel();
 
         jPanel5.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -441,7 +444,7 @@ public class DatDo extends javax.swing.JFrame {
                 .addGap(309, 309, 309))
         );
 
-        txtUssr.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        txtUssr.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         txtUssr.setText("id");
 
         txtTime.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -482,6 +485,9 @@ public class DatDo extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        txtTien.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        txtTien.setText("69420");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -490,14 +496,12 @@ public class DatDo extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel36)
+                        .addGap(86, 86, 86)
                         .addComponent(lblDatDo)
-                        .addGap(85, 85, 85)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel37)
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUssr)
-                            .addComponent(txtTime))
-                        .addGap(65, 65, 65))
+                        .addGap(120, 120, 120))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -510,28 +514,29 @@ public class DatDo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(127, 127, 127)
-                    .addComponent(jLabel36)
-                    .addContainerGap(950, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(txtTien)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtUssr)
+                .addGap(327, 327, 327)
+                .addComponent(txtTime)
+                .addGap(348, 348, 348))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDatDo, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtUssr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTime)
-                        .addGap(7, 7, 7)))
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(lblDatDo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel36)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -542,12 +547,12 @@ public class DatDo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(36, 36, 36)
-                    .addComponent(jLabel36)
-                    .addContainerGap(550, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTime)
+                    .addComponent(txtUssr)
+                    .addComponent(txtTien))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -657,6 +662,7 @@ public class DatDo extends javax.swing.JFrame {
         String giaText = txtGia.getText().trim();
         String soLuongText = txtSoLuong.getText().trim();
 
+<<<<<<< Updated upstream
         // Kiểm tra nếu chưa nhập đủ dữ liệu
         if (tenMon.isEmpty() || giaText.isEmpty() || soLuongText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
@@ -783,6 +789,154 @@ public class DatDo extends javax.swing.JFrame {
     } else {
         JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
     }
+=======
+            // Kiểm tra nếu chưa nhập đủ dữ liệu
+            if (tenMon.isEmpty() || giaText.isEmpty() || soLuongText.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // Kiểm tra giá trị nhập vào có hợp lệ không
+            if (!giaText.matches("\\d+") || !soLuongText.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Giá và Số lượng!");
+                return;
+            }
+
+            int gia = Integer.parseInt(giaText);
+            int soLuongMoi = Integer.parseInt(soLuongText);
+
+            // Kiểm tra số lượng hợp lệ
+            if (soLuongMoi <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
+                return;
+            }
+
+            // Lấy ID sản phẩm từ CSDL
+            int idSanPham = new DatDoDAO().getIDSanPham(tenMon);
+            if (idSanPham == -1) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy ID của món ăn trong cơ sở dữ liệu!");
+                return;
+            }
+
+            int tongGiaMoi = gia * soLuongMoi;
+            DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
+            boolean daTonTai = false;
+
+            // Kiểm tra xem món đã tồn tại trong bảng hay chưa
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (model.getValueAt(i, 1).toString().equalsIgnoreCase(tenMon)) { // Nếu tên món trùng
+                    model.setValueAt(soLuongMoi, i, 2); // Cập nhật số lượng mới
+                    model.setValueAt(tongGiaMoi, i, 3); // Cập nhật tổng giá mới
+                    daTonTai = true;
+                    break; // Thoát vòng lặp vì đã cập nhật xong
+                }
+            }
+
+            // Nếu món chưa tồn tại, thêm mới vào bảng
+            if (!daTonTai) {
+                model.addRow(new Object[]{idSanPham, tenMon, soLuongMoi, tongGiaMoi});
+            }
+
+            // Xóa dữ liệu nhập sau khi thêm/cập nhật
+            txtTenMon.setText("");
+            txtGia.setText("");
+            txtSoLuong.setText("");
+            capNhatTongTien();
+            hienThiMonDauTien();
+            txtSoLuong.setText("1");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage());
+        }
+        }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
+            DatDoDAO datDoDAO = new DatDoDAO();
+// Nếu không tìm thấy đơn hàng, tạo đơn hàng mới
+datDoDAO.taoDonHangMoi();
+int idDonHang = datDoDAO.getCurrentDonHangID();
+
+// Kiểm tra lại nếu vẫn không có ID đơn hàng thì báo lỗi và dừng
+if (idDonHang == -1) {
+    JOptionPane.showMessageDialog(this, "Không thể tạo đơn hàng mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+String ghiChu = txtAreaGhiChu.getText().trim();
+int dongHienTai = tblDanhSach.getRowCount();
+StringBuilder message = new StringBuilder("Bạn đã xác nhận đặt:\n");
+int tongTienDonHang = 0;
+
+// Biến lưu đơn hàng mẫu
+StringBuilder donHangMau = new StringBuilder();
+donHangMau.append("Xem truoc: \n");
+donHangMau.append("Id don hang: ").append(idDonHang).append("\n");
+donHangMau.append("Danh sach mon:\n");
+
+// Duyệt qua danh sách món ăn trong bảng
+for (int i = 0; i < dongHienTai; i++) {
+    int idMon = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
+    String tenMon = tblDanhSach.getValueAt(i, 1).toString();
+    int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
+    int tongGia = Integer.parseInt(tblDanhSach.getValueAt(i, 3).toString());
+
+    message.append(String.format("%d x %s (ID: %d) %d\n", soLuong, tenMon, idMon, tongGia));
+    tongTienDonHang += tongGia;
+
+    // Thêm vào đơn hàng mẫu
+    donHangMau.append(String.format("ID Mon: %d - %s | So luong: %d | Gia: %d\n", idMon, tenMon, soLuong, tongGia));
+}
+
+// Hiển thị tổng tiền
+        message.append("Tổng: ").append(tongTienDonHang);
+        donHangMau.append("Tổng tiền: ").append(tongTienDonHang).append("\n");
+        donHangMau.append("Ghi chú: ").append(ghiChu.isEmpty() ? "Không." : ghiChu).append("\n");
+        System.out.println(donHangMau.toString());
+
+// Hiển thị hộp thoại xác nhận
+        int confirm = JOptionPane.showConfirmDialog(this, message.toString(),
+            "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+        // Lấy số tiền hiện có từ TextField
+            int tienHienCo;
+            try {
+                tienHienCo = Integer.parseInt(txtTien.getText().trim());
+            } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(this, "Lỗi: Số tiền không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+            
+        int soDuSau = Integer.parseInt(txtTien.getText().trim()) - Integer.parseInt(txtTongTien.getText().trim());
+        
+    // Kiểm tra số tiền có đủ hay không
+    if (tongTienDonHang > tienHienCo) {
+        JOptionPane.showMessageDialog(this, "Không đủ tiền. Hãy nạp thêm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Nếu đủ tiền, tiến hành thêm chi tiết đơn hàng vào CSDL
+    for (int i = 0; i < dongHienTai; i++) {
+        int idSanPham = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
+        int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
+        int tongGia = Integer.parseInt(tblDanhSach.getValueAt(i, 3).toString());
+
+        datDoDAO.themChiTietDonHang(idDonHang, idSanPham, soLuong, tongGia, ghiChu);
+    }
+        // Cập nhật số dư tài khoản vào CSDL
+    String tenDangNhap = txtUssr.getText().trim(); // bạn phải có TextField tên đăng nhập
+    int capNhat = DatDoDAO.capNhatSoDuTaiKhoan(tenDangNhap, soDuSau);
+    if (capNhat > 0) {
+        JOptionPane.showMessageDialog(this, "Đặt hàng thành công!\nSố dư còn lại: " + soDuSau);
+        txtTien.setText(String.valueOf(soDuSau)); // cập nhật luôn trên giao diện
+    } else {
+        JOptionPane.showMessageDialog(this, "Đặt hàng thành công nhưng cập nhật số dư thất bại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+    }
+
+} else {
+    JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
+        }
+>>>>>>> Stashed changes
     }//GEN-LAST:event_btnDatDoActionPerformed
 
     private void tblDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoUongMouseClicked
@@ -854,7 +1008,12 @@ public class DatDo extends javax.swing.JFrame {
     private void infoUser() {
         txtUssr.setText(GlobalState.ten_dang_nhap);
     }
-
+    private void infoTien() {
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        
+        int so_du = tkDAO.getSoDu();
+        txtTien.setText(String.valueOf(so_du));
+    }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
     int selectedRow = tblDanhSach.getSelectedRow();
     
@@ -968,6 +1127,7 @@ public class DatDo extends javax.swing.JFrame {
     private javax.swing.JLabel txtGia;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JLabel txtTenMon;
+    private javax.swing.JLabel txtTien;
     private javax.swing.JLabel txtTime;
     private javax.swing.JLabel txtTongTien;
     private javax.swing.JLabel txtUssr;

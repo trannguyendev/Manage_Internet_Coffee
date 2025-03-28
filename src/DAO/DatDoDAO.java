@@ -246,6 +246,23 @@ public class DatDoDAO {
         e.printStackTrace();
         return -1;
     }
+    
+    public static int capNhatSoDuTaiKhoan(String tenDangNhap, int soDuMoi) { 
+    String query = "UPDATE Tai_khoan SET so_du = ? WHERE ten_dang_nhap = ?";
+    try (Connection conn = KetNoiDB.getConnect();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, soDuMoi);
+        stmt.setString(2, tenDangNhap);
+
+        int rowsUpdated = stmt.executeUpdate();
+        return rowsUpdated;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0; // nếu có lỗi, trả về 0
+    }
+}
 }
     public void themChiTietDonHang(int idDonHang, int idSanPham, int soLuong, int gia, String ghiChu) {
     String sql = "INSERT INTO Chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia, ghi_chu) VALUES (?, ?, ?, ?, ?)";
