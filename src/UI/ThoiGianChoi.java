@@ -7,6 +7,11 @@ package UI;
 import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
 import Utils.GlobalState;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.Timer;
+import java.awt.Color;
+import java.util.Random;
 import javax.swing.Timer;
 
 /**
@@ -23,6 +28,12 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         initComponents();
         this.loadSoDu();
         this.TruSoDu();
+        this.loadTen();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = this.getWidth();
+        int height = this.getHeight();
+        this.setLocation(screenSize.width - width, 0);
+        this.doiMauLienTuc();
     }
 
     /**
@@ -39,6 +50,9 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         lblSoDu = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblTen = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,60 +63,99 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Số dư:");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel2.setText("Số Dư:");
 
         jButton1.setText("Chat");
 
         lblSoDu.setText("jLabel1");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel1.setText("Học không chơi đánh rơi tuổi trẻ");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel3.setText("Tên Đăng Nhập:");
+
+        lblTen.setText("jLabel1");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel4.setText("Hôm nay bạn rất đẹp trai :Đ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTat)
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                                .addComponent(btnTat))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
-                .addGap(65, 65, 65))
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblTen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblSoDu))
-                .addGap(63, 63, 63)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnTat))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void doiMauLienTuc() {
+    Timer timer = new Timer(500, e -> {
+        Random random = new Random();
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
+        jLabel1.setForeground(new Color(r, g, b));
+        jLabel4.setForeground(new Color(r, g, b));
+    });
+    timer.start();
+}
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         
         int so_du = tkDAO.getSoDu();
         lblSoDu.setText(String.valueOf(so_du));
+    }
+    
+    public void loadTen() {
+        lblTen.setText(GlobalState.ten_dang_nhap);
     }
     public void TruSoDu() {
         Login login = new Login();
@@ -166,6 +219,9 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblSoDu;
+    private javax.swing.JLabel lblTen;
     // End of variables declaration//GEN-END:variables
 }

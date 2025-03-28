@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         setFormCenter();
         this.changeColor();
         this.updateCbo();
+        setSize(550, 620);
     }
 
     /**
@@ -59,7 +60,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập - Login");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(550, 535));
         setSize(new java.awt.Dimension(550, 535));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -137,7 +137,7 @@ public class Login extends javax.swing.JFrame {
                                         .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -180,7 +180,7 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(103, 103, 103)
                             .addComponent(lblIconLeft)
-                            .addGap(18, 18, 18)
+                            .addGap(24, 24, 24)
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
                             .addComponent(lblIconRight))
