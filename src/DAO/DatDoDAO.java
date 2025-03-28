@@ -108,7 +108,7 @@ public class DatDoDAO {
             ps.setInt(2, ctdh.getId_san_pham());
             ps.setInt(3, ctdh.getSo_luong());
             ps.setInt(4, ctdh.getGia());
-            ps.setInt(5, ctdh.getGhi_chu());
+            ps.setString(5, ctdh.getGhi_chu());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
