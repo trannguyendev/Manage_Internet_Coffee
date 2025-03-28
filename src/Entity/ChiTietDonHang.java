@@ -9,12 +9,13 @@ package Entity;
  * @author ADMIN
  */
 public class ChiTietDonHang {
-       int id_don_hang, id_san_pham, so_luong, gia, ghi_chu;
+       int id_don_hang, id_san_pham, so_luong, gia;
+       String ghi_chu;
 
     public ChiTietDonHang() {
     }
 
-    public ChiTietDonHang(int id_don_hang, int id_san_pham, int so_luong, int gia, int ghi_chu) {
+    public ChiTietDonHang(int id_don_hang, int id_san_pham, int so_luong, int gia, String ghi_chu) {
         this.id_don_hang = id_don_hang;
         this.id_san_pham = id_san_pham;
         this.so_luong = so_luong;
@@ -54,11 +55,11 @@ public class ChiTietDonHang {
         this.gia = gia;
     }
 
-    public int getGhi_chu() {
+    public String getGhi_chu() {
         return ghi_chu;
     }
 
-    public void setGhi_chu(int ghi_chu) {
+    public void setGhi_chu(String ghi_chu) {
         this.ghi_chu = ghi_chu;
     }
 

@@ -305,7 +305,7 @@ public class DatDoDAO {
                 int id_san_pham = rs.getInt(("id_san_pham"));
                 int so_luong = rs.getInt("so_luong");
                 int gia = rs.getInt("gia");
-                int ghi_chu = rs.getInt("ghi_chu");
+                String ghi_chu = rs.getString("ghi_chu");
                 ChiTietDonHang ctdh = new ChiTietDonHang(id_don_hang, id_san_pham, so_luong, gia, ghi_chu);
                 ctdhLst.add(ctdh);
             }
