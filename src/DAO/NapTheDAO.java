@@ -4,9 +4,7 @@
  */
 package DAO;
 
-import Entity.KhuVucMay;
 import Entity.NapThe;
-import Utils.GlobalState;
 import Utils.KetNoiDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,7 +43,7 @@ public class NapTheDAO {
                 int id_nap = rs.getInt("id_nap");
                 int gia = rs.getInt("gia");
                 int id = rs.getInt("id_tk");
-                boolean trangThai = rs.getBoolean("status");
+                String trangThai = rs.getString("status");
                         
                 NapThe napThe = new NapThe(id_nap, gia, id, trangThai);
                 lstNapThe.add(napThe);
@@ -71,17 +69,17 @@ public class NapTheDAO {
             return id;
         }
     }
-    public void updateAccount(NapThe nt){
-        int gia = 0;
-        try (Connection conn = KetNoiDB.getConnect()){
-            String url = "UPDATE Nap_the SET status = ? WHERE id_nap = ?";
-            PreparedStatement ppStm = conn.prepareStatement(url);
-            ppStm.setBoolean(1, nt.isTrangThai());
-            ppStm.setInt(2, getIdNap(gia));
+    public void updateStatusNap(int id_nap, String status){
+        String sqlUpd = "UPDATE Nap_the SET status = ? WHERE id_nap = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sqlUpd);
+            ppStm.setString(1, status);
+            ppStm.setInt(2, id_nap);
             ppStm.executeUpdate();
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
+        }
+        catch(Exception e){
             e.printStackTrace();
+            System.out.println("Error: "+e);
         }
     }
     public void AddAccount(int menhGia, String ten_dang_nhap, String status){

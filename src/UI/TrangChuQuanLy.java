@@ -640,7 +640,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(tblNapThe);
 
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công", "Yêu cầu xác nhận" }));
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công ", "Đã hủy" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -926,7 +926,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 napThe.getId_nap(),
                 napThe.getMenhGia(),
                 napThe.getId_tk(),
-                napThe.isTrangThai() ? "Thành công" : "Yêu cầu xác nhận"});
+                napThe.getTrangThai()});
         }
     }
     private void loadPC(){
@@ -1157,16 +1157,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_cboKhuvucActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        // TODO add your handling code here:
-        String tenkhuvuc = txtTenKhu.getText();
-        String giakhu = txtGiaPC.getText();
-//            NapThe napThe = new NapThe(WIDTH, HEIGHT, rootPaneCheckingEnabled);
-            KhuVucMay khumay = new KhuVucMay(tenkhuvuc, Integer.parseInt(giakhu));
-        
-            KhuVucDAO khuvucDAO = new KhuVucDAO();
-            khuvucDAO.updateKhuVucPC(khumay);
-            JOptionPane.showMessageDialog(rootPane, "Sửa thành công");
-        
+        // TODO add your handling code here
+        int currRow = tblNapThe.getSelectedRow();
+        int id = (int) tblNapThe.getValueAt(currRow, 0);
+        String status = (String) cboTrangThai.getSelectedItem();
+        NapTheDAO napDAO = new NapTheDAO();
+        napDAO.updateStatusNap(id, status);
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void tblNapTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNapTheMouseClicked
