@@ -20,7 +20,6 @@ public class ThongKeDonHangDAO {
                        "FROM Chi_tiet_don_hang ctdh " +
                        "JOIN San_pham sp ON ctdh.id_san_pham = sp.id_san_pham " +
                        "JOIN Don_hang dh ON ctdh.id_don_hang = dh.id_don_hang " +
-                       "WHERE dh.trang_thai = 1 " +
                        "GROUP BY sp.id_san_pham, sp.ten_sp";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

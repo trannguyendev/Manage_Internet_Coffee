@@ -12,12 +12,12 @@ public class NapThe {
     int id_nap;
     int menhGia;
     int id_tk;
-    boolean trangThai;
+    String trangThai;
 
     public NapThe() {
     }
 
-    public NapThe(int id_nap, int menhGia, int id_tk, boolean trangThai) {
+    public NapThe(int id_nap, int menhGia, int id_tk, String trangThai) {
         this.id_nap = id_nap;
         this.menhGia = menhGia;
         this.id_tk = id_tk;
@@ -48,13 +48,12 @@ public class NapThe {
         this.id_tk = id_tk;
     }
 
-    public boolean isTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    
     
 }

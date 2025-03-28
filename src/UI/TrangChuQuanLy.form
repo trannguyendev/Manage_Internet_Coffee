@@ -1033,8 +1033,8 @@
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="2">
-                        <StringItem index="0" value="Th&#xe0;nh c&#xf4;ng"/>
-                        <StringItem index="1" value="Y&#xea;u c&#x1ea7;u x&#xe1;c nh&#x1ead;n"/>
+                        <StringItem index="0" value="Th&#xe0;nh c&#xf4;ng "/>
+                        <StringItem index="1" value="&#x110;&#xe3; h&#x1ee7;y"/>
                       </StringArray>
                     </Property>
                   </Properties>
