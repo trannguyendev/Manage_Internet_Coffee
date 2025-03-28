@@ -199,6 +199,11 @@ public class TrangChuUser extends javax.swing.JFrame {
         jMenu2.setText("Trợ giúp");
 
         jMenuItem1.setText("Nạp tiền");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         mniChat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Ho_tro.png"))); // NOI18N
@@ -294,6 +299,12 @@ public class TrangChuUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.mniDangXuatActionPerformed(evt);
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        DatDo d2 = new DatDo();
+        d2.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
