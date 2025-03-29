@@ -159,7 +159,6 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblTen.setText(GlobalState.ten_dang_nhap);
     }
     public void TruSoDu() {
-        Login login = new Login();
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
         if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may)){
@@ -168,7 +167,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             Timer timer = new Timer(10000, e -> {
             
             int currentMoney = 0;
-            currentMoney = Integer.parseInt(lblSoDu.getText()) - mtDAO.getMoney(GlobalState.ten_may);
+            currentMoney = tkDAO.getSoDu() - mtDAO.getMoney(GlobalState.ten_may);
             tkDAO.updateSoDu(currentMoney);
             this.loadSoDu();
             this.thongBao();
@@ -177,8 +176,6 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         }
     }
     public void thongBao() {
-        Login login = new Login();
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
         if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may) * 31
                 && Integer.parseInt(lblSoDu.getText()) > ( + mtDAO.getMoney(GlobalState.ten_may) * 29)){
