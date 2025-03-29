@@ -276,7 +276,7 @@ public class DatDoDAO {
         }
     }
     public List<DonHangNew> readDonHang(){
-        String sql = "SELECT * FROM Don_hang";
+        String sql = "SELECT * FROM Don_hang WHERE trang_thai = 0";
         List<DonHangNew> dhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -284,7 +284,8 @@ public class DatDoDAO {
                 int id_don_hang = rs.getInt("id_don_hang");
                 int id_tk = rs.getInt("id_tk");
                 String thoi_gian = rs.getString("thoi_gian");
-                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian);
+                boolean trang_thai = rs.getBoolean("trang_thai");
+                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian, trang_thai);
                 dhLst.add(dh);
             }
          return dhLst;      
@@ -315,4 +316,36 @@ public class DatDoDAO {
             return ctdhLst;
         }
     }
-}
+    public List<DonHangNew> readDonHangDone(){
+        String sql = "SELECT * FROM Don_hang WHERE trang_thai = 1";
+        List<DonHangNew> dhLst = new ArrayList<>();
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id_don_hang = rs.getInt("id_don_hang");
+                int id_tk = rs.getInt("id_tk");
+                String thoi_gian = rs.getString("thoi_gian");
+                boolean trang_thai = rs.getBoolean("trang_thai");
+                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian, trang_thai);
+                dhLst.add(dh);
+            }
+         return dhLst;      
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return dhLst;
+        }
+    }
+    public int updateTrangThai(int id_don_hang){
+        String sql = "UPDATE Chi_tiet_don_hang SET trang_thai = 1 WHERE id_don_hang = ?";
+        List<DonHangNew> dhLst = new ArrayList<>();
+        try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id_don_hang);
+                ps.executeUpdate();
+            }           
+         catch (SQLException e) {   
+            e.printStackTrace();           
+        }
+        return 0;
+    }
+    }
+

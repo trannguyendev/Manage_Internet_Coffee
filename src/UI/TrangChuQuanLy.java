@@ -54,6 +54,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.updateTable();
         this.loadPC();
         this.ListDonHang();
+        this.ListDonHangDone();
     }
 
     /**
@@ -132,6 +133,15 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         tabDonHang = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
         tabChiTiet = new javax.swing.JTable();
+        btnDone = new javax.swing.JToggleButton();
+        jPanel8 = new javax.swing.JPanel();
+        lblDatDo1 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tabDonHangDone = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        txtDonHangDone = new javax.swing.JTextField();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        tabChiTietDone = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -671,7 +681,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jTabbedPane1.addTab("Quản lý nạp tiền", jTabbedPane5);
 
         lblDatDo.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
-        lblDatDo.setText("Chi tiết đơn hàng");
+        lblDatDo.setText("Đơn hàng đang làm");
 
         jLabel17.setText("Đơn hàng bạn chọn là:");
 
@@ -706,6 +716,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         ));
         jScrollPane10.setViewportView(tabChiTiet);
 
+        btnDone.setText("ĐÃ LÀM XONG");
+        btnDone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoneActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -724,8 +741,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnDone, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(lblDatDo)
-                        .addGap(213, 213, 213))))
+                        .addGap(183, 183, 183))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,10 +759,85 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDone, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
-        jTabbedPane6.addTab("Chi tiết đơn hàng", jPanel9);
+        jTabbedPane6.addTab("Đơn hàng đang làm", jPanel9);
+
+        lblDatDo1.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        lblDatDo1.setText("Đơn hàng đã làm");
+
+        tabDonHangDone.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "ID đơn hàng", "Thời gian"
+            }
+        ));
+        tabDonHangDone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabDonHangDoneMouseClicked(evt);
+            }
+        });
+        jScrollPane11.setViewportView(tabDonHangDone);
+
+        jLabel18.setText("Đơn hàng bạn chọn là:");
+
+        tabChiTietDone.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID đơn hàng", "ID sản phẩm", "Số lượng", "giá", "Ghi chú"
+            }
+        ));
+        jScrollPane12.setViewportView(tabChiTietDone);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(215, 215, 215)
+                .addComponent(lblDatDo1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDonHangDone, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(lblDatDo1)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(txtDonHangDone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 346, Short.MAX_VALUE))
+        );
+
+        jTabbedPane6.addTab("Đơn hàng đã làm", jPanel8);
 
         jTabbedPane1.addTab("Quán lý đơn hàng", jTabbedPane6);
 
@@ -1146,7 +1241,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     private void tabDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabDonHangMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTiet.getModel();
+        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTiet.getModel();     
         tabList.setRowCount(0);
         int dongHienTai = tabDonHang.getSelectedRow();
         int id_don_hang = (int) (tabDonHang.getValueAt(dongHienTai, 0));
@@ -1163,8 +1258,61 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 ChiTiet.getGhi_chu()
             });
         }
-        
+       tabChiTiet.setModel(tabList);
     }//GEN-LAST:event_tabDonHangMouseClicked
+
+    private void tabDonHangDoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabDonHangDoneMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTietDone.getModel();     
+        tabList.setRowCount(0);
+        int dongHienTai = tabDonHangDone.getSelectedRow();
+        int id_don_hang = (int) (tabDonHangDone.getValueAt(dongHienTai, 0));
+        txtDonHangDone.setText(String.valueOf(id_don_hang));
+        DatDoDAO ddDAO = new DatDoDAO();
+             List<ChiTietDonHang> ctdhLst = ddDAO.readChiTiet(id_don_hang);
+        ctdhLst = ddDAO.readChiTiet(id_don_hang);
+        for (ChiTietDonHang ChiTiet : ctdhLst) {
+            tabList.addRow(new Object[]{
+                ChiTiet.getId_don_hang(),
+                ChiTiet.getId_san_pham(),
+                ChiTiet.getSo_luong(),
+                ChiTiet.getGia(),
+                ChiTiet.getGhi_chu()
+            });
+        }
+       tabChiTiet.setModel(tabList);
+    }//GEN-LAST:event_tabDonHangDoneMouseClicked
+
+    private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoneActionPerformed
+        // TODO add your handling code here:
+        int check = JOptionPane.showConfirmDialog(rootPane, "Bạn chắc đã nấu chín ?");
+        if (check == JOptionPane.YES_OPTION) {
+            int id_don_hang = Integer.parseInt(txtDonHang.getText());
+            DatDoDAO ddDAO = new DatDoDAO();
+            int ketQua = ddDAO.updateTrangThai(id_don_hang);
+         if(ketQua == 1){
+             JOptionPane.showMessageDialog(this, "Đã chín");
+         }
+         else{
+             JOptionPane.showMessageDialog(this, "Còn tái lắm");
+         }
+        }
+    }//GEN-LAST:event_btnDoneActionPerformed
+    public void ListDonHangDone(){
+        DatDoDAO ddDAO = new DatDoDAO();
+        List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
+        
+        DefaultTableModel tabList = (DefaultTableModel) this.tabDonHangDone.getModel();
+        tabList.setRowCount(0);        
+        for (DonHangNew ListHang : dhnewLst) {
+            tabList.addRow(new Object[]{
+                ListHang.getId_don_hang(),
+                ListHang.getThoi_gian(),
+                ListHang.getId_tk(),
+                ListHang.isTrang_thai()
+            });
+        }
+    }
     public void ListDonHang(){
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHang();
@@ -1175,10 +1323,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             tabList.addRow(new Object[]{
                 ListHang.getId_don_hang(),
                 ListHang.getThoi_gian(),
-                ListHang.getId_tk()
+                ListHang.getId_tk(),
+                ListHang.isTrang_thai()
             });
-        }
+        }      
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -1219,6 +1369,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
+    private javax.swing.JToggleButton btnDone;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua1;
     private javax.swing.JButton btnSua2;
@@ -1234,6 +1385,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1249,9 +1401,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1265,17 +1420,21 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JLabel lblDatDo;
+    private javax.swing.JLabel lblDatDo1;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
     private javax.swing.JTable tabChiTiet;
+    private javax.swing.JTable tabChiTietDone;
     private javax.swing.JTable tabDoanhThuMon;
     private javax.swing.JTable tabDonHang;
+    private javax.swing.JTable tabDonHangDone;
     private javax.swing.JTable tblKhuvuc;
     private javax.swing.JTable tblNapThe;
     private javax.swing.JTable tblPC;
     private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtDonHang;
+    private javax.swing.JTextField txtDonHangDone;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGiaPC;
     private javax.swing.JTextField txtHoten;
