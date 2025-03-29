@@ -677,13 +677,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         tabDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID đơn hàng", "Thời gian"
+                "ID đơn hàng", "Thời gian", "ID user", "Trạng thái"
             }
         ));
         tabDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1175,7 +1175,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             tabList.addRow(new Object[]{
                 ListHang.getId_don_hang(),
                 ListHang.getThoi_gian(),
-                ListHang.getId_tk()
+                ListHang.getId_tk(),
+                ListHang.isTrang_thai() ? "Đã xong" : "Chờ xử lý"
             });
         }
     }

@@ -15,24 +15,28 @@ import java.util.Random;
 import javax.swing.Timer;
 import java.io.*;
 import java.net.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author cunhp
  */
 public class Chat extends javax.swing.JFrame {
+
     /**
      * Creates new form Chat
      */
+    static Socket s;
+    static InputStream is;
+    static BufferedReader br;
+    static OutputStream os;
+    static PrintStream ps;
+
     public Chat() {
         initComponents();
+        this.initSocket();
     }
-        static Socket s;
-        static InputStream is;
-        static BufferedReader br;
-        static OutputStream os;
-        static PrintStream ps;
-        static BufferedReader bk;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,16 +114,28 @@ public class Chat extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initSocket() {
+        try {
+            s = new Socket("26.200.55.28", 12345);
+            is = s.getInputStream();
+            br = new BufferedReader(new InputStreamReader(is));
+            os = s.getOutputStream();
+            ps = new PrintStream(os);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Failed to connect to server.");
+            ps = null; // Mark as null if initialization fails
+        }
+    }
     public void xinChao() {
-        txtXinChao.setText("Xin chào: "+GlobalState.ten_dang_nhap);
+        txtXinChao.setText("Xin chào: " + GlobalState.ten_dang_nhap);
     }
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         // TODO add your handling code here:
         String str2;
         str2 = txtTinNhan.getText();
-        txtaTinNhan.append("\nme : "+str2);
+        txtaTinNhan.append("\nme : " + str2);
         ps.println(str2);
-        txtTinNhan.setText("");
+        txtTinNhan.setText("\n");
     }//GEN-LAST:event_btnGuiActionPerformed
 
     /**
@@ -155,18 +171,7 @@ public class Chat extends javax.swing.JFrame {
                 new Chat().setVisible(true);
             }
         });
-        
-        s = new Socket("localhost",12345); 
-        is = s.getInputStream(); 
-        br = new BufferedReader(new InputStreamReader (is)); 
-        os = s.getOutputStream(); 
-        ps = new PrintStream(os); 
-        bk = new BufferedReader(new InputStreamReader (System.in)); 
-        String msg=""; 
-        while(!msg.equals("bye")) { 
-            msg = br.readLine(); 
-            txtaTinNhan.append("\nserver: "+msg); 
-        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
