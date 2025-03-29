@@ -12,14 +12,16 @@ public class DonHangNew {
     int id_don_hang;
     int id_tk;
     String thoi_gian;
+    boolean trang_thai;
 
     public DonHangNew() {
     }
 
-    public DonHangNew(int id_don_hang, int id_tk, String thoi_gian) {
+    public DonHangNew(int id_don_hang, int id_tk, String thoi_gian, boolean trang_thai) {
         this.id_don_hang = id_don_hang;
         this.id_tk = id_tk;
         this.thoi_gian = thoi_gian;
+        this.trang_thai = trang_thai;
     }
 
     public int getId_don_hang() {
@@ -29,8 +31,6 @@ public class DonHangNew {
     public void setId_don_hang(int id_don_hang) {
         this.id_don_hang = id_don_hang;
     }
-
-   
 
     public int getId_tk() {
         return id_tk;
@@ -47,5 +47,14 @@ public class DonHangNew {
     public void setThoi_gian(String thoi_gian) {
         this.thoi_gian = thoi_gian;
     }
+
+    public boolean isTrang_thai() {
+        return trang_thai;
+    }
+
+    public void setTrang_thai(boolean trang_thai) {
+        this.trang_thai = trang_thai;
+    }
+    
     
 }
