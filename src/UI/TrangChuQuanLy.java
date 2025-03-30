@@ -891,6 +891,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             cboKhuvuc.addItem(string);
         }
     }
+
     private TaiKhoan getInfo() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -981,6 +982,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
+
     public void loadNapThe() {
         DefaultTableModel tblNapThe = (DefaultTableModel) this.tblNapThe.getModel();
         tblNapThe.setRowCount(0);
@@ -996,7 +998,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 napThe.getTrangThai()});
         }
     }
-    private void loadPC(){
+
+    private void loadPC() {
         DefaultTableModel tabMayTinh = (DefaultTableModel) tblPC.getModel();
         tabMayTinh.setRowCount(0);
         MayTinhDAO mtDAO = new MayTinhDAO();
@@ -1102,7 +1105,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         if (tenmay.isEmpty() || khumay.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Nhập thiếu");
             return;
-        }   
+        }
         try {
             KhuVucDAO kvDAO = new KhuVucDAO();
             MayTinhDAO mtDAO = new MayTinhDAO();
@@ -1241,13 +1244,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     private void tabDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabDonHangMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTiet.getModel();     
+        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTiet.getModel();
         tabList.setRowCount(0);
         int dongHienTai = tabDonHang.getSelectedRow();
         int id_don_hang = (int) (tabDonHang.getValueAt(dongHienTai, 0));
         txtDonHang.setText(String.valueOf(id_don_hang));
         DatDoDAO ddDAO = new DatDoDAO();
-             List<ChiTietDonHang> ctdhLst = ddDAO.readChiTiet(id_don_hang);
+        List<ChiTietDonHang> ctdhLst = ddDAO.readChiTiet(id_don_hang);
         ctdhLst = ddDAO.readChiTiet(id_don_hang);
         for (ChiTietDonHang ChiTiet : ctdhLst) {
             tabList.addRow(new Object[]{
@@ -1258,18 +1261,18 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 ChiTiet.getGhi_chu()
             });
         }
-       tabChiTiet.setModel(tabList);
+        tabChiTiet.setModel(tabList);
     }//GEN-LAST:event_tabDonHangMouseClicked
 
     private void tabDonHangDoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabDonHangDoneMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTietDone.getModel();     
+        DefaultTableModel tabList = (DefaultTableModel) this.tabChiTietDone.getModel();
         tabList.setRowCount(0);
         int dongHienTai = tabDonHangDone.getSelectedRow();
         int id_don_hang = (int) (tabDonHangDone.getValueAt(dongHienTai, 0));
         txtDonHangDone.setText(String.valueOf(id_don_hang));
         DatDoDAO ddDAO = new DatDoDAO();
-             List<ChiTietDonHang> ctdhLst = ddDAO.readChiTiet(id_don_hang);
+        List<ChiTietDonHang> ctdhLst = ddDAO.readChiTiet(id_don_hang);
         ctdhLst = ddDAO.readChiTiet(id_don_hang);
         for (ChiTietDonHang ChiTiet : ctdhLst) {
             tabList.addRow(new Object[]{
@@ -1280,7 +1283,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 ChiTiet.getGhi_chu()
             });
         }
-       tabChiTiet.setModel(tabList);
+        tabChiTiet.setModel(tabList);
     }//GEN-LAST:event_tabDonHangDoneMouseClicked
 
     private void btnDoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoneActionPerformed
@@ -1290,20 +1293,21 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             int id_don_hang = Integer.parseInt(txtDonHang.getText());
             DatDoDAO ddDAO = new DatDoDAO();
             int ketQua = ddDAO.updateTrangThai(id_don_hang);
-         if(ketQua == 1){
-             JOptionPane.showMessageDialog(this, "Đã chín");
-         }
-         else{
-             JOptionPane.showMessageDialog(this, "Còn tái lắm");
-         }
+            if (ketQua == 1) {
+                JOptionPane.showMessageDialog(this, "Đã chín");
+            } else {
+                JOptionPane.showMessageDialog(this, "Còn tái lắm");
+            }
+            this.ListDonHang();
+            this.ListDonHangDone();
         }
     }//GEN-LAST:event_btnDoneActionPerformed
-    public void ListDonHangDone(){
+    public void ListDonHangDone() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
-        
+
         DefaultTableModel tabList = (DefaultTableModel) this.tabDonHangDone.getModel();
-        tabList.setRowCount(0);        
+        tabList.setRowCount(0);
         for (DonHangNew ListHang : dhnewLst) {
             tabList.addRow(new Object[]{
                 ListHang.getId_don_hang(),
@@ -1313,12 +1317,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    public void ListDonHang(){
+
+    public void ListDonHang() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHang();
-        
+
         DefaultTableModel tabList = (DefaultTableModel) this.tabDonHang.getModel();
-        tabList.setRowCount(0);        
+        tabList.setRowCount(0);
         for (DonHangNew ListHang : dhnewLst) {
             tabList.addRow(new Object[]{
                 ListHang.getId_don_hang(),
@@ -1327,9 +1332,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 ListHang.isTrang_thai() ? "Đã xong" : "Chờ xử lý"
 
             });
-        }      
+        }
     }
-    
+
     /**
      * @param args the command line arguments
      */

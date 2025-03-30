@@ -337,16 +337,18 @@ public class DatDoDAO {
         }
     }
     public int updateTrangThai(int id_don_hang){
-        String sql = "UPDATE Chi_tiet_don_hang SET trang_thai = 1 WHERE id_don_hang = ?";
+        int ketQua = 0;
+        String sql = "UPDATE Don_hang SET trang_thai = 1 WHERE id_don_hang = ?";
         List<DonHangNew> dhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, id_don_hang);
-                ps.executeUpdate();
+                ketQua = ps.executeUpdate();
+                return ketQua;
             }           
          catch (SQLException e) {   
-            e.printStackTrace();           
+            e.printStackTrace();
+            return ketQua;
         }
-        return 0;
     }
     }
 
