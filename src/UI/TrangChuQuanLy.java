@@ -20,6 +20,7 @@ import Entity.ThongKeDonHang;
 import Entity.KhuVucMay;
 import Entity.NapThe;
 import Utils.KetNoiDB;
+import Utils.Server;
 import Utils.XImage;
 import java.awt.Color;
 import java.util.Random;
@@ -29,7 +30,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
+import java.io.*;
+import java.net.*;
 /**
  *
  * @author Maximus
@@ -55,7 +57,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadPC();
         this.ListDonHang();
     }
-
+        static Socket s;
+        static OutputStream os;
+        static PrintStream ps;
+        static InputStream is;
+        static BufferedReader br;
+        static BufferedReader bk;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,6 +139,16 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         tabDonHang = new javax.swing.JTable();
         jScrollPane10 = new javax.swing.JScrollPane();
         tabChiTiet = new javax.swing.JTable();
+        jTabbedPane7 = new javax.swing.JTabbedPane();
+        jPanel8 = new javax.swing.JPanel();
+        txtTinNhan = new javax.swing.JTextField();
+        btnGui = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtaTinNhan = new javax.swing.JTextArea();
+        txtXinChao = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -746,6 +763,85 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quán lý đơn hàng", jTabbedPane6);
 
+        txtTinNhan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        btnGui.setText("Gửi");
+        btnGui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiActionPerformed(evt);
+            }
+        });
+
+        txtaTinNhan.setColumns(20);
+        txtaTinNhan.setRows(5);
+        jScrollPane6.setViewportView(txtaTinNhan);
+
+        txtXinChao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtXinChao.setText("Xin chào:");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel10.setText("Nhập tin nhắn");
+
+        jButton1.setText("Tạo server");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Chạy server");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnGui)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addGap(27, 27, 27)
+                            .addComponent(txtTinNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtXinChao))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addContainerGap(161, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtTinNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGui)
+                    .addComponent(txtXinChao))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(415, Short.MAX_VALUE))
+        );
+
+        jTabbedPane7.addTab("Chat", jPanel8);
+
+        jTabbedPane1.addTab("Chat", jTabbedPane7);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -772,6 +868,25 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void ketNoiServer() {
+        new Thread(() -> {
+            try {
+                s = new Socket("localhost",12345); 
+                is = s.getInputStream(); 
+                br = new BufferedReader(new InputStreamReader (is)); 
+                os = s.getOutputStream(); 
+                ps = new PrintStream(os); 
+                bk = new BufferedReader(new InputStreamReader (System.in)); 
+                String msg=""; 
+                while(!msg.equals("bye")) { 
+                    msg = br.readLine(); 
+                    txtaTinNhan.append("\nserver: "+msg); 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
     private boolean isAllValid() {
         String username = txtUsername.getText();
         String password = txtPass.getText();
@@ -1165,6 +1280,25 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_tabDonHangMouseClicked
+
+    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
+        // TODO add your handling code here:
+        String str2;
+        str2 = txtTinNhan.getText();
+        txtaTinNhan.append("\nme : "+str2);
+        ps.println(str2);
+        txtTinNhan.setText("");
+    }//GEN-LAST:event_btnGuiActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Server.createServer();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.ketNoiServer();
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void ListDonHang(){
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHang();
@@ -1182,7 +1316,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception{
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1219,6 +1353,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
+    private javax.swing.JButton btnGui;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua1;
     private javax.swing.JButton btnSua2;
@@ -1232,7 +1367,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboKhuvuc;
     private javax.swing.JComboBox<String> cboRole;
     private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1249,6 +1387,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
@@ -1256,6 +1395,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -1264,6 +1404,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
+    private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JLabel lblDatDo;
     private javax.swing.JLabel lblMatKhau;
     private javax.swing.JLabel lblVaiTro;
@@ -1284,6 +1425,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTextField txtSdt;
     private javax.swing.JTextField txtSoDu;
     private javax.swing.JTextField txtTenKhu;
+    private javax.swing.JTextField txtTinNhan;
     private javax.swing.JTextField txtUsername;
+    private javax.swing.JLabel txtXinChao;
+    private static javax.swing.JTextArea txtaTinNhan;
     // End of variables declaration//GEN-END:variables
 }

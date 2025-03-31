@@ -15,17 +15,22 @@ import java.util.Random;
 import javax.swing.Timer;
 import java.io.*;
 import java.net.*;
+import javax.swing.JTextField;
 
 /**
  *
  * @author cunhp
  */
 public class Chat extends javax.swing.JFrame {
+    private Socket socket;
+    private PrintWriter writer;
+    private BufferedReader reader;
     /**
      * Creates new form Chat
      */
     public Chat() {
         initComponents();
+        this.ketNoiServer();
     }
         static Socket s;
         static InputStream is;
@@ -109,7 +114,25 @@ public class Chat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void ketNoiServer() {
+        new Thread(() -> {
+            try {
+                s = new Socket("localhost",12345); 
+                is = s.getInputStream(); 
+                br = new BufferedReader(new InputStreamReader (is)); 
+                os = s.getOutputStream(); 
+                ps = new PrintStream(os); 
+                bk = new BufferedReader(new InputStreamReader (System.in)); 
+                String msg=""; 
+                while(!msg.equals("bye")) { 
+                    msg = br.readLine(); 
+                    txtaTinNhan.append("\nserver: "+msg); 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
     public void xinChao() {
         txtXinChao.setText("Xin chào: "+GlobalState.ten_dang_nhap);
     }
@@ -155,18 +178,6 @@ public class Chat extends javax.swing.JFrame {
                 new Chat().setVisible(true);
             }
         });
-        
-        s = new Socket("localhost",12345); 
-        is = s.getInputStream(); 
-        br = new BufferedReader(new InputStreamReader (is)); 
-        os = s.getOutputStream(); 
-        ps = new PrintStream(os); 
-        bk = new BufferedReader(new InputStreamReader (System.in)); 
-        String msg=""; 
-        while(!msg.equals("bye")) { 
-            msg = br.readLine(); 
-            txtaTinNhan.append("\nserver: "+msg); 
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -177,4 +188,30 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel txtXinChao;
     private static javax.swing.JTextArea txtaTinNhan;
     // End of variables declaration//GEN-END:variables
+    public Chat(String serverAddress, int serverPort) {
+        try {
+            socket = new Socket(serverAddress, 12345);
+            writer = new PrintWriter(socket.getOutputStream(), true);
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void start(){
+        txtTinNhan.addActionListener(e -> {
+            String message = txtTinNhan.getText();
+            writer.println(message); // Gửi tin nhắn tới server
+            txtTinNhan.setText("");
+        });
+        new Thread(() -> {
+            try {
+                String message;
+                while ((message = reader.readLine()) != null) {
+                    txtaTinNhan.append(message + "\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }
