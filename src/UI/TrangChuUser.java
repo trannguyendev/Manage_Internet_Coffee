@@ -262,6 +262,8 @@ public class TrangChuUser extends javax.swing.JFrame {
     }
     private void mniChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChatActionPerformed
         // TODO add your handling code here:
+        Chat chat = new Chat();
+        chat.setVisible(true);
     }//GEN-LAST:event_mniChatActionPerformed
 
     private void mniThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniThoiGianActionPerformed

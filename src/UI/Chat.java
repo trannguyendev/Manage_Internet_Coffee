@@ -26,17 +26,38 @@ public class Chat extends javax.swing.JFrame {
     /**
      * Creates new form Chat
      */
+
+    public Chat() {
+        initComponents();
+        this.ketNoiServer();
+    }
+
     static Socket s;
     static InputStream is;
     static BufferedReader br;
     static OutputStream os;
     static PrintStream ps;
+    static BufferedReader bk;
 
-    public Chat() {
-        initComponents();
-        this.initSocket();
+    public void ketNoiServer() {
+        new Thread(() -> {
+            try {
+                s = new Socket("localhost", 12345);
+                is = s.getInputStream();
+                br = new BufferedReader(new InputStreamReader(is));
+                os = s.getOutputStream();
+                ps = new PrintStream(os);
+                bk = new BufferedReader(new InputStreamReader(System.in));
+                String msg = "";
+                while (!msg.equals("bye")) {
+                    msg = br.readLine();
+                    txtaTinNhan.append("\nAdmin: " + msg);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +74,7 @@ public class Chat extends javax.swing.JFrame {
         txtaTinNhan = new javax.swing.JTextArea();
         txtXinChao = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setText("Nhập tin nhắn");
@@ -114,23 +135,12 @@ public class Chat extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initSocket() {
-        try {
-            s = new Socket("26.200.55.28", 12345);
-            is = s.getInputStream();
-            br = new BufferedReader(new InputStreamReader(is));
-            os = s.getOutputStream();
-            ps = new PrintStream(os);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Failed to connect to server.");
-            ps = null; // Mark as null if initialization fails
-        }
-    }
     public void xinChao() {
         txtXinChao.setText("Xin chào: " + GlobalState.ten_dang_nhap);
     }
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         // TODO add your handling code here:
+        
         String str2;
         str2 = txtTinNhan.getText();
         txtaTinNhan.append("\nme : " + str2);
