@@ -151,6 +151,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         txtDonHangDone = new javax.swing.JTextField();
         jScrollPane12 = new javax.swing.JScrollPane();
         tabChiTietDone = new javax.swing.JTable();
+        btnDatDo = new javax.swing.JButton();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -818,6 +819,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         ));
         jScrollPane12.setViewportView(tabChiTietDone);
 
+        btnDatDo.setText("Quản lý đồ đặt");
+        btnDatDo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatDoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -827,7 +835,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addComponent(lblDatDo1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel18)
@@ -835,7 +843,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addComponent(txtDonHangDone, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(278, 278, 278)
+                        .addComponent(btnDatDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -845,12 +857,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(txtDonHangDone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDonHangDone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDatDo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 346, Short.MAX_VALUE))
+                .addGap(0, 345, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab("Đơn hàng đã làm", jPanel8);
@@ -950,8 +963,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
     public void ketNoiServer() {
         new Thread(() -> {
+            HostServer.createServer();
+        }).start();
+        new Thread(() -> {
             try {
-                s = new Socket("localhost", 12345);
+                s = new Socket("26.148.18.17", 12345);
                 is = s.getInputStream();
                 br = new BufferedReader(new InputStreamReader(is));
                 os = s.getOutputStream();
@@ -1417,6 +1433,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         ps.println(str2);
         txtNoiDung.setText("");
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
+        // TODO add your handling code here:
+        QuanLyDoAn qlDo = new QuanLyDoAn();
+        qlDo.setVisible(true);
+    }//GEN-LAST:event_btnDatDoActionPerformed
     public void ListDonHangDone() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
@@ -1491,6 +1513,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
     private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnDatDo;
     private javax.swing.JToggleButton btnDone;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSua;
