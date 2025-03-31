@@ -1261,9 +1261,11 @@
                     <Component class="javax.swing.JTable" name="tabDonHangDone">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="2" rowCount="4">
+                          <Table columnCount="4" rowCount="4">
                             <Column editable="true" title="ID &#x111;&#x1a1;n h&#xe0;ng" type="java.lang.Object"/>
                             <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object"/>
+                            <Column editable="true" title="ID user" type="java.lang.Object"/>
+                            <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                           </Table>
                         </Property>
                       </Properties>
