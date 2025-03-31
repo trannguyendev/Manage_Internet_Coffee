@@ -19,9 +19,17 @@ import Entity.TaiKhoan;
 import Entity.ThongKeDonHang;
 import Entity.KhuVucMay;
 import Entity.NapThe;
+import Utils.GlobalState;
+import Utils.HostServer;
 import Utils.KetNoiDB;
 import Utils.XImage;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.Socket;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -55,6 +63,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadPC();
         this.ListDonHang();
         this.ListDonHangDone();
+        this.ketNoiServer();
     }
 
     /**
@@ -142,6 +151,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         txtDonHangDone = new javax.swing.JTextField();
         jScrollPane12 = new javax.swing.JScrollPane();
         tabChiTietDone = new javax.swing.JTable();
+        jTabbedPane7 = new javax.swing.JTabbedPane();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtA = new javax.swing.JTextArea();
+        txtNoiDung = new javax.swing.JTextField();
+        btnSend = new javax.swing.JButton();
+        btnConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -841,6 +857,64 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quán lý đơn hàng", jTabbedPane6);
 
+        txtA.setEditable(false);
+        txtA.setColumns(20);
+        txtA.setRows(5);
+        jScrollPane6.setViewportView(txtA);
+
+        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNoiDung.setForeground(new java.awt.Color(255, 153, 153));
+
+        btnSend.setText("Send");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
+
+        btnConnect.setText("Connect Server");
+        btnConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConnectActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(txtNoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(btnConnect)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSend))
+                .addContainerGap(400, Short.MAX_VALUE))
+        );
+
+        jTabbedPane7.addTab("Chat", jPanel10);
+
+        jTabbedPane1.addTab("Chat", jTabbedPane7);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -866,6 +940,33 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    static Socket s;
+    static InputStream is;
+    static BufferedReader br;
+    static OutputStream os;
+    static PrintStream ps;
+    static BufferedReader bk;
+
+    public void ketNoiServer() {
+        new Thread(() -> {
+            try {
+                s = new Socket("localhost", 12345);
+                is = s.getInputStream();
+                br = new BufferedReader(new InputStreamReader(is));
+                os = s.getOutputStream();
+                ps = new PrintStream(os);
+                bk = new BufferedReader(new InputStreamReader(System.in));
+                String msg = "";
+                while (!msg.equals("bye")) {
+                    msg = br.readLine();
+                    txtA.append("\nClient: " + msg);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 
     private boolean isAllValid() {
         String username = txtUsername.getText();
@@ -1302,6 +1403,20 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.ListDonHangDone();
         }
     }//GEN-LAST:event_btnDoneActionPerformed
+
+    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConnectActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        // TODO add your handling code here:
+        
+        String str2;
+        str2 = txtNoiDung.getText();
+        txtA.append("\n" + "Admin: "+ str2);
+        ps.println(str2);
+        txtNoiDung.setText("");
+    }//GEN-LAST:event_btnSendActionPerformed
     public void ListDonHangDone() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
@@ -1375,7 +1490,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
+    private javax.swing.JButton btnConnect;
     private javax.swing.JToggleButton btnDone;
+    private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua1;
     private javax.swing.JButton btnSua2;
@@ -1401,6 +1518,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1417,6 +1535,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -1425,6 +1544,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
+    private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JLabel lblDatDo;
     private javax.swing.JLabel lblDatDo1;
     private javax.swing.JLabel lblMatKhau;
@@ -1439,11 +1559,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTable tblNapThe;
     private javax.swing.JTable tblPC;
     private javax.swing.JTable tblUser;
+    private javax.swing.JTextArea txtA;
     private javax.swing.JTextField txtDonHang;
     private javax.swing.JTextField txtDonHangDone;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGiaPC;
     private javax.swing.JTextField txtHoten;
+    private javax.swing.JTextField txtNoiDung;
     private javax.swing.JTextField txtPCname;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtSdt;
