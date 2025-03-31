@@ -347,6 +347,7 @@ public class TrangChuUser extends javax.swing.JFrame {
     private void setCenter() {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setAlwaysOnTop(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;

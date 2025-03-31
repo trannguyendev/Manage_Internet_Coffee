@@ -57,7 +57,7 @@ public class QuanLyDoAn extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDoAn = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel1.setText("Quản Lý Đồ Ăn");
@@ -235,6 +235,7 @@ public class QuanLyDoAn extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void HienListDoUong(){
         DatDoDAO uongDAO = new DatDoDAO();

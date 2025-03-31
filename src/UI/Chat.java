@@ -42,7 +42,7 @@ public class Chat extends javax.swing.JFrame {
     public void ketNoiServer() {
         new Thread(() -> {
             try {
-                s = new Socket("localhost", 12345);
+                s = new Socket("26.148.18.17", 12345);
                 is = s.getInputStream();
                 br = new BufferedReader(new InputStreamReader(is));
                 os = s.getOutputStream();
@@ -154,6 +154,7 @@ public class Chat extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void xinChao() {
@@ -163,7 +164,7 @@ public class Chat extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String str2;
-        str2 = txtTinNhan.getText();
+        str2 = GlobalState.ten_dang_nhap+": "+txtTinNhan.getText();
         txtaTinNhan.append("\nme : " + str2);
         ps.println(str2);
         txtTinNhan.setText("\n");
