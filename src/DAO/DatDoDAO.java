@@ -275,34 +275,35 @@ public class DatDoDAO {
             e.printStackTrace();
         }
     }
-    public List<DonHangNew> readDonHang(){
+
+    public List<DonHangNew> readDonHang() {
         String sql = "SELECT * FROM Don_hang WHERE trang_thai = 0";
         List<DonHangNew> dhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id_don_hang = rs.getInt("id_don_hang");
                 int id_tk = rs.getInt("id_tk");
                 String thoi_gian = rs.getString("thoi_gian");
                 boolean trang_thai = rs.getBoolean("trang_thai");
 
-                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian, trang_thai);
+                DonHangNew dh = new DonHangNew(id_don_hang, id_tk, thoi_gian, trang_thai);
                 dhLst.add(dh);
             }
-         return dhLst;      
+            return dhLst;
         } catch (SQLException e) {
             e.printStackTrace();
             return dhLst;
         }
     }
-    
-    public List<ChiTietDonHang> readChiTiet(int id){
+
+    public List<ChiTietDonHang> readChiTiet(int id) {
         String sql = "SELECT * FROM Chi_tiet_don_hang where id_don_hang = ?";
         List<ChiTietDonHang> ctdhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){             
+            while (rs.next()) {
                 int id_don_hang = rs.getInt("id_don_hang");
                 int id_san_pham = rs.getInt(("id_san_pham"));
                 int so_luong = rs.getInt("so_luong");
@@ -311,44 +312,61 @@ public class DatDoDAO {
                 ChiTietDonHang ctdh = new ChiTietDonHang(id_don_hang, id_san_pham, so_luong, gia, ghi_chu);
                 ctdhLst.add(ctdh);
             }
-               return ctdhLst;
+            return ctdhLst;
         } catch (SQLException e) {
             e.printStackTrace();
             return ctdhLst;
         }
     }
-    public List<DonHangNew> readDonHangDone(){
+
+    public List<DonHangNew> readDonHangDone() {
         String sql = "SELECT * FROM Don_hang WHERE trang_thai = 1";
         List<DonHangNew> dhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id_don_hang = rs.getInt("id_don_hang");
                 int id_tk = rs.getInt("id_tk");
                 String thoi_gian = rs.getString("thoi_gian");
                 boolean trang_thai = rs.getBoolean("trang_thai");
-                DonHangNew dh = new DonHangNew(id_don_hang,id_tk, thoi_gian, trang_thai);
+                DonHangNew dh = new DonHangNew(id_don_hang, id_tk, thoi_gian, trang_thai);
                 dhLst.add(dh);
             }
-         return dhLst;      
+            return dhLst;
         } catch (SQLException e) {
             e.printStackTrace();
             return dhLst;
         }
     }
-    public int updateTrangThai(int id_don_hang){
+
+    public int updateTrangThai(int id_don_hang) {
         int ketQua = 0;
         String sql = "UPDATE Don_hang SET trang_thai = 1 WHERE id_don_hang = ?";
         List<DonHangNew> dhLst = new ArrayList<>();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, id_don_hang);
-                ketQua = ps.executeUpdate();
-                return ketQua;
-            }           
-         catch (SQLException e) {   
+            ps.setInt(1, id_don_hang);
+            ketQua = ps.executeUpdate();
+            return ketQua;
+        } catch (SQLException e) {
             e.printStackTrace();
             return ketQua;
         }
     }
-    }
 
+    public String getTenSanPham(int id) {
+        String tenSP = null;
+        String sql = "SELECT ten_sp from San_pham where id_san_pham = ?";
+        try (Connection conn = KetNoiDB.getConnect()) {
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setInt(1, id);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()) {
+                tenSP = rs.getString("ten_sp");
+            }
+            return tenSP;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return tenSP;
+        }
+    }
+}
