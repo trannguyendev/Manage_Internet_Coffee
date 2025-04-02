@@ -158,7 +158,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         txtA = new javax.swing.JTextArea();
         txtNoiDung = new javax.swing.JTextField();
         btnSend = new javax.swing.JButton();
-        btnConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -728,7 +727,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID đơn hàng", "ID sản phẩm", "Số lượng", "giá", "Ghi chú"
+                "ID đơn hàng", "Tên sản phẩm", "Số lượng", "giá", "Ghi chú"
             }
         ));
         jScrollPane10.setViewportView(tabChiTiet);
@@ -814,7 +813,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID đơn hàng", "ID sản phẩm", "Số lượng", "giá", "Ghi chú"
+                "ID đơn hàng", "Tên sản phẩm", "Số lượng", "giá", "Ghi chú"
             }
         ));
         jScrollPane12.setViewportView(tabChiTietDone);
@@ -885,13 +884,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             }
         });
 
-        btnConnect.setText("Connect Server");
-        btnConnect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConnectActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -905,17 +897,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(37, 37, 37))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(btnConnect)
-                .addGap(28, 28, 28)
+                .addGap(105, 105, 105)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1128,12 +1114,20 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        String sdt = txtSdt.getText();
+        String ten_dang_nhap = txtUsername.getText();
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        int id;
+        id = tkDAO.getIDAccount(ten_dang_nhap);
+        boolean role;
+        role = tkDAO.getRole(id);
         int check = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa ?");
         if (check == JOptionPane.YES_OPTION) {
-            TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-            tkDAO.deleteAccount(sdt);
-            JOptionPane.showMessageDialog(rootPane, "Xóa thành công");
+            if (role == true) {
+                JOptionPane.showMessageDialog(rootPane, "Đây là tài khoản admin, không thể xóa", "Lưu ý", JOptionPane.WARNING_MESSAGE);
+            } else {
+                tkDAO.deleteAccount(id);
+                JOptionPane.showMessageDialog(rootPane, "Xóa thành công");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Thao tác bị hủy bởi người dùng");
         }
@@ -1372,7 +1366,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         for (ChiTietDonHang ChiTiet : ctdhLst) {
             tabList.addRow(new Object[]{
                 ChiTiet.getId_don_hang(),
-                ChiTiet.getId_san_pham(),
+                ddDAO.getTenSanPham(ChiTiet.getId_san_pham()),
                 ChiTiet.getSo_luong(),
                 ChiTiet.getGia(),
                 ChiTiet.getGhi_chu()
@@ -1394,7 +1388,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         for (ChiTietDonHang ChiTiet : ctdhLst) {
             tabList.addRow(new Object[]{
                 ChiTiet.getId_don_hang(),
-                ChiTiet.getId_san_pham(),
+                ddDAO.getTenSanPham(ChiTiet.getId_san_pham()),
                 ChiTiet.getSo_luong(),
                 ChiTiet.getGia(),
                 ChiTiet.getGhi_chu()
@@ -1420,16 +1414,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDoneActionPerformed
 
-    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConnectActionPerformed
-
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        
+
         String str2;
         str2 = txtNoiDung.getText();
-        txtA.append("\n" + "Admin: "+ str2);
+        txtA.append("\n" + "Admin: " + str2);
         ps.println(str2);
         txtNoiDung.setText("");
     }//GEN-LAST:event_btnSendActionPerformed
@@ -1512,7 +1502,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TabThong_ke_tai_khoan;
-    private javax.swing.JButton btnConnect;
     private javax.swing.JButton btnDatDo;
     private javax.swing.JToggleButton btnDone;
     private javax.swing.JButton btnSend;

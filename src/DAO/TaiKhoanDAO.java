@@ -123,11 +123,11 @@ public class TaiKhoanDAO {
         }
     }
 
-    public void deleteAccount(String sdt) {
+    public void deleteAccount(int id) {
         try (Connection conn = KetNoiDB.getConnect()) {
-            String url = "DELETE FROM Tai_khoan WHERE sdt = ?";
+            String url = "DELETE FROM Tai_khoan WHERE id_tk = ?";
             PreparedStatement ppStm = conn.prepareStatement(url);
-            ppStm.setString(1, sdt);
+            ppStm.setInt(1, id);
             ppStm.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -144,6 +144,23 @@ public class TaiKhoanDAO {
         } catch (Exception e) {
             System.out.println("Error: " + e);
             e.printStackTrace();
+        }
+    }
+    public boolean getRole(int id){
+        boolean role = false;
+        String sql = "select vai_tro from Tai_khoan where id_tk = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setInt(1, id);
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                role = rs.getBoolean("vai_tro");
+            }
+            return role;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }
