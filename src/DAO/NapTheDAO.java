@@ -97,4 +97,39 @@ public class NapTheDAO {
             e.printStackTrace();
         }
     }
+    public int returnNumberOfOrderByStatus(String trang_thai){
+        int currentNumber = 0;
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement("SELECT status from Nap_the where status = ?");
+            ppStm.setString(1, trang_thai);
+            ResultSet rs = ppStm.executeQuery();
+            while(rs.next()){
+                currentNumber++;
+            }
+            System.out.println("Amount: "+currentNumber);
+            return currentNumber;
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+    public int getAmountOfOrder(){
+        String sql = "SELECT * FROM Nap_the WHERE status = ? OR status = ?";
+        int totalCount = 0;
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setString(1, "Thành công");
+            ppStm.setString(2, "Đã hủy");
+            ResultSet rs = ppStm.executeQuery();
+            while(rs.next()){
+                totalCount++;
+            }
+            return totalCount;
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return 0;
+        }
+    }
 }
