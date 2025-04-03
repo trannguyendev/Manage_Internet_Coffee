@@ -36,7 +36,9 @@ import javax.swing.Timer;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import org.knowm.xchart.*;
 
 /**
  *
@@ -64,6 +66,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.ListDonHang();
         this.ListDonHangDone();
         this.ketNoiServer();
+        this.drawChart();
     }
 
     /**
@@ -75,6 +78,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pieChartBuilder1 = new org.knowm.xchart.PieChartBuilder();
         lblXinChao = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -105,6 +109,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabDoanhThuMon = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        lblNapTheChart = new javax.swing.JLabel();
+        lblPieChart = new javax.swing.JLabel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -164,7 +171,14 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         lblXinChao.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         lblXinChao.setText("<< Xin chào Admin ! >>");
 
+        jTabbedPane1.setForeground(new java.awt.Color(255, 153, 153));
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         txtUsername.setBackground(new java.awt.Color(255, 255, 255));
         txtUsername.setForeground(new java.awt.Color(255, 153, 153));
@@ -272,8 +286,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -387,6 +401,29 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Doanh thu món", jPanel4);
 
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(lblNapTheChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNapTheChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(339, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Biểu đồ", jPanel11);
+
         jTabbedPane1.addTab("Thống kê", jTabbedPane3);
 
         jLabel1.setText("Tên máy");
@@ -470,7 +507,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cboKhuvuc, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -618,7 +655,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 865, Short.MAX_VALUE)
+            .addGap(0, 853, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -675,7 +712,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(154, 154, 154)
                 .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jScrollPane7)
                 .addContainerGap())
@@ -744,7 +781,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -834,7 +871,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 .addComponent(lblDatDo1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel18)
@@ -889,7 +926,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
@@ -919,13 +956,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(270, Short.MAX_VALUE)
                 .addComponent(lblXinChao)
                 .addGap(318, 318, 318))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1024,6 +1058,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadkhuvuc();
             this.loadPC();
             this.loadNapThe();
+            this.drawChart();
         });
         timer.start();
     }
@@ -1429,6 +1464,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         QuanLyDoAn qlDo = new QuanLyDoAn();
         qlDo.setVisible(true);
     }//GEN-LAST:event_btnDatDoActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
     public void ListDonHangDone() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
@@ -1460,6 +1499,23 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
             });
         }
+    }
+    
+    public void drawChart(){
+        PieChart chart = new PieChartBuilder().width(400).height(400).title("Thống kê doanh thu món ăn").build();
+        ThongKeDonHangDAO TKDHdao = new ThongKeDonHangDAO();
+        List<ThongKeDonHang> TKDHLst = TKDHdao.ThongTinThongKeDonHang();
+        for (ThongKeDonHang DoanhThu : TKDHLst) {
+            chart.addSeries(DoanhThu.getTen_sp(), DoanhThu.getSo_luong_ban());
+            }
+        lblPieChart.setIcon(new ImageIcon(BitmapEncoder.getBufferedImage(chart)));
+        
+        NapTheDAO napThe = new NapTheDAO();
+        int total = napThe.getAmountOfOrder();
+        PieChart PieChart = new PieChartBuilder().width(400).height(400).title("Thống kê đơn hàng theo tỉ lệ").build();
+        PieChart.addSeries("Đơn thành công", napThe.returnNumberOfOrderByStatus("Thành công"));
+        PieChart.addSeries("Đơn đã hủy", napThe.returnNumberOfOrderByStatus("Đã hủy"));
+        lblNapTheChart.setIcon(new ImageIcon(BitmapEncoder.getBufferedImage(PieChart)));
     }
 
     /**
@@ -1531,6 +1587,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1560,8 +1617,11 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel lblDatDo;
     private javax.swing.JLabel lblDatDo1;
     private javax.swing.JLabel lblMatKhau;
+    private javax.swing.JLabel lblNapTheChart;
+    private javax.swing.JLabel lblPieChart;
     private javax.swing.JLabel lblVaiTro;
     private javax.swing.JLabel lblXinChao;
+    private org.knowm.xchart.PieChartBuilder pieChartBuilder1;
     private javax.swing.JTable tabChiTiet;
     private javax.swing.JTable tabChiTietDone;
     private javax.swing.JTable tabDoanhThuMon;
