@@ -19,7 +19,6 @@ import Entity.TaiKhoan;
 import Entity.ThongKeDonHang;
 import Entity.KhuVucMay;
 import Entity.NapThe;
-import Utils.GlobalState;
 import Utils.HostServer;
 import Utils.KetNoiDB;
 import Utils.XImage;
@@ -54,6 +53,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     public TrangChuQuanLy() {
         this.preInit();
         initComponents();
+        this.loadYear();
         this.changeColor();
         this.load2Table();
         this.loadThongKeTaiKhoan();
@@ -112,6 +112,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         lblNapTheChart = new javax.swing.JLabel();
         lblPieChart = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cboYear = new javax.swing.JComboBox<>();
+        btnLoc = new javax.swing.JButton();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -401,25 +404,55 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Doanh thu món", jPanel4);
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel10.setText("Lọc theo năm");
+
+        cboYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboYearActionPerformed(evt);
+            }
+        });
+
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+            .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(lblNapTheChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(lblPieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(lblNapTheChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnLoc)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(btnLoc))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNapTheChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPieChart, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(332, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Biểu đồ", jPanel11);
@@ -1058,7 +1091,6 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadkhuvuc();
             this.loadPC();
             this.loadNapThe();
-            this.drawChart();
         });
         timer.start();
     }
@@ -1145,6 +1177,15 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         List<MayTinh> lstPC = mtDAO.parseListPC();
         for (MayTinh mayTinh : lstPC) {
             tabMayTinh.addRow(new Object[]{mtDAO.getIDPC(mayTinh.getTen_may()), mayTinh.getTen_may(), kvDAO.getTenKhuVuc(mayTinh.getId_khu_vuc())});
+        }
+    }
+
+    private void loadYear() {
+        ThongKeDonHangDAO thongKeDAO = new ThongKeDonHangDAO();
+        List<Integer> lstYear = thongKeDAO.getListYear();
+        cboYear.removeAllItems();
+        for (Integer stringYear : lstYear) {
+            cboYear.addItem(String.valueOf(stringYear));
         }
     }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -1468,6 +1509,16 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void cboYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboYearActionPerformed
+        // TODO add your handling code here:
+//        this.drawChartBySort();
+    }//GEN-LAST:event_cboYearActionPerformed
+
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        // TODO add your handling code here:
+        this.drawChartBySort();
+    }//GEN-LAST:event_btnLocActionPerformed
     public void ListDonHangDone() {
         DatDoDAO ddDAO = new DatDoDAO();
         List<DonHangNew> dhnewLst = ddDAO.readDonHangDone();
@@ -1500,22 +1551,36 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             });
         }
     }
-    
-    public void drawChart(){
+
+    public void drawChart() {
         PieChart chart = new PieChartBuilder().width(400).height(400).title("Thống kê doanh thu món ăn").build();
         ThongKeDonHangDAO TKDHdao = new ThongKeDonHangDAO();
         List<ThongKeDonHang> TKDHLst = TKDHdao.ThongTinThongKeDonHang();
         for (ThongKeDonHang DoanhThu : TKDHLst) {
             chart.addSeries(DoanhThu.getTen_sp(), DoanhThu.getSo_luong_ban());
-            }
+        }
         lblPieChart.setIcon(new ImageIcon(BitmapEncoder.getBufferedImage(chart)));
-        
+
         NapTheDAO napThe = new NapTheDAO();
-        int total = napThe.getAmountOfOrder();
+
         PieChart PieChart = new PieChartBuilder().width(400).height(400).title("Thống kê đơn hàng theo tỉ lệ").build();
         PieChart.addSeries("Đơn thành công", napThe.returnNumberOfOrderByStatus("Thành công"));
         PieChart.addSeries("Đơn đã hủy", napThe.returnNumberOfOrderByStatus("Đã hủy"));
         lblNapTheChart.setIcon(new ImageIcon(BitmapEncoder.getBufferedImage(PieChart)));
+    }
+
+    public void drawChartBySort() {
+        String yearStr = String.valueOf(cboYear.getSelectedItem());
+        int year = Integer.parseInt(yearStr);
+        PieChart chart = new PieChartBuilder().width(400).height(400).title("Thống kê doanh thu món ăn").build();
+        ThongKeDonHangDAO TKDHdao = new ThongKeDonHangDAO();
+        List<ThongKeDonHang> TKDHLst = TKDHdao.ThongTinThongKeDonHangTheoNam(year);
+        for (ThongKeDonHang DoanhThu : TKDHLst) {
+            chart.addSeries(DoanhThu.getTen_sp(), DoanhThu.getSo_luong_ban());
+        }
+        lblPieChart.setIcon(new ImageIcon(BitmapEncoder.getBufferedImage(chart)));
+        lblPieChart.revalidate();
+        lblPieChart.repaint();
     }
 
     /**
@@ -1560,6 +1625,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JTable TabThong_ke_tai_khoan;
     private javax.swing.JButton btnDatDo;
     private javax.swing.JToggleButton btnDone;
+    private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua1;
@@ -1574,7 +1640,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboKhuvuc;
     private javax.swing.JComboBox<String> cboRole;
     private javax.swing.JComboBox<String> cboTrangThai;
+    private javax.swing.JComboBox<String> cboYear;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
