@@ -12,4 +12,5 @@ public class GlobalState {
     public static String ten_dang_nhap;
     public static String ten_may;
     public static int menh_gia;
+    public static boolean accountStatus = true;
 }

@@ -250,15 +250,24 @@ public class TrangChuUser extends javax.swing.JFrame {
     }
 
     private void displayTime() {
-
+        
         Timer timer = new Timer(1000, e -> {
+            boolean isValid2Use;
             LocalDateTime myDateObj = LocalDateTime.now();
             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
             String formattedDate = myDateObj.format(myFormatObj);
             txtTime.setText(formattedDate);
+            isValid2Use = GlobalState.accountStatus;
+            if(!isValid2Use){
+                ((Timer) e.getSource()).stop();
+                this.dispose();
+                Login lg = new Login();
+                lg.setVisible(true);
+            }
         });
         timer.start();
+        
     }
     private void mniChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniChatActionPerformed
         // TODO add your handling code here:
