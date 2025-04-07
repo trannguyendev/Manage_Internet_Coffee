@@ -5,6 +5,7 @@
 package UI;
 
 import DAO.MayTinhDAO;
+import DAO.TaiKhoanDAO;
 import Utils.GlobalState;
 import Utils.KetNoiDB;
 import Utils.XImage;
@@ -214,10 +215,10 @@ public class Login extends javax.swing.JFrame {
         username = txtUsername.getText();
         pass = String.valueOf(txtPass.getPassword());
         isValidField();
-        this.checkLogin();
         String chonPC = String.valueOf(cboPC.getSelectedItem());
         GlobalState.ten_may = chonPC;
-        System.out.println(""+GlobalState.ten_may);
+        this.checkLogin();
+        System.out.println("" + GlobalState.ten_may);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     public boolean isValidField() {
@@ -227,7 +228,8 @@ public class Login extends javax.swing.JFrame {
             return true;
         }
     }
-    private void loadPC(){
+
+    private void loadPC() {
         List<String> lstPC = new ArrayList<>();
         lstPC.clear();
         MayTinhDAO mtDAO = new MayTinhDAO();
@@ -237,12 +239,14 @@ public class Login extends javax.swing.JFrame {
             cboPC.addItem(string);
         }
     }
-    private void updateCbo(){
+
+    private void updateCbo() {
         Timer timer = new Timer(7500, e -> {
             this.loadPC();
         });
         timer.start();
     }
+
     private void changeColor() {
         Timer timer = new Timer(1000, e -> {
             Random rand = new Random();
@@ -252,7 +256,7 @@ public class Login extends javax.swing.JFrame {
         });
         timer.start();
     }
-    
+
     private void checkLogin() {
         if (isValidField() == true) {
             try (Connection conn = KetNoiDB.getConnect()) {
@@ -264,26 +268,34 @@ public class Login extends javax.swing.JFrame {
                 if (rs.next()) {
                     boolean vai_tro;
                     vai_tro = rs.getBoolean("vai_tro");
-                    if (vai_tro == true){
+                    if (vai_tro == true) {
                         //Khoi tao Panel Admin
                         TrangChuQuanLy mainAdmin = new TrangChuQuanLy();
                         mainAdmin.setVisible(true);
                         this.dispose();
                         System.out.println("Logged in with admin");
-                    }
-                    else{
-                        //KHoi tao Panel User
+                    } else {
                         GlobalState.ten_dang_nhap = username;
-                        TrangChuUser mainUser = new TrangChuUser();
-                        mainUser.setVisible(true);
-                        this.dispose();
-                        System.out.println("Logged in with Khach Hang");
+                        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+                        MayTinhDAO mtDAO = new MayTinhDAO();
+                        int userWallet = tkDAO.getSoDu();
+                        int PCprice = mtDAO.getMoney(GlobalState.ten_may);
+
+                        if (userWallet >= PCprice) {
+                            TrangChuUser mainUser = new TrangChuUser();
+                            mainUser.setVisible(true);
+                            this.dispose();
+                            System.out.println("Logged in with Khach Hang");
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(rootPane, "Số dư tài khoản của bạn không đủ!!!\n Vui lòng liên hệ admin để nạp thêm", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu sai. Vui lòng kiểm tra lại !");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Error: "+e);
+                JOptionPane.showMessageDialog(rootPane, "Error: " + e);
                 e.printStackTrace();
             }
         } else {
@@ -327,10 +339,11 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    public void setFormCenter(){
+    public void setFormCenter() {
         this.setLocationRelativeTo(null);
     }
-    private void preInit(){
+
+    private void preInit() {
         this.setIconImage(XImage.getAppIcon());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

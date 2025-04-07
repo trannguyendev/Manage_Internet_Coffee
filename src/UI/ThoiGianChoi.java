@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.util.Random;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -27,14 +26,13 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         this.preInit();
         initComponents();
         this.loadSoDu();
-        this.thongBao();;
-        this.TruSoDu();
         this.loadTen();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = this.getWidth();
         int height = this.getHeight();
         this.setLocation(screenSize.width - width, 0);
         this.doiMauLienTuc();
+        this.TruSoDu();
     }
 
     /**
@@ -175,40 +173,46 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     });
     timer.start();
 }
+    
+    
+    public void loadTen() {
+        lblTen.setText(GlobalState.ten_dang_nhap);
+    }
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         
         int so_du = tkDAO.getSoDu();
         lblSoDu.setText(String.valueOf(so_du));
     }
-    
-    public void loadTen() {
-        lblTen.setText(GlobalState.ten_dang_nhap);
-    }
     public void TruSoDu() {
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-        MayTinhDAO mtDAO = new MayTinhDAO();
-        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may)){
-            System.exit(0);
-        }else{
-            Timer timer = new Timer(10000, e -> {
-            
-            int currentMoney = 0;
-            currentMoney = tkDAO.getSoDu() - mtDAO.getMoney(GlobalState.ten_may);
+    TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+    MayTinhDAO mtDAO = new MayTinhDAO();
+
+    Timer timer = new Timer(10000, e -> {
+        int soDu = tkDAO.getSoDu();
+        int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+
+        if (soDu < moneyRequired) {
+            tkDAO.updateSoDu(soDu);
+            ((Timer) e.getSource()).stop();
+            GlobalState.accountStatus = false;
+            this.dispose();
+        } else {
+            int currentMoney = soDu - moneyRequired;
             tkDAO.updateSoDu(currentMoney);
-            this.loadSoDu();
-            this.thongBao();
-        });
-        timer.start();
+            loadSoDu();
         }
-    }
-    public void thongBao() {
-        MayTinhDAO mtDAO = new MayTinhDAO();
-        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may) * 31
-                && Integer.parseInt(lblSoDu.getText()) > ( + mtDAO.getMoney(GlobalState.ten_may) * 29)){
-            JOptionPane.showMessageDialog(rootPane, "Tài khoản bạn còn 5p");
-        }
-    }
+    });
+    timer.start();
+}
+
+//    public void thongBao() {
+//        MayTinhDAO mtDAO = new MayTinhDAO();
+//        if(Integer.parseInt(lblSoDu.getText()) < mtDAO.getMoney(GlobalState.ten_may) * 31
+//                && Integer.parseInt(lblSoDu.getText()) > ( + mtDAO.getMoney(GlobalState.ten_may) * 29)){
+//            JOptionPane.showMessageDialog(rootPane, "Tài khoản bạn còn 5p");
+//        }
+//    }
     private void btnTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTatActionPerformed
         // TODO add your handling code here:
         this.dispose();
