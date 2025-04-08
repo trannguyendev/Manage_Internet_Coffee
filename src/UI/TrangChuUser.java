@@ -198,6 +198,8 @@ public class TrangChuUser extends javax.swing.JFrame {
 
         jMenu2.setText("Trợ giúp");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/The_cao.jpg"))); // NOI18N
         jMenuItem1.setText("Nạp tiền");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +208,7 @@ public class TrangChuUser extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        mniChat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniChat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Ho_tro.png"))); // NOI18N
         mniChat.setText("Chat");
         mniChat.addActionListener(new java.awt.event.ActionListener() {
@@ -313,8 +316,8 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        DatDo d2 = new DatDo();
-        d2.setVisible(true);
+        NapTienChoi napTien = new NapTienChoi();
+        napTien.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**

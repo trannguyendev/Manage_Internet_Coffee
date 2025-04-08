@@ -62,6 +62,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập - Login");
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
         setSize(new java.awt.Dimension(550, 535));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
