@@ -180,11 +180,12 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         int remainingMinutes = soDu / moneyRequired;
         
         if (remainingMinutes == 5) {
-            JOptionPane.showMessageDialog(null, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
         if (remainingMinutes == 2) {
-            JOptionPane.showMessageDialog(null, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
+        
         if (soDu < moneyRequired) {
             tkDAO.updateSoDu(soDu);
             ((Timer) e.getSource()).stop();
@@ -195,6 +196,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             tkDAO.updateSoDu(currentMoney);
             loadSoDu();
         }
+        
     });
     timer.start();
 }
