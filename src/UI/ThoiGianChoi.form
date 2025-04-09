@@ -113,13 +113,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblSoDu" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblSoDu1" min="-2" pref="111" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <EmptySpace pref="47" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -136,12 +131,7 @@
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSoDu" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSoDu1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -169,19 +159,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSoDu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="3"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian c&#xf2;n l&#x1ea1;i:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblSoDu1">
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>

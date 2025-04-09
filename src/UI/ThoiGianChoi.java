@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.util.Random;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -52,8 +53,6 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblTen = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblSoDu = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        lblSoDu1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,11 +81,6 @@ public class ThoiGianChoi extends javax.swing.JFrame {
 
         lblSoDu.setText("jLabel1");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel5.setText("Thời gian còn lại:");
-
-        lblSoDu1.setText("jLabel1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,12 +95,8 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSoDu1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,11 +109,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblSoDu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblSoDu1))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,7 +177,14 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     Timer timer = new Timer(10000, e -> {
         int soDu = tkDAO.getSoDu();
         int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
-
+        int remainingMinutes = soDu / moneyRequired;
+        
+        if (remainingMinutes == 5) {
+            JOptionPane.showMessageDialog(null, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+        }
+        if (remainingMinutes == 2) {
+            JOptionPane.showMessageDialog(null, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+        }
         if (soDu < moneyRequired) {
             tkDAO.updateSoDu(soDu);
             ((Timer) e.getSource()).stop();
@@ -263,10 +256,8 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblSoDu;
-    private javax.swing.JLabel lblSoDu1;
     private javax.swing.JLabel lblTen;
     // End of variables declaration//GEN-END:variables
 }
