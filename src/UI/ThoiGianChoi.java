@@ -53,6 +53,8 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblTen = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblSoDu = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblMins = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,6 +83,11 @@ public class ThoiGianChoi extends javax.swing.JFrame {
 
         lblSoDu.setText("jLabel1");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel5.setText("Số phút còn lại:");
+
+        lblMins.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,6 +95,10 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMins, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -109,7 +120,11 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblSoDu))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblMins))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,9 +181,18 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     }
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+<<<<<<< Updated upstream
         
+=======
+        MayTinhDAO mtDAO = new MayTinhDAO();
+
+>>>>>>> Stashed changes
         int so_du = tkDAO.getSoDu();
+        int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+        int remainingMinutes = so_du / moneyRequired;
+        
         lblSoDu.setText(String.valueOf(so_du));
+        lblMins.setText(String.valueOf(so_du / moneyRequired));
     }
     public void TruSoDu() {
     TaiKhoanDAO tkDAO = new TaiKhoanDAO();
@@ -186,6 +210,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         }
         
+<<<<<<< Updated upstream
         if (soDu < moneyRequired) {
             tkDAO.updateSoDu(soDu);
             ((Timer) e.getSource()).stop();
@@ -200,6 +225,37 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     });
     timer.start();
 }
+=======
+        Timer timer = new Timer(60000, e -> {
+            int soDu = tkDAO.getSoDu();
+            int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+            int remainingMinutes = soDu / moneyRequired;
+
+            if (remainingMinutes == 5) {
+                AudioPlayer.playSound("src\\Libs\\Five-mins.mp3");
+                JOptionPane.showMessageDialog(this, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+            if (remainingMinutes == 2) {
+                AudioPlayer.playSound("src\\Libs\\Two-mins.mp3");
+                JOptionPane.showMessageDialog(this, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+
+            if (soDu < moneyRequired) {
+                tkDAO.updateSoDu(soDu);
+                ((Timer) e.getSource()).stop();
+                GlobalState.accountStatus = false;
+                this.dispose();
+            } else {
+                int currentMoney = soDu - moneyRequired;
+                tkDAO.updateSoDu(currentMoney);
+                lblMins.setText(String.valueOf(soDu / moneyRequired));
+                loadSoDu();
+            }
+
+        });
+        timer.start();
+    }
+>>>>>>> Stashed changes
 
 //    public void thongBao() {
 //        MayTinhDAO mtDAO = new MayTinhDAO();
@@ -258,7 +314,9 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblMins;
     private javax.swing.JLabel lblSoDu;
     private javax.swing.JLabel lblTen;
     // End of variables declaration//GEN-END:variables
