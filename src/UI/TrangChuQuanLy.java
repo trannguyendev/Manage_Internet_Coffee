@@ -1067,7 +1067,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
                 is = s.getInputStream();
                 br = new BufferedReader(new InputStreamReader(is));
                 os = s.getOutputStream();
-                ps = new PrintStream(os);
+                this.ps = new PrintStream(os);
                 bk = new BufferedReader(new InputStreamReader(System.in));
                 String msg = "";
                 while (!msg.equals("bye")) {
