@@ -160,12 +160,11 @@ public class DatDoDAO {
                 ppStm.setString(2, chiTiet.getTen_sp());
                 ppStm.setInt(3, chiTiet.getSoLuong());
                 ppStm.setInt(4, chiTiet.getGia_sp());
-                ppStm.setString(5, chiTiet.getId_danh_muc()); // "Đồ uống" hoặc "Đồ ăn"
-
-                ppStm.addBatch(); // Thêm vào batch để thực thi nhiều câu lệnh cùng lúc
+                ppStm.setString(5, chiTiet.getId_danh_muc()); 
+                ppStm.addBatch();
             }
 
-            int[] ketQua = ppStm.executeBatch(); // Thực thi toàn bộ batch
+            int[] ketQua = ppStm.executeBatch();
             return ketQua.length > 0;
 
         } catch (Exception e) {
@@ -220,23 +219,18 @@ public class DatDoDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return -1; // Không tìm thấy đơn hàng nào
+        return -1;
     }
 
     public int taoDonHangMoi() {
         String sql = "INSERT INTO Don_hang (thoi_gian, id_tk, trang_thai) VALUES (?, ?, ?)";
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         try (Connection conn = KetNoiDB.getConnect(); PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            // Set the current datetime for the first placeholder
             stmt.setTimestamp(1, new java.sql.Timestamp(System.currentTimeMillis()));
-            // Set the id of the account for the second placeholder
             stmt.setInt(2, tkDAO.getIDAccount(GlobalState.ten_dang_nhap));
             stmt.setBoolean(3, false);
-            // Execute the update
             int rowsAffected = stmt.executeUpdate();
-
             if (rowsAffected > 0) {
-                // Retrieve the generated keys
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
                     if (rs.next()) {
                         int newId = rs.getInt(1);
