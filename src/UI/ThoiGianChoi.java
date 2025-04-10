@@ -12,6 +12,7 @@ import Utils.TimerManager;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -186,12 +187,21 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
+
         int so_du = tkDAO.getSoDu();
         int soDu = tkDAO.getSoDu();
         int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+
         int remainingMinutes = soDu / moneyRequired;
-        lblSoDu.setText(String.valueOf(so_du));
-        lblSoPhut.setText(String.valueOf(remainingMinutes));
+        int hours = remainingMinutes / 60;
+        int minutes = remainingMinutes % 60;
+
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String soDuFormatted = formatter.format(so_du).replace(",", ".");
+        String timeFormatted = String.format("%d:%02d", hours, minutes);
+
+        lblSoDu.setText(soDuFormatted);
+        lblSoPhut.setText(timeFormatted);
     }
 
     public void TruSoDu() {
