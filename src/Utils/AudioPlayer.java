@@ -4,13 +4,22 @@
  */
 package Utils;
 import java.io.File;
-//import javax.sound.*;
+import java.io.FileInputStream;
+import javazoom.jl.player.Player;
+
 /**
  *
  * @author Maximus
  */
 public class AudioPlayer {
     public static void playSound(String audioFile){
-        //TODO
+        try{
+            FileInputStream file = new FileInputStream(audioFile);
+            Player player = new Player(file);
+            player.play();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

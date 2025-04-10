@@ -6,6 +6,7 @@ package UI;
 
 import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
+import Utils.AudioPlayer;
 import Utils.GlobalState;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -149,57 +150,61 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void doiMauLienTuc() {
-    Timer timer = new Timer(500, e -> {
-        Random random = new Random();
-        int r = random.nextInt(256);
-        int g = random.nextInt(256);
-        int b = random.nextInt(256);
-        jLabel1.setForeground(new Color(r, g, b));
-        jLabel4.setForeground(new Color(r, g, b));
-    });
-    timer.start();
-}
-    
-    
+        Timer timer = new Timer(500, e -> {
+            Random random = new Random();
+            int r = random.nextInt(256);
+            int g = random.nextInt(256);
+            int b = random.nextInt(256);
+            jLabel1.setForeground(new Color(r, g, b));
+            jLabel4.setForeground(new Color(r, g, b));
+        });
+        timer.start();
+    }
+
     public void loadTen() {
         lblTen.setText(GlobalState.ten_dang_nhap);
     }
+
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-        
+
         int so_du = tkDAO.getSoDu();
         lblSoDu.setText(String.valueOf(so_du));
     }
-    public void TruSoDu() {
-    TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-    MayTinhDAO mtDAO = new MayTinhDAO();
 
-    Timer timer = new Timer(10000, e -> {
-        int soDu = tkDAO.getSoDu();
-        int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
-        int remainingMinutes = soDu / moneyRequired;
+    public void TruSoDu() {
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        MayTinhDAO mtDAO = new MayTinhDAO();
         
-        if (remainingMinutes == 5) {
-            JOptionPane.showMessageDialog(this, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-        }
-        if (remainingMinutes == 2) {
-            JOptionPane.showMessageDialog(this, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-        }
         
-        if (soDu < moneyRequired) {
-            tkDAO.updateSoDu(soDu);
-            ((Timer) e.getSource()).stop();
-            GlobalState.accountStatus = false;
-            this.dispose();
-        } else {
-            int currentMoney = soDu - moneyRequired;
-            tkDAO.updateSoDu(currentMoney);
-            loadSoDu();
-        }
-        
-    });
-    timer.start();
-}
+        Timer timer = new Timer(10000, e -> {
+            int soDu = tkDAO.getSoDu();
+            int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+            int remainingMinutes = soDu / moneyRequired;
+
+            if (remainingMinutes == 5) {
+                AudioPlayer.playSound("src\\Libs\\Five-mins.mp3");
+                JOptionPane.showMessageDialog(this, "Bạn còn 5 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+            if (remainingMinutes == 2) {
+                AudioPlayer.playSound("src\\Libs\\Two-mins.mp3");
+                JOptionPane.showMessageDialog(this, "Bạn còn 2 phút chơi!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+
+            if (soDu < moneyRequired) {
+                tkDAO.updateSoDu(soDu);
+                ((Timer) e.getSource()).stop();
+                GlobalState.accountStatus = false;
+                this.dispose();
+            } else {
+                int currentMoney = soDu - moneyRequired;
+                tkDAO.updateSoDu(currentMoney);
+                loadSoDu();
+            }
+
+        });
+        timer.start();
+    }
 
 //    public void thongBao() {
 //        MayTinhDAO mtDAO = new MayTinhDAO();
@@ -248,7 +253,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         });
     }
 
-    private void preInit(){
+    private void preInit() {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
