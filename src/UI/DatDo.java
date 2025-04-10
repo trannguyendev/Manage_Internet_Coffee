@@ -649,7 +649,6 @@ public class DatDo extends javax.swing.JFrame {
         DefaultTableModel modelDoAn = (DefaultTableModel) tblDoAn.getModel();
         DefaultTableModel modelDoUong = (DefaultTableModel) tblDoUong.getModel();
 
-        // Tạo model mới với dữ liệu cũ nhưng chặn chỉnh sửa
         DefaultTableModel newModelDoAn = new DefaultTableModel(modelDoAn.getDataVector(), getColumnNames(modelDoAn)) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -668,12 +667,11 @@ public class DatDo extends javax.swing.JFrame {
         tblDoAn.setModel(newModelDoAn);
         tblDoUong.setModel(newModelDoUong);
 
-        // Sửa lỗi phải click 2 lần mới chọn dòng
+        // fix cái double click
         tblDoAn.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         tblDoUong.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
     }
 
-// Hàm lấy tên cột từ model (KHÔNG DÙNG getColumnIdentifiers())
     private Vector<String> getColumnNames(DefaultTableModel model) {
         Vector<String> columnNames = new Vector<>();
         for (int i = 0; i < model.getColumnCount(); i++) {
@@ -683,12 +681,13 @@ public class DatDo extends javax.swing.JFrame {
     }
 
     private void hienThiMonDauTien() {
-        if (tblDoUong.getRowCount() > 0) { // Kiểm tra bảng có dữ liệu không
-            String tenMon = tblDoUong.getValueAt(0, 0).toString(); // Lấy tên món đầu tiên
-            String giaMon = tblDoUong.getValueAt(0, 1).toString(); // Lấy giá món đầu tiên
+        if (tblDoUong.getRowCount() > 0) {
+            //lấy giá và tên món đầu
+            String tenMon = tblDoUong.getValueAt(0, 0).toString();
+            String giaMon = tblDoUong.getValueAt(0, 1).toString();
 
-            txtTenMon.setText(tenMon); // Hiển thị tên lên label
-            txtGia.setText(giaMon); // Hiển thị giá lên label
+            txtTenMon.setText(tenMon);
+            txtGia.setText(giaMon);
         }
     }
 
@@ -736,18 +735,16 @@ public class DatDo extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
-            // Lấy dữ liệu từ text field
             String tenMon = txtTenMon.getText().trim();
             String giaText = txtGia.getText().trim();
             String soLuongText = txtSoLuong.getText().trim();
-
-            // Kiểm tra nếu chưa nhập đủ dữ liệu
+            //validate
             if (tenMon.isEmpty() || giaText.isEmpty() || soLuongText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
 
-            // Kiểm tra giá trị nhập vào có hợp lệ không
+            //check nhập hợp lệ
             if (!giaText.matches("\\d+") || !soLuongText.matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Giá và Số lượng!");
                 return;
@@ -755,14 +752,12 @@ public class DatDo extends javax.swing.JFrame {
 
             int gia = Integer.parseInt(giaText);
             int soLuongMoi = Integer.parseInt(soLuongText);
-
-            // Kiểm tra số lượng hợp lệ
             if (soLuongMoi <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
                 return;
             }
 
-            // Lấy ID sản phẩm từ CSDL
+            //lấy ID sản phẩm từ CSDL
             int idSanPham = new DatDoDAO().getIDSanPham(tenMon);
             if (idSanPham == -1) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy ID của món ăn trong cơ sở dữ liệu!");
@@ -773,17 +768,16 @@ public class DatDo extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
             boolean daTonTai = false;
 
-            // Kiểm tra xem món đã tồn tại trong bảng hay chưa
+            //check xem trong đơn hàng đã đặt chưa. nếu có thì sẽ ghi đè lên. còn không thì tiếp
             for (int i = 0; i < model.getRowCount(); i++) {
-                if (model.getValueAt(i, 1).toString().equalsIgnoreCase(tenMon)) { // Nếu tên món trùng
-                    model.setValueAt(soLuongMoi, i, 2); // Cập nhật số lượng mới
-                    model.setValueAt(tongGiaMoi, i, 3); // Cập nhật tổng giá mới
+                if (model.getValueAt(i, 1).toString().equalsIgnoreCase(tenMon)) { // nếu tên món trùng
+                    model.setValueAt(soLuongMoi, i, 2); 
+                    model.setValueAt(tongGiaMoi, i, 3); 
                     daTonTai = true;
-                    break; // Thoát vòng lặp vì đã cập nhật xong
+                    break; 
                 }
             }
 
-            // Nếu món chưa tồn tại, thêm mới vào bảng
             if (!daTonTai) {
                 model.addRow(new Object[]{idSanPham, tenMon, soLuongMoi, tongGiaMoi});
             }
@@ -803,10 +797,9 @@ public class DatDo extends javax.swing.JFrame {
 
     private void btnDatDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatDoActionPerformed
         DatDoDAO datDoDAO = new DatDoDAO();
-        // Nếu không tìm thấy đơn hàng, tạo đơn hàng mới
+        //tạo đơn hàng mới nếu không tìm thấy đơn hàng, cái dưới là check lần 2
         datDoDAO.taoDonHangMoi();
         int idDonHang = datDoDAO.getCurrentDonHangID();
-        // Kiểm tra lại nếu vẫn không có ID đơn hàng thì báo lỗi và dừng
         if (idDonHang == -1) {
             JOptionPane.showMessageDialog(this, "Không thể tạo đơn hàng mới!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
@@ -816,13 +809,11 @@ public class DatDo extends javax.swing.JFrame {
         int dongHienTai = tblDanhSach.getRowCount();
         StringBuilder message = new StringBuilder("Bạn đã xác nhận đặt:\n");
 
-        // Biến lưu đơn hàng mẫu
+        //lưu đơn hàng mẫu và hiện ra (test)
         StringBuilder donHangMau = new StringBuilder();
         donHangMau.append("Xem truoc: \n");
         donHangMau.append("Id don hang: ").append(idDonHang).append("\n");
         donHangMau.append("Danh sach mon:\n");
-
-        // Duyệt qua danh sách món ăn trong bảng
         for (int i = 0; i < dongHienTai; i++) {
             int idMon = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
             String tenMon = tblDanhSach.getValueAt(i, 1).toString();
@@ -831,26 +822,19 @@ public class DatDo extends javax.swing.JFrame {
 
             message.append(String.format("%d x %s (ID: %d) %d\n", soLuong, tenMon, idMon, tongGia));
             tongTien += tongGia;
-
-            // Thêm vào đơn hàng mẫu
             donHangMau.append(String.format("ID Mon: %d - %s | So luong: %d | Gia: %d\n", idMon, tenMon, soLuong, tongGia));
         }
-
-        // Hiển thị tổng tiền
         message.append("Tong: ").append(tongTien);
         donHangMau.append("Tong tien: ").append(tongTien).append("\n");
         donHangMau.append("Ghi chu: ").append(ghiChu.isEmpty() ? "Khong." : ghiChu).append("\n");
-
-        // Sout ra console đơn hàng mẫu
         System.out.println(donHangMau.toString());
 
-        // Hiển thị hộp thoại xác nhận
         int confirm = JOptionPane.showConfirmDialog(this, message.toString(),
                 "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             this.truSoDu();
-            // Thêm chi tiết đơn hàng vào CSDL
+            //add vao csdl
             for (int i = 0; i < dongHienTai; i++) {
                 int idSanPham = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
                 int soLuong = Integer.parseInt(tblDanhSach.getValueAt(i, 2).toString());
@@ -870,12 +854,12 @@ public class DatDo extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = tblDoUong.getSelectedRow();
-                if (selectedRow != -1) { // Kiểm tra nếu có dòng được chọn
+                if (selectedRow != -1) { 
                     String tenMon = tblDoUong.getValueAt(selectedRow, 0).toString();
                     String giaMon = tblDoUong.getValueAt(selectedRow, 1).toString();
 
-                    txtTenMon.setText(tenMon); // Hiển thị tên món vào label
-                    txtGia.setText(giaMon); // Hiển thị giá món vào label
+                    txtTenMon.setText(tenMon);
+                    txtGia.setText(giaMon);
                 }
             }
         });
@@ -886,12 +870,12 @@ public class DatDo extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = tblDoAn.getSelectedRow();
-                if (selectedRow != -1) { // Kiểm tra nếu có dòng được chọn
+                if (selectedRow != -1) {
                     String tenMon = tblDoAn.getValueAt(selectedRow, 0).toString();
                     String giaMon = tblDoAn.getValueAt(selectedRow, 1).toString();
 
-                    txtTenMon.setText(tenMon); // Hiển thị tên món vào label
-                    txtGia.setText(giaMon); // Hiển thị giá món vào label
+                    txtTenMon.setText(tenMon);
+                    txtGia.setText(giaMon);
                 }
             }
         });
@@ -904,7 +888,7 @@ public class DatDo extends javax.swing.JFrame {
                 txtSoLuong.setText(String.valueOf(soLuong - 1));
             }
         } catch (NumberFormatException ex) {
-            txtSoLuong.setText("0"); // Nếu nhập sai định dạng, reset về 0
+            txtSoLuong.setText("0"); 
         }
     }//GEN-LAST:event_btnTruActionPerformed
 
@@ -918,16 +902,14 @@ public class DatDo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCongActionPerformed
 
     private void tblDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachMouseClicked
-        int selectedRow = tblDanhSach.getSelectedRow(); // Lấy dòng được chọn
+        int selectedRow = tblDanhSach.getSelectedRow();
         if (selectedRow != -1) {
-            String tenMon = tblDanhSach.getValueAt(selectedRow, 0).toString(); // Cột "Tên Món"
-            int soLuong = Integer.parseInt(tblDanhSach.getValueAt(selectedRow, 1).toString()); // Cột "Số Lượng"
-            int tongGia = Integer.parseInt(tblDanhSach.getValueAt(selectedRow, 2).toString()); // Cột "Tổng Giá"
-
-            // Cập nhật lên giao diện
+            String tenMon = tblDanhSach.getValueAt(selectedRow, 0).toString(); 
+            int soLuong = Integer.parseInt(tblDanhSach.getValueAt(selectedRow, 1).toString());
+            int tongGia = Integer.parseInt(tblDanhSach.getValueAt(selectedRow, 2).toString());
             txtTenMon.setText(tenMon);
             txtSoLuong.setText(String.valueOf(soLuong));
-            txtGia.setText(String.valueOf(tongGia / soLuong)); // Lấy giá gốc từ tổng giá
+            txtGia.setText(String.valueOf(tongGia / soLuong));
         }
     }//GEN-LAST:event_tblDanhSachMouseClicked
 
@@ -939,14 +921,10 @@ public class DatDo extends javax.swing.JFrame {
         int selectedRow = tblDanhSach.getSelectedRow();
 
         if (selectedRow != -1) {
-            // Xóa dòng được chọn
             DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
             model.removeRow(selectedRow);
-
-            // Cập nhật lại tổng tiền
             capNhatTongTien();
         } else {
-            // Hiển thị thông báo nếu không có món nào được chọn
             JOptionPane.showMessageDialog(null, "Vui lòng chọn món cần xóa!");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -954,14 +932,10 @@ public class DatDo extends javax.swing.JFrame {
     private void capNhatTongTien() {
         int tongTien = 0;
         DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
-
-        // Duyệt qua tất cả các dòng trong bảng
         for (int i = 0; i < model.getRowCount(); i++) {
-            int giaTri = Integer.parseInt(model.getValueAt(i, 3).toString()); // Cột 3 là Tổng Giá
+            int giaTri = Integer.parseInt(model.getValueAt(i, 3).toString());
             tongTien += giaTri;
         }
-
-        // Hiển thị tổng tiền
         txtTongTien.setText(tongTien + " VND");
     }
 

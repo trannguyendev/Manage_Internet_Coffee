@@ -255,7 +255,7 @@ public class QuanLyDoAn extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void HienListDoUong(){
+    public void HienListDoUong() {
         DatDoDAO uongDAO = new DatDoDAO();
         List<ListDoUong> DoUongLst = uongDAO.ListDoUong();
         DefaultTableModel tabUong = (DefaultTableModel) this.tblDoUong.getModel();
@@ -267,7 +267,8 @@ public class QuanLyDoAn extends javax.swing.JFrame {
             });
         }
     }
-    public void HienListDoAn(){
+
+    public void HienListDoAn() {
         DatDoDAO anDAO = new DatDoDAO();
         List<ListDoAn> DoAnLst = anDAO.ListDoAn();
         DefaultTableModel tabAn = (DefaultTableModel) this.tblDoAn.getModel();
@@ -281,14 +282,10 @@ public class QuanLyDoAn extends javax.swing.JFrame {
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String ten = txtTen.getText().trim();
-
-// Kiểm tra nếu tên trống
         if (ten.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-// Chuyển giá từ TextField sang int ngay từ đầu
         int gia;
         try {
             gia = Integer.parseInt(txtGia.getText().trim());
@@ -296,8 +293,6 @@ public class QuanLyDoAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Giá sản phẩm phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-// Lấy id_danh_muc từ ComboBox
         int idDanhMuc;
         try {
             idDanhMuc = Integer.parseInt(cboDanhMuc.getSelectedItem().toString());
@@ -305,53 +300,46 @@ public class QuanLyDoAn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Danh mục phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-// Kiểm tra nếu tên đã tồn tại
+            //check tên trùng
         if (isTenTrung(ten)) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-// Tạo đối tượng sản phẩm
         DoAn doAn = new DoAn(ten, idDanhMuc, gia);
-
-// Gọi DAO để lưu vào CSDL
+            //lưu vào csdl
         int ketQua = DoAnDAO.createSanPham(doAn);
         if (ketQua > 0) {
-    // Thêm vào bảng phù hợp trên giao diện
-    DefaultTableModel model;
-    if (idDanhMuc == 1) {
-        model = (DefaultTableModel) tblDoUong.getModel();
-    } else {
-        model = (DefaultTableModel) tblDoAn.getModel();
-    }
-    model.addRow(new Object[]{ten, gia});
-    System.out.println("ID Danh Mục: " + doAn.getId_danh_muc());  
-    JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-} else {
-    JOptionPane.showMessageDialog(this, "Lỗi khi thêm sản phẩm vào CSDL!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-}
+            //thêm vào bảng 
+            DefaultTableModel model;
+            if (idDanhMuc == 1) {
+                model = (DefaultTableModel) tblDoUong.getModel();
+            } else {
+                model = (DefaultTableModel) tblDoAn.getModel();
+            }
+            model.addRow(new Object[]{ten, gia});
+            System.out.println("ID Danh Mục: " + doAn.getId_danh_muc());
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Lỗi khi thêm sản phẩm vào CSDL!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private boolean isTenTrung(String ten) {
-    // Kiểm tra trong bảng tblDoUong
-    for (int i = 0; i < tblDoUong.getRowCount(); i++) {
-        String tenTrongBang = tblDoUong.getValueAt(i, 0).toString();
-        if (ten.equalsIgnoreCase(tenTrongBang)) {
-            return true; // Nếu tìm thấy tên trùng, trả về true
+        //check xem có tên trùng khi add đồ ăn 0
+        for (int i = 0; i < tblDoUong.getRowCount(); i++) {
+            String tenTrongBang = tblDoUong.getValueAt(i, 0).toString();
+            if (ten.equalsIgnoreCase(tenTrongBang)) {
+                return true; // trùng = true
+            }
         }
-    }
-    
-    // Kiểm tra trong bảng tblDoAn
-    for (int i = 0; i < tblDoAn.getRowCount(); i++) {
-        String tenTrongBang = tblDoAn.getValueAt(i, 0).toString();
-        if (ten.equalsIgnoreCase(tenTrongBang)) {
-            return true; // Nếu tìm thấy tên trùng, trả về true
+        for (int i = 0; i < tblDoAn.getRowCount(); i++) {
+            String tenTrongBang = tblDoAn.getValueAt(i, 0).toString();
+            if (ten.equalsIgnoreCase(tenTrongBang)) {
+                return true;
+            }
         }
+        return false; // 0 có tên trùng
     }
-    
-    return false; // Không có tên trùng
-}
 
     public void setFormCenter() {
         this.setLocationRelativeTo(null);
@@ -359,10 +347,10 @@ public class QuanLyDoAn extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String ten = txtTen.getText();
-        
+
         DoAnDAO doAnDAO = new DoAnDAO();
         doAnDAO.xoaSanPham(ten);
-        
+
         this.HienListDoAn();
         this.HienListDoUong();
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -370,8 +358,8 @@ public class QuanLyDoAn extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         String ten = txtTen.getText();
         int id_dm = Integer.parseInt(cboDanhMuc.getSelectedItem().toString());
-        int gia = Integer.parseInt(txtGia.getText()); 
-        
+        int gia = Integer.parseInt(txtGia.getText());
+
         DoAnDAO doAnDAO = new DoAnDAO();
         DoAn doAn = new DoAn(ten, id_dm, gia);
         doAnDAO.SuaSanPham(doAn);
@@ -380,31 +368,31 @@ public class QuanLyDoAn extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblDoUongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoUongMouseClicked
-    int selectedRow = tblDoUong.getSelectedRow();
-   
-    if (selectedRow != -1) {
+        int selectedRow = tblDoUong.getSelectedRow();
 
-        String ten = tblDoUong.getValueAt(selectedRow, 0).toString();
-        String gia = tblDoUong.getValueAt(selectedRow, 1).toString();
-        
-        txtTen.setText(ten);
-        txtGia.setText(gia);
-                cboDanhMuc.setSelectedItem("1");
-    }
+        if (selectedRow != -1) {
+
+            String ten = tblDoUong.getValueAt(selectedRow, 0).toString();
+            String gia = tblDoUong.getValueAt(selectedRow, 1).toString();
+
+            txtTen.setText(ten);
+            txtGia.setText(gia);
+            cboDanhMuc.setSelectedItem("1");
+        }
     }//GEN-LAST:event_tblDoUongMouseClicked
 
     private void tblDoAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoAnMouseClicked
-    int selectedRow = tblDoAn.getSelectedRow();
-   
-    if (selectedRow != -1) {
+        int selectedRow = tblDoAn.getSelectedRow();
 
-        String ten = tblDoAn.getValueAt(selectedRow, 0).toString();
-        String gia = tblDoAn.getValueAt(selectedRow, 1).toString();
-        
-        txtTen.setText(ten);
-        txtGia.setText(gia);
-                cboDanhMuc.setSelectedItem("2");
-    }
+        if (selectedRow != -1) {
+
+            String ten = tblDoAn.getValueAt(selectedRow, 0).toString();
+            String gia = tblDoAn.getValueAt(selectedRow, 1).toString();
+
+            txtTen.setText(ten);
+            txtGia.setText(gia);
+            cboDanhMuc.setSelectedItem("2");
+        }
     }//GEN-LAST:event_tblDoAnMouseClicked
 
     /**
