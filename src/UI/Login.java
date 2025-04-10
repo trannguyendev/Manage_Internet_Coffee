@@ -262,6 +262,7 @@ public class Login extends javax.swing.JFrame {
                 ppStm.setString(1, username);
                 ppStm.setString(2, pass);
                 ResultSet rs = ppStm.executeQuery();
+
                 if (rs.next()) {
                     boolean vai_tro;
                     vai_tro = rs.getBoolean("vai_tro");
@@ -279,12 +280,21 @@ public class Login extends javax.swing.JFrame {
                         int PCprice = mtDAO.getMoney(GlobalState.ten_may);
 
                         if (userWallet >= PCprice) {
-                            TrangChuUser mainUser = new TrangChuUser();
-                            mainUser.setVisible(true);
-                            this.dispose();
-                            System.out.println("Logged in with Khach Hang");
-                        }
-                        else{
+                            String status = tkDAO.getAccountStatus(GlobalState.ten_dang_nhap);
+                            
+                            if (status.equals("Online") == true) {
+                                JOptionPane.showMessageDialog(rootPane, "Tài khoản này đang được sử dụng!!!");
+                            } 
+                            else {
+                                GlobalState.accountStatus = true;
+                                this.dispose();
+                                TrangChuUser mainUser = new TrangChuUser();
+                                mainUser.setVisible(true);
+                                
+                                tkDAO.updateStatusLogged(GlobalState.ten_dang_nhap, "Online");
+                                System.out.println("Logged in with Khach Hang");
+                            }
+                        } else {
                             JOptionPane.showMessageDialog(rootPane, "Số dư tài khoản của bạn không đủ!!!\n Vui lòng liên hệ admin để nạp thêm", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
                         }
                     }

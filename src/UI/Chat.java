@@ -31,6 +31,7 @@ public class Chat extends javax.swing.JFrame {
         initComponents();
         this.ketNoiServer();
         this.xinChao();
+        this.isLoggedOut();
     }
 
     static Socket s;
@@ -210,6 +211,20 @@ public class Chat extends javax.swing.JFrame {
 
     public void xinChao() {
         lblTen.setText(GlobalState.ten_dang_nhap);
+    }
+    private void isLoggedOut(){
+        Timer timer = new Timer(1500, e-> {
+        this.checkAccStatus();
+    });
+        timer.start();
+    }
+    
+    
+    public void checkAccStatus(){
+        boolean status = GlobalState.accountStatus;
+        if (status == false){
+            this.dispose();
+        }
     }
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         // TODO add your handling code here:

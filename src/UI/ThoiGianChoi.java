@@ -176,12 +176,19 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             int b = random.nextInt(256);
             jLabel1.setForeground(new Color(r, g, b));
             jLabel4.setForeground(new Color(r, g, b));
+            this.checkAccStatus();
         });
         timer.start();
     }
 
     public void loadTen() {
         lblTen.setText(GlobalState.ten_dang_nhap);
+    }
+    public void checkAccStatus(){
+        boolean status = GlobalState.accountStatus;
+        if (status == false){
+            this.dispose();
+        }
     }
 
     public void loadSoDu() {
