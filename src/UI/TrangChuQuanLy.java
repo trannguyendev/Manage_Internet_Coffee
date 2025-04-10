@@ -240,7 +240,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Tài khoản", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email"
+                "ID Tài khoản", "Vai trò", "Tên đăng nhập", "Mật khẩu", "Số dư", "SDT", "Họ tên", "Email", "Status"
             }
         ));
         tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -898,14 +898,12 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblDatDo)
@@ -1011,12 +1009,10 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE))
+                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)))
@@ -1294,7 +1290,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         String hoTen = txtHoten.getText();
         String email = txtEmail.getText();
         boolean vaiTro = String.valueOf(cboRole.getSelectedItem()).equals("Admin") ? true : false;
-        return new TaiKhoan(vaiTro, username, password, soDu, phoneNum, email, hoTen);
+        String trang_thai_tk = "Offline";
+        return new TaiKhoan(vaiTro, username, password, soDu, phoneNum, email, hoTen, trang_thai_tk);
     }
 
     private void changeColor() {
@@ -1327,7 +1324,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         lstTk = tkDAO.getData();
         for (TaiKhoan taiKhoan : lstTk) {
-            Object[] tk_add = new Object[]{tkDAO.getSTT(taiKhoan.getSdt()), taiKhoan.isVai_tro() ? "Admin" : "Khách hàng", taiKhoan.getTen_dang_nhap(), taiKhoan.getMat_khau(), taiKhoan.getSo_du(), taiKhoan.getSdt(), taiKhoan.getHo_ten(), taiKhoan.getEmail()};
+            Object[] tk_add = new Object[]{tkDAO.getSTT(taiKhoan.getSdt()), taiKhoan.isVai_tro() ? "Admin" : "Khách hàng", taiKhoan.getTen_dang_nhap(), taiKhoan.getMat_khau(), taiKhoan.getSo_du(), taiKhoan.getSdt(), taiKhoan.getHo_ten(), taiKhoan.getEmail(), taiKhoan.getTrang_thai_tk()};
             Tmodel.addRow(tk_add);
         }
         tblUser.setModel(Tmodel);

@@ -19,7 +19,7 @@ public class TaiKhoanDAO {
 
     public void addAccount(TaiKhoan tk) {
         try (Connection conn = KetNoiDB.getConnect()) {
-            String url = "INSERT INTO Tai_khoan VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String url = "INSERT INTO Tai_khoan VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStm = conn.prepareStatement(url);
             ppStm.setBoolean(1, tk.isVai_tro());
             ppStm.setString(2, tk.getTen_dang_nhap());
@@ -28,6 +28,7 @@ public class TaiKhoanDAO {
             ppStm.setString(5, tk.getSdt());
             ppStm.setString(6, tk.getEmail());
             ppStm.setString(7, tk.getHo_ten());
+            ppStm.setString(8, tk.getTrang_thai_tk());
             ppStm.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -49,7 +50,8 @@ public class TaiKhoanDAO {
                 String sdt = rs.getString("sdt");
                 String ho_ten = rs.getString("ho_ten");
                 String email = rs.getString("email");
-                TaiKhoan tk = new TaiKhoan(vai_tro, ten_dang_nhap, mat_khau, so_du, sdt, email, ho_ten);
+                String trang_thai_tk = rs.getString("trang_thai_tk");
+                TaiKhoan tk = new TaiKhoan(vai_tro, ten_dang_nhap, mat_khau, so_du, sdt, email, ho_ten, trang_thai_tk);
                 lstAccount.add(tk);
             }
             return lstAccount;
@@ -161,6 +163,35 @@ public class TaiKhoanDAO {
         catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+    public void updateStatusLogged(String username, String status){
+        String sql = "update Tai_khoan set trang_thai_tk = ? where id_tk = ?";
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setString(1, status);
+            ppStm.setInt(2, getIDAccount(username));
+            ppStm.executeUpdate();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public String getAccountStatus(String username){
+        String sql = "select trang_thai_tk from Tai_khoan where id_tk = ?";
+        String status = null;
+        try(Connection conn = KetNoiDB.getConnect()){
+            PreparedStatement ppStm = conn.prepareStatement(sql);
+            ppStm.setInt(1, getIDAccount(username));
+            ResultSet rs = ppStm.executeQuery();
+            if (rs.next()){
+                status = rs.getString("trang_thai_tk");
+            }
+            return status;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return status;
         }
     }
 }

@@ -4,6 +4,7 @@
  */
 package UI;
 
+import DAO.TaiKhoanDAO;
 import Utils.GlobalState;
 import Utils.TimerManager;
 import java.time.LocalDateTime;
@@ -295,6 +296,8 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
         // TODO add your handling code here:
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+        tkDAO.updateStatusLogged(GlobalState.ten_dang_nhap, "Offline");
         GlobalState.accountStatus = false;
     }//GEN-LAST:event_mniDangXuatActionPerformed
 

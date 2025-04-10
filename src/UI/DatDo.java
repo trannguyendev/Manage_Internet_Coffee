@@ -608,8 +608,16 @@ public class DatDo extends javax.swing.JFrame {
 
             String formattedDate = myDateObj.format(myFormatObj);
             txtTime.setText(formattedDate);
+            this.checkAccStatus();
         });
         timer.start();
+    }
+
+    public void checkAccStatus() {
+        boolean status = GlobalState.accountStatus;
+        if (status == false) {
+            this.dispose();
+        }
     }
 
     private void truSoDu() {

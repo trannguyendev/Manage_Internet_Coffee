@@ -17,11 +17,12 @@ public class TaiKhoan {
     private String sdt;
     private String email;
     private String ho_ten;
+    private String trang_thai_tk;
 
     public TaiKhoan() {
     }
 
-    public TaiKhoan(boolean vai_tro, String ten_dang_nhap, String mat_khau, int so_du, String sdt, String email, String ho_ten) {
+    public TaiKhoan(boolean vai_tro, String ten_dang_nhap, String mat_khau, int so_du, String sdt, String email, String ho_ten, String trang_thai_tk) {
         this.vai_tro = vai_tro;
         this.ten_dang_nhap = ten_dang_nhap;
         this.mat_khau = mat_khau;
@@ -29,6 +30,7 @@ public class TaiKhoan {
         this.sdt = sdt;
         this.email = email;
         this.ho_ten = ho_ten;
+        this.trang_thai_tk = trang_thai_tk;
     }
 
     public boolean isVai_tro() {
@@ -86,6 +88,14 @@ public class TaiKhoan {
     public void setHo_ten(String ho_ten) {
         this.ho_ten = ho_ten;
     }
-    
+
+    public String getTrang_thai_tk() {
+        return trang_thai_tk;
+    }
+
+    public void setTrang_thai_tk(String trang_thai_tk) {
+        this.trang_thai_tk = trang_thai_tk;
+    }
+
     
 }
