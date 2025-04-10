@@ -8,6 +8,7 @@ import DAO.MayTinhDAO;
 import DAO.TaiKhoanDAO;
 import Utils.AudioPlayer;
 import Utils.GlobalState;
+import Utils.TimerManager;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Color;
@@ -197,7 +198,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
 
-        Timer timer = new Timer(10000, e -> {
+        TimerManager.timer = new Timer(10000, e -> {
             int soDu = tkDAO.getSoDu();
             int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
             int remainingMinutes = soDu / moneyRequired;
@@ -223,7 +224,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
             }
 
         });
-        timer.start();
+        TimerManager.timer.start();
     }
 
 //    public void thongBao() {

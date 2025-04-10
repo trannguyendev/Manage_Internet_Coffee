@@ -5,6 +5,7 @@
 package UI;
 
 import Utils.GlobalState;
+import Utils.TimerManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
@@ -264,6 +265,7 @@ public class TrangChuUser extends javax.swing.JFrame {
             isValid2Use = GlobalState.accountStatus;
             if(!isValid2Use){
                 ((Timer) e.getSource()).stop();
+                TimerManager.timer.stop();
                 this.dispose();
                 Login lg = new Login();
                 lg.setVisible(true);
@@ -293,9 +295,7 @@ public class TrangChuUser extends javax.swing.JFrame {
 
     private void mniDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDangXuatActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
+        GlobalState.accountStatus = false;
     }//GEN-LAST:event_mniDangXuatActionPerformed
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
