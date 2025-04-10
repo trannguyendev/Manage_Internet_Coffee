@@ -14,9 +14,6 @@ import java.io.*;
  * @author Maximus
  */
 public class HostServer {
-
-    
-
     /**
      * @param args the command line arguments
      */
@@ -61,6 +58,7 @@ public class HostServer {
                     PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
                     writer.println(message);
                 } catch (IOException e) {
+                    e.printStackTrace();
                     System.out.println("Error sending message.");
                 }
             }
