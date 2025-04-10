@@ -54,9 +54,13 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblTen = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblSoDu = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblSoPhut = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        btnTat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTat.setForeground(new java.awt.Color(255, 153, 153));
         btnTat.setText("Tắt");
         btnTat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,9 +82,14 @@ public class ThoiGianChoi extends javax.swing.JFrame {
         lblTen.setText("jLabel1");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel2.setText("Số Dư:");
+        jLabel2.setText("Số phút còn lại");
 
         lblSoDu.setText("jLabel1");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel5.setText("Số Dư:");
+
+        lblSoPhut.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,13 +99,17 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSoPhut, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSoDu, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,9 +121,13 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                     .addComponent(lblTen))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSoDu)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lblSoDu))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(lblSoPhut))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,7 +161,7 @@ public class ThoiGianChoi extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(btnTat)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,16 +184,19 @@ public class ThoiGianChoi extends javax.swing.JFrame {
 
     public void loadSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-
+        MayTinhDAO mtDAO = new MayTinhDAO();
         int so_du = tkDAO.getSoDu();
+        int soDu = tkDAO.getSoDu();
+        int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
+        int remainingMinutes = soDu / moneyRequired;
         lblSoDu.setText(String.valueOf(so_du));
+        lblSoPhut.setText(String.valueOf(remainingMinutes));
     }
 
     public void TruSoDu() {
         TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         MayTinhDAO mtDAO = new MayTinhDAO();
-        
-        
+
         Timer timer = new Timer(10000, e -> {
             int soDu = tkDAO.getSoDu();
             int moneyRequired = mtDAO.getMoney(GlobalState.ten_may);
@@ -263,8 +283,10 @@ public class ThoiGianChoi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblSoDu;
+    private javax.swing.JLabel lblSoPhut;
     private javax.swing.JLabel lblTen;
     // End of variables declaration//GEN-END:variables
 }
