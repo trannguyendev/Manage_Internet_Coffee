@@ -56,7 +56,7 @@ public class NapTienChoi extends javax.swing.JFrame {
 
         btn50k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn50k.setForeground(new java.awt.Color(255, 153, 153));
-        btn50k.setText("50k");
+        btn50k.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/100k.jpg"))); // NOI18N
         btn50k.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn50kActionPerformed(evt);
@@ -65,7 +65,7 @@ public class NapTienChoi extends javax.swing.JFrame {
 
         btn100k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn100k.setForeground(new java.awt.Color(255, 153, 153));
-        btn100k.setText("100k");
+        btn100k.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/10K.jpg"))); // NOI18N
         btn100k.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn100kActionPerformed(evt);
@@ -74,7 +74,7 @@ public class NapTienChoi extends javax.swing.JFrame {
 
         btn10k.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btn10k.setForeground(new java.awt.Color(255, 153, 153));
-        btn10k.setText("10k");
+        btn10k.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/50K.jpg"))); // NOI18N
         btn10k.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn10kActionPerformed(evt);
