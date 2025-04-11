@@ -5,17 +5,10 @@
 package UI;
 
 import Utils.GlobalState;
-import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Random;
 import javax.swing.Timer;
 import java.io.*;
 import java.net.*;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,6 +95,7 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
+        txtaTinNhan.setEditable(false);
         txtaTinNhan.setBackground(new java.awt.Color(255, 204, 204));
         txtaTinNhan.setColumns(20);
         txtaTinNhan.setForeground(new java.awt.Color(0, 51, 102));
@@ -230,7 +224,7 @@ public class Chat extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String str2;
-        str2 = GlobalState.ten_dang_nhap+": "+txtTinNhan.getText();
+        str2 = "[ "+GlobalState.ten_dang_nhap+" ]"+": "+txtTinNhan.getText();
         txtaTinNhan.append("\nme : " + str2);
         ps.println(str2);
         txtTinNhan.setText("\n");

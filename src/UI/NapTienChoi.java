@@ -32,6 +32,7 @@ public class NapTienChoi extends javax.swing.JFrame {
     public NapTienChoi() {
         this.centeredFrame();
         initComponents();
+        this.closeWhenUserLogout();
     }
 
     /**
@@ -115,6 +116,18 @@ public class NapTienChoi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void closeWhenUserLogout(){
+        Timer timer = new Timer(1000, e -> {
+            this.checkAccStatus();
+        });
+        timer.start();
+    }
+    public void checkAccStatus() {
+        boolean status = GlobalState.accountStatus;
+        if (status == false) {
+            this.dispose();
+        }
+    }
     private void displayQR(String amount) throws IOException {
         String vietqrAPI = "https://img.vietqr.io/image/mbbank-0867514526-compact.png?amount="+amount+"&addInfo=Nap%20tien%20tai%20khoan%20"+GlobalState.ten_dang_nhap;
         try {
