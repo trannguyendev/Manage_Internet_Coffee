@@ -833,7 +833,10 @@ public class DatDo extends javax.swing.JFrame {
                 "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            this.truSoDu();
+            TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+            int userWallet = tkDAO.getSoDu();
+            if (userWallet >= tongTien){
+                this.truSoDu();
             //add vao csdl
             for (int i = 0; i < dongHienTai; i++) {
                 int idSanPham = Integer.parseInt(tblDanhSach.getValueAt(i, 0).toString());
@@ -842,8 +845,12 @@ public class DatDo extends javax.swing.JFrame {
 
                 datDoDAO.themChiTietDonHang(idDonHang, idSanPham, soLuong, tongGia, ghiChu);
             }
-
-            JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!\nVui lòng chuẩn bị tiền mặt/chuyển khoản\nkhi nhận hàng.");
+            JOptionPane.showMessageDialog(this, "Cảm ơn bạn đã đặt hàng!!!!");
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Số dư không đủ, vui lòng liên hệ admin để nạp thêm tiền", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Đã hủy đơn hàng.");
         }
