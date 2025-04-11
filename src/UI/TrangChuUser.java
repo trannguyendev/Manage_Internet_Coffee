@@ -24,6 +24,7 @@ public class TrangChuUser extends javax.swing.JFrame {
     public TrangChuUser() {
         initComponents();
         setCenter();
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.sayHi();
         this.displayTime();
         this.minusMoney();
@@ -56,7 +57,7 @@ public class TrangChuUser extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         mniChat = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         txtTime.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtTime.setForeground(new java.awt.Color(255, 153, 153));

@@ -61,12 +61,13 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         this.loadComboChoice();
         this.loadNapThe();
         this.loadkhuvuc();
+        this.drawChart();
         this.updateTable();
         this.loadPC();
         this.ListDonHang();
         this.ListDonHangDone();
         this.ketNoiServer();
-        this.drawChart();
+
     }
 
     /**
@@ -756,6 +757,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        cboTrangThai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thành công ", "Đã hủy" }));
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -854,7 +856,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 153), 2));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Đơn hàng bạn chọn là:");
 
         btnDone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -898,7 +900,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(12, 12, 12)
@@ -1007,7 +1009,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1300,7 +1302,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
     }
 
     private void updateTable() {
-        Timer timer = new Timer(3000, e -> {
+        Timer timer = new Timer(4000, e -> {
             this.load2Table();
             this.loadThongKeTaiKhoan();
             this.loadDoanhThuMon();
@@ -1308,6 +1310,9 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
             this.loadkhuvuc();
             this.loadPC();
             this.loadNapThe();
+            this.drawChart();
+            this.ListDonHang();
+            this.ListDonHangDone();
         });
         timer.start();
     }
