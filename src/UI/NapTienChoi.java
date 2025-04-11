@@ -135,9 +135,7 @@ public class NapTienChoi extends javax.swing.JFrame {
         cancelButton.setForeground(Color.pink);
         payNowButton.setFont(new Font("Monospace", Font.BOLD, 19));
         cancelButton.setFont(new Font("Monospace", Font.BOLD, 19));
-        payNowButton.addActionListener(e -> {
-            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, "Yêu cầu xác nhận");
-        });
+        
         
         buttonPanel.add(payNowButton);
         buttonPanel.add(cancelButton);
@@ -147,6 +145,11 @@ public class NapTienChoi extends javax.swing.JFrame {
         JFrame frame = new JFrame("QR Payment");
         cancelButton.addActionListener(e -> {
            frame.dispose();
+        });
+        payNowButton.addActionListener(e -> {
+            napDAO.AddAccount(GlobalState.menh_gia, GlobalState.ten_dang_nhap, "Yêu cầu xác nhận");
+            frame.dispose();
+            JOptionPane.showMessageDialog(this, "Thông tin chuyển khoản đã được gửi tới admin, vui lòng chờ đợi hoặc liên hệ qua phần > Chat <");
         });
         frame.setLocationRelativeTo(null);
         frame.add(buttonPanel, BorderLayout.SOUTH);
