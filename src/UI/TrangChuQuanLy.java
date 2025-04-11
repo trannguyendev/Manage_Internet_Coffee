@@ -856,7 +856,7 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 153), 2));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Đơn hàng bạn chọn là:");
 
         btnDone.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
