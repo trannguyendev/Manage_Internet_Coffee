@@ -256,7 +256,7 @@ public class TrangChuUser extends javax.swing.JFrame {
     }
 
     private void displayTime() {
-        
+        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         Timer timer = new Timer(1000, e -> {
             boolean isValid2Use;
             LocalDateTime myDateObj = LocalDateTime.now();
@@ -268,6 +268,7 @@ public class TrangChuUser extends javax.swing.JFrame {
             if(!isValid2Use){
                 ((Timer) e.getSource()).stop();
                 TimerManager.timer.stop();
+                tkDAO.updateStatusLogged(GlobalState.ten_dang_nhap, "Offline");
                 this.dispose();
                 Login lg = new Login();
                 lg.setVisible(true);
